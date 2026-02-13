@@ -40,12 +40,14 @@ model stat_usuario {
 }
 
 model usuario {
-  id_usuario       Int            @id @default(autoincrement())
-  num_cta          Int            @unique(map: "num_cta")
-  email            String         @unique(map: "email") @db.VarChar(100)
-  fecha_nacimiento DateTime       @db.Date
-  password         String         @db.VarChar(255)
-  stat_usuario     stat_usuario[]
+  id_usuario          Int            @id @default(autoincrement())
+  num_cta             Int            @unique(map: "num_cta")
+  email               String         @unique(map: "email") @db.VarChar(100)
+  fecha_nacimiento    DateTime       @db.Date
+  password            String         @db.VarChar(255)
+  fecha_registro      DateTime       @default(now()) @db.Timestamp(0)
+  fecha_actualizacion DateTime       @default(now()) @db.Timestamp(0)
+  stat_usuario        stat_usuario[]
 }
 
 model item {
@@ -54,7 +56,7 @@ model item {
   pregunta       String          @db.VarChar(255)
   estatus_activo Boolean?        @default(false)
   respuesta_c    String          @db.VarChar(255)
-  respuestas_i   Json
+  respuestas_i   String          @db.LongText
   dificultad     item_dificultad
   actividad      actividad       @relation(fields: [id_actividad], references: [id_actividad], onDelete: Cascade, map: "fk_item_actividad")
 
@@ -62,7 +64,7 @@ model item {
 }
 
 enum item_dificultad {
-  FACIL @map("1")
-  MEDIO @map("2")
+  FACIL   @map("1")
+  MEDIO   @map("2")
   DIFICIL @map("3")
 }

@@ -10,8 +10,6 @@ async function main() {
   const csvFilePath = path.join(__dirname, 'items_prueba.csv');
   const items: any[] = [];
 
-  console.log('Iniciando carga de ítems...');
-
   const actividad = await prisma.actividad.findUnique({
     where: { id_actividad: 1 }
   });
@@ -37,7 +35,6 @@ async function main() {
     });
   }
 
-  // 3. Insertar en la tabla 'item'
   const result = await prisma.item.createMany({
     data: items,
     skipDuplicates: true,

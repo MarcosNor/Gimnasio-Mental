@@ -6,14 +6,15 @@ USE gimnasio_mental;
 
 -- -----------TABLAS CON LLAVES PRIMARIAS-----------------
 
-
 -- Tabla usuario
 CREATE TABLE usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     contrasena VARCHAR(255) NOT NULL,
     num_cta INT UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    fecha_nacimiento DATE NOT NULL
+    fecha_nacimiento DATE NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- Restricciones usuario
