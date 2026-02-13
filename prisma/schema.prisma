@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model actividad {
+  id_actividad      Int            @id @default(autoincrement())
+  id_categoria      Int
+  nombre            String         @unique(map: "nombre") @db.VarChar(100)
+  explicacion       String?        @db.Text
+  tiempoLimite      Int?
+  estatus_actividad Boolean?       @default(false)
+  cat_categoria     cat_categoria  @relation(fields: [id_categoria], references: [id_categoria], onDelete: Cascade, map: "fk_actividad_categoria")
+  item              item[]
+  stat_usuario      stat_usuario[]
+
+  @@index([id_categoria], map: "fk_actividad_categoria")
+}
+
+model cat_categoria {
+  id_categoria Int         @id @default(autoincrement())
+  nombre       String      @unique(map: "nombre") @db.VarChar(50)
+  beneficios   String?     @db.Text
+  actividad    actividad[]
+}
+
+model stat_usuario {
+  id_usuario      Int
+  id_actividad    Int
+  record_personal Int?      @default(0)
+  total_partidas  Int?      @default(0)
+  actividad       actividad @relation(fields: [id_actividad], references: [id_actividad], onDelete: Cascade, map: "fk_stat_actividad")
+  usuario         usuario   @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, map: "fk_stat_usuario")
+
+  @@id([id_usuario, id_actividad])
+  @@index([id_actividad], map: "fk_stat_actividad")
+}
+
+model usuario {
+  id_usuario       Int            @id @default(autoincrement())
+  num_cta          Int            @unique(map: "num_cta")
+  email            String         @unique(map: "email") @db.VarChar(100)
+  fecha_nacimiento DateTime       @db.Date
+  password         String         @db.VarChar(255)
+  stat_usuario     stat_usuario[]
+}
+
+model item {
+  id_item        Int             @id @default(autoincrement())
+  id_actividad   Int
+  pregunta       String          @db.VarChar(255)
+  estatus_activo Boolean?        @default(false)
+  respuesta_c    String          @db.VarChar(255)
+  respuestas_i   Json
+  dificultad     item_dificultad
+  actividad      actividad       @relation(fields: [id_actividad], references: [id_actividad], onDelete: Cascade, map: "fk_item_actividad")
+
+  @@index([id_actividad], map: "fk_item_actividad")
+}
+
+enum item_dificultad {
+  FACIL @map("1")
+  MEDIO @map("2")
+  DIFICIL @map("3")
+}
