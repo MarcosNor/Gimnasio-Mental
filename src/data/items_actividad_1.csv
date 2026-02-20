@@ -1,0 +1,51 @@
+id_item,id_actividad,pregunta,estatus_activo,dificultad
+1,1,"Si 'Xyl' es idéntico a 'Xyl', ¿cuál es el par de 'Xyl'?",1,1
+2,1,"Relaciona el símbolo [####] con su equivalente exacto:",1,1
+3,1,"Si 'Bra' es igual a 'Ket', ¿qué es 'Bra'?",1,1
+4,1,"Si '1010' es 'Alfa', ¿qué es '1010'?",1,1
+5,1,"Empareja el código 'Z-99' con su igual:",1,1
+6,1,"Si 'Luna' se escribe como '0-0', ¿cómo se escribe 'Luna'?",1,1
+7,1,"Si 'Pato' es igual a 'Tapa', ¿qué es 'Pato'?",1,1
+8,1,"Identifica el gemelo de '<<<O>>>':",1,1
+9,1,"Si 'Rojo' equivale a 'Círculo', ¿qué es 'Rojo'?",1,1
+10,1,"Si 'A' = 'B', entonces 'A' es:",1,1
+11,1,"Selecciona el equivalente a '---*---':",1,1
+12,1,"Si 'Norte' es 'S1', ¿Norte es?",1,1
+13,1,"Si 'M-1' es 'X', ¿qué es 'M-1'?",1,1
+14,1,"¿Cuál es el par de 'J-K-L'?",1,1
+15,1,"Si 'Pez' es 'A-1', 'A-1' es:",1,1
+16,1,"Si 'Sol' = 'X' y 'X' = 'Y', ¿'Sol' es igual a?",1,2
+17,1,"Si 'Gato' = '7' y '7' = 'F', ¿'Gato' es?",1,2
+18,1,"Si '44' = 'Azul' y 'Azul' = '99', ¿'44' es?",1,2
+19,1,"Si 'A' = '1' y 'B' = '1', ¿'A' es igual a 'B'?",1,2
+20,1,"Si 'Delta' = 'Epsilon' y 'Epsilon' = 'Zeta', ¿'Delta' es?",1,2
+21,1,"Si 'Triángulo' = '3' y '3' = 'T', ¿'T' es?",1,2
+22,1,"Si 'Rápido' = 'F' y 'F' = 'S', ¿'Rápido' es?",1,2
+23,1,"Si 'X' = 'Z' y 'Z' = 'W', ¿'X' es 'W'?",1,2
+24,1,"Si 'Color' = 'M' y 'M' = 'N', ¿'Color' es?",1,2
+25,1,"Si 'J' = '8' y '8' = 'K', ¿'J' es?",1,2
+26,1,"Si 'H' = 'O' y 'O' = 'H', ¿'H' es 'O'?",1,2
+27,1,"Si 'P' = 'Q' y 'Q' = '10', ¿'P' es?",1,2
+28,1,"Si 'Inicio' = 'Fin' y 'Fin' = 'Punto', ¿'Inicio' es?",1,2
+29,1,"Si 'R' = 'S' y 'S' = 'T', ¿'R' es 'T'?",1,2
+30,1,"Si '90' = 'A' y 'A' = 'B', ¿'90' es?",1,2
+31,1,"Si 'V' = '1' y 'W' = '1', entonces 'V' y 'W' son:",1,2
+32,1,"Si 'Coche' = 'Motor' y 'Motor' = 'Hierro', ¿'Coche' es?",1,2
+33,1,"Si 'Luz' = 'On' y 'On' = '1', ¿'Luz' es?",1,2
+34,1,"Si 'A' = 'B', 'B' = 'C' y 'C' = 'D', ¿'A' es?",1,2
+35,1,"Si 'Alfa' = 'Omega', ¿'Omega' es?",1,2
+36,1,"Si 'A'='B', 'B'='C', 'C'='D', 'D'='E', ¿'A' es igual a 'E'?",1,3
+37,1,"Si 'X' es igual a 'Y', y 'Y' no es 'Z', ¿es 'X' igual a 'Z'?",1,3
+38,1,"Si 'P' = 'Q' y 'R' = 'Q', ¿entonces 'P' es igual a 'R'?",1,3
+39,1,"Si '1'='A', '2'='B', y 'A'='2', ¿es '1' igual a 'B'?",1,3
+40,1,"Si 'Sol'='Luna' y 'Luna'='Estrella', pero 'Estrella'='Nube', ¿'Sol' es?",1,3
+41,1,"Si 'Gato' no es 'Perro' y 'Perro' es 'Can', ¿es 'Gato' un 'Can'?",1,3
+42,1,"Si 'A'='1', 'B'='2', 'C'='3'. Si cambio '1' por 'C', ¿'A' es?",1,3
+43,1,"Si 'X' es 'Y' solo si 'Z' es 'W'. Si 'Z' es 'W', ¿'X' es 'Y'?",1,3
+44,1,"Si 'Azul' = 'Frío' y 'Rojo' = 'Calor', y 'Frío' = 'Rojo', ¿'Azul' es?",1,3
+45,1,"Si 'A'='B', 'C'='D', y 'B'='C', ¿es 'A' igual a 'D'?",1,3
+46,1,"Si todo 'A' es 'B', y 'X' es 'A', ¿'X' es 'B'?",1,3
+47,1,"Si 'M'='N' y 'N'='M', y 'M'='P', ¿es 'P' igual a 'N'?",1,3
+48,1,"Si 'A' es lo mismo que 'B', pero 'B' es diferente de 'C', ¿'A' es 'C'?",1,3
+49,1,"Si 'Izquierda'='I' y 'I'='Derecha', ¿'Izquierda' es 'Derecha'?",1,3
+50,1,"Si 'A'='B', 'B'='C', 'C'='A'. ¿Son todos iguales entre sí?",1,3
