@@ -4,6 +4,8 @@ USE gimnasio_mental;
 
 -- Transaction
 
+SELECT email, password FROM usuario;
+
 -- -----------TABLAS CON LLAVES PRIMARIAS-----------------
 
 -- Tabla usuario
@@ -30,6 +32,10 @@ CREATE TABLE cat_categoria (
     beneficios TEXT DEFAULT NULL
 );
 
+select * from cat_categoria;
+
+select * from actividad;
+
 -- -----------TABLAS CON LLAVES FORANEAS-----------------
 
 -- Tabla actividad
@@ -40,6 +46,7 @@ CREATE TABLE actividad (
   explicacion TEXT DEFAULT NULL,
   tiempoLimite INT DEFAULT NULL,
   estatus_actividad BOOLEAN DEFAULT FALSE,
+  -- Ver si agregar las habilidades que se trabajan en cada actividad
 
   CONSTRAINT fk_actividad_categoria FOREIGN KEY (id_categoria) REFERENCES cat_categoria(id_categoria)
     ON DELETE CASCADE ON UPDATE CASCADE
@@ -73,13 +80,19 @@ CREATE TABLE item (
     id_actividad INT NOT NULL,
     pregunta VARCHAR(255) NOT NULL,
     estatus_activo BOOLEAN DEFAULT FALSE,
-    respuesta_c VARCHAR(255) NOT NULL,
-    respuestas_i JSON NOT NULL,
     dificultad ENUM('1', '2', '3') NOT NULL,
 
     CONSTRAINT fk_item_actividad FOREIGN KEY (id_actividad) REFERENCES actividad(id_actividad)
     ON DELETE CASCADE ON UPDATE CASCADE
 );
 
---ALTER TABLE item 
---MODIFY COLUMN dificultad ENUM('facil', 'medio', 'dificil') NOT NULL;
+CREATE TABLE respuesta (
+    id_respuesta INT AUTO_INCREMENT PRIMARY KEY,
+    id_item INT NOT NULL,
+    text_respuesta VARCHAR(255) NOT NULL,
+    activo BOOLEAN DEFAULT TRUE,
+    correcta BOOLEAN NOT NULL,
+
+    CONSTRAINT fk_respuesta_item FOREIGN KEY (id_item) REFERENCES item(id_item)
+    ON DELETE CASCADE ON UPDATE CASCADE
+);

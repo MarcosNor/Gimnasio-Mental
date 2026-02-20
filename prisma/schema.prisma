@@ -55,12 +55,22 @@ model item {
   id_actividad   Int
   pregunta       String          @db.VarChar(255)
   estatus_activo Boolean?        @default(false)
-  respuesta_c    String          @db.VarChar(255)
-  respuestas_i   String          @db.LongText
   dificultad     item_dificultad
   actividad      actividad       @relation(fields: [id_actividad], references: [id_actividad], onDelete: Cascade, map: "fk_item_actividad")
+  respuesta      respuesta[]
 
   @@index([id_actividad], map: "fk_item_actividad")
+}
+
+model respuesta {
+  id_respuesta   Int      @id @default(autoincrement())
+  id_item        Int
+  text_respuesta String   @db.VarChar(255)
+  activo         Boolean? @default(true)
+  correcta       Boolean
+  item           item     @relation(fields: [id_item], references: [id_item], onDelete: Cascade, map: "fk_respuesta_item")
+
+  @@index([id_item], map: "fk_respuesta_item")
 }
 
 enum item_dificultad {
