@@ -1,8 +1,12 @@
 import { Router } from "express";
 import prisma from "../config/prisma.ts";
 import bcrypt from "bcrypt";
+import { getUsuarios } from "../controller/usuario.ts"
 
 const router = Router();
+
+//  GET /usuarios
+router.get("/",getUsuarios);
 
 router.post("/", async (req, res) => {
   try {
@@ -52,28 +56,5 @@ router.post("/", async (req, res) => {
   }
 });
 
-//  GET /usuarios
-router.get("/", async (req, res) => {
-  try {
-
-    const usuarios = await prisma.usuario.findMany({
-      select: {
-        id_usuario: true,
-        num_cta: true,
-        email: true,
-        fecha_nacimiento: true,
-        fecha_registro: true
-      }
-    });
-
-    res.json(usuarios);
-
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "Error interno del servidor" 
-    });
-  }
-});
 
 export default router;
