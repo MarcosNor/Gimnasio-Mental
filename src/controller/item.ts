@@ -21,28 +21,6 @@ export const getItems = async (req: Request, res: Response, next: NextFunction) 
   }
 };
 
-export const getItemsActive = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const items = await prisma.item.findMany({
-      include: {
-        respuesta: {
-          where: {
-            activo: false,
-          }
-        }
-      }
-    });
-
-    if (!items) {
-      throw new CustomError("ITEMS_NOT_FOUND");
-    }
-
-    res.json(items);
-  } catch (error) {
-    next(error);
-  }
-};
-
 export const itemsError = async (req: Request, res: Response, next: NextFunction) => {
   try {
     throw new CustomError("ITEM_NOT_FOUND");

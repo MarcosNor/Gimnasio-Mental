@@ -79,6 +79,7 @@ CREATE TABLE item (
     ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+
 CREATE TABLE respuesta (
     id_respuesta INT AUTO_INCREMENT PRIMARY KEY,
     id_item INT NOT NULL,
