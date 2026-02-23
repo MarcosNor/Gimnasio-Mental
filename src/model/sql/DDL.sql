@@ -46,13 +46,10 @@ CREATE TABLE actividad (
   explicacion TEXT DEFAULT NULL,
   tiempoLimite INT DEFAULT NULL,
   estatus_actividad BOOLEAN DEFAULT FALSE,
-  -- Ver si agregar las habilidades que se trabajan en cada actividad
 
   CONSTRAINT fk_actividad_categoria FOREIGN KEY (id_categoria) REFERENCES cat_categoria(id_categoria)
     ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-
 
 -- Tabla stat_usuario
 CREATE TABLE stat_usuario (
@@ -69,11 +66,6 @@ CREATE TABLE stat_usuario (
     ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
--- Tabla jugar (para el historial de partidas)
-
-
-
 -- Tabla item (Entidad débil)
 CREATE TABLE item (
     id_item INT AUTO_INCREMENT PRIMARY KEY,
@@ -82,9 +74,11 @@ CREATE TABLE item (
     estatus_activo BOOLEAN DEFAULT FALSE,
     dificultad ENUM('1', '2', '3') NOT NULL,
 
+
     CONSTRAINT fk_item_actividad FOREIGN KEY (id_actividad) REFERENCES actividad(id_actividad)
     ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 
 CREATE TABLE respuesta (
     id_respuesta INT AUTO_INCREMENT PRIMARY KEY,

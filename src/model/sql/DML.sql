@@ -3,6 +3,16 @@ SELECT * FROM gimnasio_mental.cat_categoria;
 INSERT INTO cat_categoria (nombre, beneficios)
 VALUES
   ('Coordinación', 'Relacionar dos o más estímulos de manera simultánea');
+
+INSERT INTO cat_categoria (nombre, beneficios)
+VALUES
+  ('Comparación', 'Establecer relaciones de similitud o diferencia entre dos o más estímulos.'),
+  ('Oposición', 'Relacionar estímulos que se contraponen o son opuestos en algún aspecto.'),
+  ('Espacial', 'Relacionar estímulos en función de su posición o ubicación en el espacio.'),
+  ('Temporal', 'Relacionar estímulos en función de su posición o secuencia en el tiempo.'),
+  ('Condicionalidad', 'Relacionar estímulos en función de condiciones o criterios específicos.'),
+  ('Jerárquico', 'Relacionar estímulos en función de su posición en una estructura jerárquica o de orden.'),
+  ('Deíctico', 'Relacionar estímulos en función del contexto o punto de referencia específico.');
   
 INSERT INTO actividad (id_categoria, nombre, explicacion, tiempoLimite, estatus_actividad) VALUES
 (1, 'Coordinación', 'Preguntas sencillas para relacionar dos o más temas', 60, TRUE);
