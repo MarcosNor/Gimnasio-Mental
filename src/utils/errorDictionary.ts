@@ -11,6 +11,18 @@ export const ErrorDictionary = {
     status: 404,
     message: "No se encontraron usuarios"
   },
+  PREV_USER: {
+    status: 409,
+    message: "El usuario ya existe"
+  },
+  NOT_TOKEN: {
+    status: 401,
+    message: "No se proporcionó token de autenticación"
+  },
+  MISSING_FIELDS: {
+    status: 400,
+    message: "Faltan campos requeridos"
+  },
   ITEM_NOT_FOUND: {
     status: 404,
     message: "No se encontró el item solicitado"
