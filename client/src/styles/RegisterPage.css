@@ -1,0 +1,70 @@
+/* Centra el formulario en la pantalla */
+.container-registro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #afccff;
+  font-family: sans-serif;
+  color: white;
+}
+
+/* La caja del formulario */
+.card-form {
+  background-color: #4f4e4e; /* Color zinc-800 aprox */
+  padding: 2.5rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+.card-form h1 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Organiza los inputs uno debajo del otro */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.form-group input {
+  padding: 0.6rem;
+  background-color: #404040;
+  border: 1px solid #a7a7a7;
+  border-radius: 4px;
+  color: white;
+  outline: none;
+}
+
+/* Estilo para el botón */
+.btn-submit {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.btn-submit:hover {
+  background-color: #1d4ed8;
+}
+
+/* Mensajes de error en rojo */
+.error {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
