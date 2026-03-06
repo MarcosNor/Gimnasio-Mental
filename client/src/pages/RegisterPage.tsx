@@ -1,31 +1,37 @@
 import { useForm } from 'react-hook-form';
-import { registerRequest, type RegisterUser } from '../api/auth';
+import { type RegisterUser } from '../api/auth';
+import { useAuth } from '@/context/AuthContext';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import './RegisterPage.css';
 
 function RegisterPage() {
-  const { 
-    register, 
-    handleSubmit, 
-    formState: { errors } 
-  } = useForm<RegisterUser>();
+  const { register, handleSubmit, formState: { errors } } = useForm<RegisterUser>();
+  const { signup, isAuthenticated, errors : registerErrors } = useAuth();
+  const navigate = useNavigate();
 
-  const onSubmit = async (values: RegisterUser) => {
-    try {
-      const res = await registerRequest(values);
-      console.log(res);
-      alert("¡Registro exitoso!");
-    } catch (error) {
-      console.error("Error al registrar:", error);
-      alert("Hubo un error en el registro");
-    }
-  };
+  useEffect(() => {
+    if (isAuthenticated) navigate('/');
+  }, [isAuthenticated, navigate]);
+
+  const onSubmit = handleSubmit(async (values: RegisterUser) => {
+    await signup(values);
+  });
 
   return (
     <div className="container-registro">
       <div className="card-form">
+        {
+          registerErrors.map((error, i) => (
+            <div className="bg-red-500 p-2 text-white" key={i}>
+              {error}
+            </div>
+          ))
+        }
         <h1>Crear Cuenta</h1>
         
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={onSubmit}>
           
           <div className="form-group">
             <label>Número de Cuenta</label>

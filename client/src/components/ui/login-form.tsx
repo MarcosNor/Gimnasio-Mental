@@ -217,7 +217,7 @@ export function Log() {
         <p className="text-sm text-muted-foreground">
           {"Don't have an account? "}
           <a
-            href="#"
+            href="/register"
             className="font-medium text-foreground underline-offset-4 hover:underline"
           >
             Sign up

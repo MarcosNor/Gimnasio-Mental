@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, register, logout, profile } from "../controller/auth.controller.ts"
+import { login, register, logout, profile } from "../controllers/auth.controller.ts"
 import { authRequired } from "../middlewares/validateToken.ts";
 import { validateSchema } from "../middlewares/validator.middleware.ts";
 import { registerSchema, loginSchema } from "../schemas/auth.schema.ts";

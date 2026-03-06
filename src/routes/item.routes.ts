@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getItems, itemsError } from "../controller/item.controller.ts";
+import { getItems, itemsError } from "../controllers/item.controller.ts";
 
 const router = Router();
 router.get("/", getItems);

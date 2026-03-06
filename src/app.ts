@@ -3,6 +3,7 @@ import express from "express";
 import type { Request, Response, NextFunction } from "express";
 import CustomError from "./utils/CustomError.ts";
 import cookieParser from 'cookie-parser';
+import cors from "cors";
 
 import itemRoutes from "./routes/item.routes.ts";
 import actividadRoutes from "./routes/actividad.routes.ts"
@@ -18,6 +19,9 @@ const init = () => {
   
   const app = express();
   const PORT = 3000;
+  app.use(cors({
+    origin: "http://localhost:5173",
+  }));
 
   app.use (morgan("dev"));
   app.use(express.json());
