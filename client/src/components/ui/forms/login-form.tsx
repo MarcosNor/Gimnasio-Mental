@@ -1,7 +1,11 @@
-import { useState, type FormEvent } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { useAuth } from "@/context/AuthContext"
+import { Link } from 'react-router-dom'
+
+import { Button } from "@/components/ui/components/button"
+import { Input } from "@/components/ui/components/input"
+import { Label } from "@/components/ui/components/label"
 import {
   Card,
   CardContent,
@@ -9,21 +13,28 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/components/card"
 
-export function Log() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+export function LogForm() {
+  const [isLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setIsLoading(true)
-    // Simulate login request
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    setIsLoading(false)
+  type LoginUser = {
+    email: string
+    password: string
   }
+
+  const { 
+    register, 
+    handleSubmit, 
+    formState: {errors},
+  } = useForm<LoginUser>();
+   
+  const { signin, errors: signinErrors } = useAuth();
+
+  const onSubmit = handleSubmit ((data) => {
+    signin(data);
+  });
 
   return (
     <Card className="w-full max-w-md border-none shadow-lg">
@@ -51,21 +62,26 @@ export function Log() {
         <CardDescription className="text-muted-foreground">
           Enter your credentials to access your account
         </CardDescription>
+        {signinErrors.map((error, i) => (
+          <p key={i} className="text-sm text-red-500 text-center my-2">
+            {error}
+          </p>
+        ))}
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <form onSubmit={onSubmit} className="flex flex-col gap-5">
           <div className="flex flex-col gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
               placeholder="name@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
               className="h-11"
+              {...register("email", { required: true })}
             />
+            {errors.email && <p className="text-sm text-red-500">email es requerido</p>}
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
@@ -82,12 +98,12 @@ export function Log() {
                 id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete="current-password"
                 className="h-11 pr-10"
+                {...register("password", { required: true })}
               />
+              {errors.password && <p className="text-sm text-red-500">password es requerido</p>}
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
@@ -215,13 +231,13 @@ export function Log() {
       </CardContent>
       <CardFooter className="justify-center">
         <p className="text-sm text-muted-foreground">
-          {"Don't have an account? "}
-          <a
-            href="/register"
+          {"¿No tienes una cuenta? "}
+          <Link
+            to="/register"
             className="font-medium text-foreground underline-offset-4 hover:underline"
           >
-            Sign up
-          </a>
+            Registrate
+          </Link>
         </p>
       </CardFooter>
     </Card>

@@ -1,57 +1,5 @@
 import { Zap, Brain, Target, TrendingUp } from "lucide-react"
 
-const navLinks = [
-  { label: "Games", href: "#games" },
-  { label: "Benefits", href: "#benefits" },
-  { label: "About", href: "#about" },
-]
-
-export function Navbar() {
-  return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <a href="/" className="flex items-center gap-2">
-          <div className="flex size-9 items-center justify-center rounded-lg bg-primary">
-            <Brain className="size-5 text-primary-foreground" />
-          </div>
-          <span className="text-xl font-bold tracking-tight font-[family-name:var(--font-heading)]">
-            Gimnasio Pumental
-          </span>
-        </a>
-
-        <ul className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <li key={link.label}>
-              <a
-                href={link.href}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <div className="flex items-center gap-3">
-          <a
-            href="/login"
-            className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:block"
-          >
-            Log in
-          </a>
-          <a
-            href="#games"
-            className="inline-flex h-9 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            <Zap className="mr-1.5 size-4" />
-            Play Now
-          </a>
-        </div>
-      </nav>
-    </header>
-  )
-}
-
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden px-6 py-24 md:py-36">

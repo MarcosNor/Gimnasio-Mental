@@ -1,5 +1,6 @@
-import { createContext, useState, useContext, type ReactNode } from "react";
-import { registerRequest, type RegisterUser } from '../api/auth';
+import { createContext, useState, useContext, useEffect, type ReactNode } from "react";
+import { registerRequest, type RegisterUser, loginRequest, verifyTokenRequest } from '../api/auth';
+import Cookies from 'js-cookie';
 import { type AxiosError } from 'axios';
 
 interface User {
@@ -14,7 +15,10 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   signup: (user: RegisterUser) => Promise<void>;
+  signin: (user: Omit<RegisterUser, 'num_cta' | 'fecha_nacimiento'>) => Promise<void>;
+  logout: () => void;
   errors: string[];
+  loading: boolean;
 }
 
 // Valor inicial del contexto
@@ -22,7 +26,10 @@ const defaultAuthContext: AuthContextType = {
   user: null,
   isAuthenticated: false,
   errors: [],
+  loading: true,
   signup: async () => {},
+  signin: async () => {},
+  logout: () => {},
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -41,6 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const signup = async (user: RegisterUser) => {
     try {
@@ -56,13 +64,81 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
+  const signin = async (user: Omit<RegisterUser, 'num_cta' | 'fecha_nacimiento'>) => {
+    try {
+      const res = await loginRequest(user);
+      console.log(res)
+      setIsAuthenticated(true);
+      setUser(res.data);
+      alert("¡Inicio de sesión exitoso!");
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      setErrors(axiosError.response?.data as string[]);
+    }
+
+  }
+
+  const logout = () => {
+    Cookies.remove("token");
+    setIsAuthenticated(false);
+    setUser(null);
+  }
+
+  // Limpiar errores después de 5 segundos
+  useEffect(() => {
+    if (errors.length > 0) {
+      const timer = setTimeout(() => {
+        setErrors([]);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [errors]);
+
+
+
+  // Comprobamos que exista una cookie para las peticiones autenticadas
+  useEffect(() => {
+    async function checkLogin() {
+      const cookies = Cookies.get();
+
+      if (!cookies.token) {
+        setIsAuthenticated(false);
+        setUser(null);
+        setLoading(false);
+        return;
+      }
+
+      try{
+        const res = await verifyTokenRequest();
+
+        if(!res.data) {
+          setIsAuthenticated(false);
+          setLoading(false);
+          return;
+        }
+
+        setIsAuthenticated(true);
+        setUser(res.data);
+        setLoading(false);
+
+      } catch(error) {
+        setIsAuthenticated(false);
+        setUser(null);
+        setLoading(false);
+      }
+    } checkLogin();
+  }, []);
+
   return (
     <AuthContext.Provider 
       value={{
         signup,
+        signin,
+        logout,
         user,
         isAuthenticated,
         errors,
+        loading,
       }}
     >
       {children}

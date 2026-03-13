@@ -1,7 +1,7 @@
-import { HeroSection } from "@/components/ui/hero-section.tsx"
-import { GamesSection } from "@/components/ui/games-section.tsx"
-import { BenefitsSection } from "@/components/ui/benefits-section.tsx"
-import { Footer } from "@/components/ui/footer.tsx"
+import { HeroSection } from "@/components/ui/main/hero-section"
+import { GamesSection } from "@/components/ui/main/games-section"
+import { BenefitsSection } from "@/components/ui/main/benefits-section"
+import { Footer } from "@/components/ui/main/footer"
 
 export default function MainPage() {
   return (

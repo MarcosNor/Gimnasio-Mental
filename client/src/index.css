@@ -4,8 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: oklch(97.855% 0.02708 199.759);
+  --foreground: oklch(14.479% 0.00002 271.152);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -122,4 +122,11 @@
   body {
     @apply bg-background text-foreground;
   }
+  a {
+    @apply no-underline;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
 }
