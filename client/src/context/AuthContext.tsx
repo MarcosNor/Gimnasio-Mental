@@ -75,10 +75,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const axiosError = error as AxiosError;
       setErrors(axiosError.response?.data as string[]);
     }
-
   }
 
-  const logout = () => {
+  const logout = async () => {
     Cookies.remove("token");
     setIsAuthenticated(false);
     setUser(null);
@@ -129,19 +128,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } checkLogin();
   }, []);
 
+  const value = {
+    signup,
+    signin,
+    logout,
+    user,
+    isAuthenticated,
+    errors,
+    loading
+  }
+
   return (
-    <AuthContext.Provider 
-      value={{
-        signup,
-        signin,
-        logout,
-        user,
-        isAuthenticated,
-        errors,
-        loading,
-      }}
-    >
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
-  );
+  )
 }

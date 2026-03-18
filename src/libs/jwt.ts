@@ -1,12 +1,12 @@
 
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { TOKEN_SECRET } from "../config.ts";
 
-interface JwtPayload {
+export interface TokenPayload extends JwtPayload {
   id: number;
 }
 
-export function createAccessToken(payload: JwtPayload): Promise<string> {
+export function createAccessToken(payload: TokenPayload): Promise<string> {
   return new Promise((resolve, reject) => {
     jwt.sign(
       payload,

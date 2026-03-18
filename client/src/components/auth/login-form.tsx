@@ -2,10 +2,11 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useAuth } from "@/context/AuthContext"
 import { Link } from 'react-router-dom'
+import { useNavigate,  } from "react-router-dom"
 
-import { Button } from "@/components/ui/components/button"
-import { Input } from "@/components/ui/components/input"
-import { Label } from "@/components/ui/components/label"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
   Card,
   CardContent,
@@ -13,7 +14,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/components/card"
+} from "@/components/ui/card"
 
 export function LogForm() {
   const [isLoading] = useState(false)
@@ -31,9 +32,12 @@ export function LogForm() {
   } = useForm<LoginUser>();
    
   const { signin, errors: signinErrors } = useAuth();
+  const navigate = useNavigate();
 
-  const onSubmit = handleSubmit ((data) => {
-    signin(data);
+  const onSubmit = handleSubmit (async (data) => {
+    await signin(data);
+    navigate('/user/home');
+    console.log(navigate)
   });
 
   return (
@@ -57,10 +61,10 @@ export function LogForm() {
           </svg>
         </div>
         <CardTitle className="text-2xl font-bold tracking-tight">
-          Welcome back
+          ¡Bienvenido!
         </CardTitle>
         <CardDescription className="text-muted-foreground">
-          Enter your credentials to access your account
+          Introduce tus datos para ingresar a tu cuenta
         </CardDescription>
         {signinErrors.map((error, i) => (
           <p key={i} className="text-sm text-red-500 text-center my-2">
@@ -71,11 +75,11 @@ export function LogForm() {
       <CardContent>
         <form onSubmit={onSubmit} className="flex flex-col gap-5">
           <div className="flex flex-col gap-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">Correo electrónico</Label>
             <Input
               id="email"
               type="email"
-              placeholder="name@example.com"
+              placeholder="nombre@ejemplo.com"
               required
               autoComplete="email"
               className="h-11"
@@ -85,25 +89,25 @@ export function LogForm() {
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Contraseña</Label>
               <a
                 href="#"
                 className="text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
               >
-                Forgot password?
+                Olvidaste tu contraseña?
               </a>
             </div>
             <div className="relative">
               <Input
                 id="password"
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
+                placeholder="Ingresa tu contraseña"
                 required
                 autoComplete="current-password"
                 className="h-11 pr-10"
                 {...register("password", { required: true })}
               />
-              {errors.password && <p className="text-sm text-red-500">password es requerido</p>}
+              {errors.password && <p className="text-sm text-red-500">la contraseña es requerida</p>}
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
@@ -169,10 +173,10 @@ export function LogForm() {
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                   />
                 </svg>
-                Signing in...
+                Iniciando sesión...
               </span>
             ) : (
-              "Sign in"
+              "Iniciar sesión"
             )}
           </Button>
         </form>
@@ -183,7 +187,7 @@ export function LogForm() {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-card px-2 text-muted-foreground">
-              Or continue with
+              O continúa con
             </span>
           </div>
         </div>

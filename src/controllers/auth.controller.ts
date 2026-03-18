@@ -1,11 +1,19 @@
 import type { Request, Response, NextFunction } from "express";
 import prisma from "../config/prisma.ts";
 import bcrypt from "bcrypt";
+
 import CustomError from "../utils/CustomError.ts";
+
 import { createAccessToken } from "src/libs/jwt.ts";
+import jwt from "jsonwebtoken";
+import { TOKEN_SECRET } from "src/config.ts";
+import { TokenPayload } from "src/libs/jwt.ts";
 
 /*
   Controladores relacionados con la autenticación de usuarios:
+*/
+
+/*
   - register: Registro de nuevos usuarios
 */
 
@@ -17,14 +25,10 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     // Mensajes de error para lanzar al momento de ejecución en el frontend
     // Error: Correo ya en uso
     const foundEmail = await prisma.usuario.findFirst({ where: { email } });
-    if (foundEmail) {
-      return res.status(400).json( ["El correo ya está en uso"] );
-    };
-    // Error: Numero de cuenta ya en uso
     const foundNum_cta = await prisma.usuario.findFirst({ where: { num_cta } });
-    if (foundNum_cta) {
-      return res.status(400).json( ["El número de cuenta ya está en uso"] );
-    }
+    if (foundEmail || foundNum_cta) {
+      return res.status(400).json( ["Correo o número de cuenta ya está en uso"] );
+    };
 
     if (!num_cta || !email || !fecha_nacimiento || !password) {
       throw new CustomError("MISSING_FIELDS");
@@ -79,13 +83,12 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
   
   try {
     
-    const { email, num_cta, password } = req.body;
+    const { email, password } = req.body;
 
     const usuarioFound = await prisma.usuario.findFirst({
       where: {
         OR: [
-          { email },
-          { num_cta }
+          { email }
         ]
       }
     });
@@ -98,7 +101,8 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     
     const token = await createAccessToken({ id: usuarioFound.id_usuario });
     
-    res.cookie('token', token)
+    res.cookie('token', token);
+
     res.status(201).json({
       id: usuarioFound.id_usuario,
       num_cta: usuarioFound.num_cta,
@@ -156,7 +160,34 @@ export const profile = async (req: Request, res: Response, next: NextFunction) =
   }
 }
 
-/* 
+export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+
+  try{
+    
+    const {token} = req.cookies;
+
+    if(!token) throw new CustomError("NO_TOKEN");
+
+    const user = jwt.verify(token, TOKEN_SECRET) as TokenPayload;
+    
+    const userFound = await prisma.usuario.findUnique({
+      where: { id_usuario: user.id }
+    });
+    
+    if(!userFound) throw new CustomError("USER_NOT_FOUND");
+    
+    return res.json({
+      id: userFound.id_usuario,
+      num_cta: userFound.num_cta,
+      email: userFound.email,
+    })
+  }
+  catch(error){
+    next(error);
+  }
+}
+
+/* Usario de ejemplo
 {
   "num_cta": 319284061,
   "email": "test@test.com",

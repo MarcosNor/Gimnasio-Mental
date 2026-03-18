@@ -9,7 +9,7 @@ export const authRequired = (req: Request, res: Response, next: NextFunction) =>
 
   if (!token) 
     return res.status(401).json({ message: "No token" });
-    //throw new CustomError("NOT_TOKEN");
+    //throw new CustomError("NO_TOKEN");
 
   jwt.verify(token, TOKEN_SECRET, (err: jwt.VerifyErrors | null, user: any) => {
     if(err) return res.status(403).json({ message: "Invalid token"});

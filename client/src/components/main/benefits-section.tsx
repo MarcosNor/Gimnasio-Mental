@@ -1,5 +1,5 @@
 import { Brain, Clock, Lightbulb, Users } from "lucide-react"
-import { Badge } from "@/components/ui/main/badge"
+import { Badge } from "@/components/ui/badge"
 
 interface BenefitCardProps {
   icon: React.ReactNode

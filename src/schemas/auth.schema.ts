@@ -3,8 +3,8 @@ import { z } from "zod";
 export const registerSchema = z.object({
   num_cta: z.coerce
   .number()
-  .gte(100000000, "El numero de cuenta debe tener 9 digitos")
-  .lte(999999999, "El numero de cuenta debe tener 9 digitos")
+  .gte(100000000, "Numero de cuenta incorrecto")
+  .lte(999999999, "Numero de cuenta incorrecto")
   .int("Numero de cuenta debe ser un entero")
   .positive("Numero de cuenta debe ser positivo"),
 

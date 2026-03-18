@@ -9,7 +9,7 @@ export function Footer() {
             <Brain className="size-4 text-primary-foreground" />
           </div>
           <span className="text-lg font-bold tracking-tight font-[family-name:var(--font-heading)]">
-            Brain Gym
+            GImnasio Pumental
           </span>
         </a>
         <p className="max-w-md text-sm leading-relaxed text-muted-foreground">

@@ -5,9 +5,9 @@ import { useAuth } from '@/context/AuthContext';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { Button } from "@/components/ui/components/button"
-import { Input } from "@/components/ui/components/input"
-import { Label } from "@/components/ui/components/label"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
   Card,
   CardContent,
@@ -15,7 +15,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/components/card"
+} from "@/components/ui/card"
 
 function RegForm() {
   const { register, handleSubmit, formState: { errors } } = useForm<RegisterUser>();
@@ -29,6 +29,7 @@ function RegForm() {
 
   const onSubmit = handleSubmit(async (values: RegisterUser) => {
     await signup(values);
+    navigate('/user/home');
   });
 
   return (

@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/main/badge"
+import { Badge } from "@/components/ui/badge"
 
 interface GameCardProps {
   title: string

@@ -1,6 +1,6 @@
 import { Zap, Brain} from "lucide-react"
 import { Link } from 'react-router-dom'
-import { useAuth } from "@/context/AuthContext.tsx"
+//import { useAuth } from "@/context/AuthContext.tsx"
 
 const navLinks = [
   { label: "Games", href: "#games" },
@@ -8,8 +8,9 @@ const navLinks = [
   { label: "About", href: "#about" },
 ]
 
-export function Navbar() {
-  const { isAuthenticated, logout, user } = useAuth()
+export function NavbarPublic() {
+  //const { isAuthenticated, logout, user } = useAuth()
+  
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
@@ -34,45 +35,23 @@ export function Navbar() {
             </li>
           ))}
         </ul>
-
-        {isAuthenticated ? (
-          <>
-            <li
-              className="hidden text-sm font-medium text-muted-foreground transition-colors sm:block">
-              Bienvenido {user?.num_cta}
-            </li>
-            <Link to ="/profile"
-                className="inline-flex h-9 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-              >
-                Mi Perfil
-            </Link>
-            <Link to ="/" onClick={() => {
-                logout();
-              }}
-              className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:block"
-              >
-                Cerrar Sesión
-            </Link>
-          </>
-        ) : (
           <>
             <div className="flex items-center gap-3">
               <Link
-                to="/login"
+                to="/auth/login"
                 className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:block"
               >
-                Log in
+                Iniciar sesión
               </Link>
               <Link
                 to="#games"
                 className="inline-flex h-9 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
                 >
                 <Zap className="mr-1.5 size-4" />
-                Play Now
+                Jugar
               </Link>
             </div>
           </>
-          )}
 
       </nav>
     </header>

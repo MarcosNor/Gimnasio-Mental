@@ -66,6 +66,8 @@ CREATE TABLE stat_usuario (
     ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+select * from usuario;
+
 -- Tabla item (Entidad débil)
 CREATE TABLE item (
     id_item INT AUTO_INCREMENT PRIMARY KEY,
