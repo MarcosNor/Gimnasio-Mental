@@ -1,4 +1,5 @@
 import { Brain, Puzzle, BookOpen, Calculator, Award, Target } from "lucide-react"
+import { Link } from "react-router-dom"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ScoreCards } from "./score-cards"
@@ -107,12 +108,12 @@ export function UserDashboard() {
               <h2 className="text-lg font-semibold font-[family-name:var(--font-heading)]">
                 Available Activities
               </h2>
-              <a
-                href="#"
+              <Link 
+                to="categorias"
                 className="text-sm font-medium text-primary hover:underline"
               >
                 View all
-              </a>
+              </Link>
             </div>
             <ActivitiesGrid activities={activities} />
           </section>

@@ -1,14 +1,11 @@
 import { createContext, useState, useContext, useEffect, type ReactNode } from "react";
-import { registerRequest, type RegisterUser, loginRequest, verifyTokenRequest } from '../api/auth';
-import Cookies from 'js-cookie';
-import { type AxiosError } from 'axios';
+import { registerRequest, loginRequest, verifyTokenRequest } from '../api/auth';
+import { type RegisterUser } from "@/types/registro";
 
-interface User {
-  num_cta: number;
-  email: string;
-  password: string;
-  fecha_nacimiento: string;
-}
+import Cookies from 'js-cookie';
+
+import { type AxiosError } from 'axios';
+import { type User } from "@/types/user";
 
 // Definir el tipo para el contexto de autenticación
 interface AuthContextType {
@@ -67,7 +64,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signin = async (user: Omit<RegisterUser, 'num_cta' | 'fecha_nacimiento'>) => {
     try {
       const res = await loginRequest(user);
-      console.log(res)
+      //console.log(res)
       setIsAuthenticated(true);
       setUser(res.data);
       alert("¡Inicio de sesión exitoso!");

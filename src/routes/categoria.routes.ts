@@ -3,7 +3,7 @@ import { getCategorias, getCategoriaById } from "../controllers/categoria.contro
 
 const router = Router();
 
-router.get("/", getCategorias);
-router.get("/:id", getCategoriaById);
+router.get("/categorias", getCategorias);
+router.get("/categorias:id", getCategoriaById);
 
 export default router;

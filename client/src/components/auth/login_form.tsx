@@ -1,8 +1,10 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import { useAuth } from "@/context/AuthContext"
 import { Link } from 'react-router-dom'
 import { useNavigate,  } from "react-router-dom"
+
+import { useAuth } from "@/context/AuthContext"
+import { type LoginUser } from "@/types/login"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -16,14 +18,11 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
+
+
 export function LogForm() {
   const [isLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
-
-  type LoginUser = {
-    email: string
-    password: string
-  }
 
   const { 
     register, 
@@ -36,8 +35,8 @@ export function LogForm() {
 
   const onSubmit = handleSubmit (async (data) => {
     await signin(data);
-    navigate('/user/home');
-    console.log(navigate)
+    navigate('/usuario/home');
+    //console.log(navigate)
   });
 
   return (
@@ -237,7 +236,7 @@ export function LogForm() {
         <p className="text-sm text-muted-foreground">
           {"¿No tienes una cuenta? "}
           <Link
-            to="/register"
+            to="/auth/register"
             className="font-medium text-foreground underline-offset-4 hover:underline"
           >
             Registrate

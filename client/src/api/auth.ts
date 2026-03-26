@@ -1,11 +1,5 @@
 import axios from './axios'
-
-export interface RegisterUser {
-  num_cta: number;
-  email: string;
-  password: string;
-  fecha_nacimiento: string;
-}
+import { type RegisterUser } from "@/types/registro";
 
 export const registerRequest = (user: RegisterUser) => axios.post(`/register`, user);
 

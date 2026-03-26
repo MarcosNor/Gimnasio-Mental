@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { useForm } from 'react-hook-form';
-import { type RegisterUser } from "@/api/auth";
+
+import { type RegisterUser } from "@/types/registro";
+
 import { useAuth } from '@/context/AuthContext';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -29,7 +31,7 @@ function RegForm() {
 
   const onSubmit = handleSubmit(async (values: RegisterUser) => {
     await signup(values);
-    navigate('/user/home');
+    navigate('/usuario/home');
   });
 
   return (

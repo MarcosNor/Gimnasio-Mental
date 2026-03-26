@@ -18,6 +18,8 @@ import authRoutes from "./routes/auth.routes.ts"
 const init = () => {
   
   const app = express();
+  app.disable('x-powered-by');
+  
   const PORT = 3000;
   app.use(cors({
     origin: "http://localhost:5173",
@@ -28,11 +30,10 @@ const init = () => {
   app.use(express.json());
   app.use(cookieParser());
   
-  app.use("/api", authRoutes);
+  app.use("/api", authRoutes, categoriaRoutes);
   app.use("/items", itemRoutes);
   //app.use("/usuarios", usuarioRoutes);
   app.use("/actividades", actividadRoutes);
-  app.use("/categorias", categoriaRoutes);
   
   app.use((req: Request, res: Response, next: NextFunction) => {
     const error = new CustomError("ROUTE_NOT_FOUND");
