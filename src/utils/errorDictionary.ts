@@ -7,9 +7,21 @@ export const ErrorDictionary = {
     status: 400,
     message: "Error en la consulta a la base de datos"
   },
-  USERS_NOT_FOUND: {
+  USER_NOT_FOUND: {
     status: 404,
-    message: "No se encontraron usuarios"
+    message: "Usuario no encontrado"
+  },
+  PREV_USER: {
+    status: 409,
+    message: "El usuario ya existe"
+  },
+  NO_TOKEN: {
+    status: 401,
+    message: "No hubo verificación"
+  },
+  MISSING_FIELDS: {
+    status: 400,
+    message: "Faltan campos requeridos"
   },
   ITEM_NOT_FOUND: {
     status: 404,

@@ -15,7 +15,7 @@ CREATE TABLE usuario (
     num_cta INT UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     fecha_nacimiento DATE NOT NULL,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
@@ -65,6 +65,8 @@ CREATE TABLE stat_usuario (
   CONSTRAINT fk_stat_actividad FOREIGN KEY (id_actividad) REFERENCES actividad(id_actividad)
     ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+select * from usuario;
 
 -- Tabla item (Entidad débil)
 CREATE TABLE item (
