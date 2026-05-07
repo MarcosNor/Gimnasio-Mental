@@ -30,10 +30,8 @@ const init = () => {
   app.use(express.json());
   app.use(cookieParser());
   
-  app.use("/api", authRoutes, categoriaRoutes);
+  app.use("/api", authRoutes, categoriaRoutes, actividadRoutes);
   app.use("/items", itemRoutes);
-  //app.use("/usuarios", usuarioRoutes);
-  app.use("/actividades", actividadRoutes);
   
   app.use((req: Request, res: Response, next: NextFunction) => {
     const error = new CustomError("ROUTE_NOT_FOUND");

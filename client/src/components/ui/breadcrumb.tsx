@@ -1,5 +1,6 @@
-import { Link, useLocation } from "react-router-dom";
-import { Slash, ChevronRight, Home } from "lucide-react";
+import { Link, useLocation, useMatches } from "react-router-dom";
+import { ChevronRight, Home } from "lucide-react";
+import { useCategorias } from "@/hooks/useCategorias";
 
 // Interfaz para la estructura de las ligas
 interface Liga {
@@ -9,13 +10,16 @@ interface Liga {
 
 export default function Breadcrumb() {
 
-  const location = useLocation();
+  const { categorias, isLoading, error } = useCategorias()
+  const matches = useMatches();
+  const crumbs = matches
+    
 
   // Rutas que vamos a ocultar en el breadcrumb ya que son prefijos
   const rutasOcultas = ["usuario", "auth"];
   
-  // Deconstruimos ligas como "usuario/home/..."
-  const generarLigas = () =>{
+  // Deconstruimos ligas anidadas como "usuario/home/..."
+  const generarLigas = () => {
     const pathnames = location.pathname.split("/").filter((x) => x);
     let currentPath = "";
     const ligas: Liga[] = pathnames.map(segment => {
@@ -23,20 +27,12 @@ export default function Breadcrumb() {
       return { pathto: currentPath, name: segment };
     });
     
+    // regresamos las ligas sin las ocultas
     return ligas.filter(liga => !rutasOcultas.includes(liga.name));
   };
 
-  const ligas = generarLigas();
 
-  // Función de ayuda para limpiar las clases condicionales
-  const getLinkClasses = (path: string) => {
-    const isActive = location.pathname === path;
-    return `cursor-pointer p-4 rounded-md transition-colors ${
-      isActive
-        ? "bg-[#8AD4FF] hover:text-black" 
-        : "hover:bg-[#8AD4FF] hover:text-black"
-    }`;
-  };
+  const ligas = generarLigas();
 
   return (
     <div className="flex" aria-label="Breadcrumb">

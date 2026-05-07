@@ -36,15 +36,16 @@ const benefits: BenefitCardProps[] = [
   },
   {
     icon: <Lightbulb className="size-6" />,
-    title: "Better Problem Solving",
+    title: "Espacial",
     description:
-      "Logic and pattern games train you to think critically and approach problems from multiple angles.",
+      "Acomodar objetos, seguir secuencias de movimientos, seguir direcciones espaciales en un mapa"
+      //"Logic and pattern games train you to think critically and approach problems from multiple angles.",
   },
   {
     icon: <Users className="size-6" />,
-    title: "Study Confidence",
+    title: "Temporal",
     description:
-      "Building cognitive fitness translates directly to stronger focus, better grades, and more confidence in the classroom.",
+      "Ordenar eventos cronológicamente. Identificar el orden de accionesen una historia. Identificar orden de secuencia en un conjunto dispuesto por diferentes momentos",
   },
 ]
 
@@ -54,10 +55,10 @@ export function BenefitsSection() {
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto mb-14 max-w-2xl text-center">
           <Badge variant="outline" className="mb-4 rounded-full px-4 py-1.5 text-sm font-medium">
-            Why Brain Gym?
+            Qué queremos lograr?
           </Badge>
           <h2 className="text-balance text-3xl font-bold tracking-tight font-[family-name:var(--font-heading)] md:text-5xl">
-            Real Benefits for Your Brain
+            ¿Qué buscamos entrenar?
           </h2>
           <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
             Brain games are more than just fun. Here is how consistent cognitive training

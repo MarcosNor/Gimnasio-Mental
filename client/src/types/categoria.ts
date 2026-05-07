@@ -1,5 +1,6 @@
 export interface Categoria {
-  id: string
+  id_categoria: number
   nombre: string
   beneficios: string
+  slug?: string
 }

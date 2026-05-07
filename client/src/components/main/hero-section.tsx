@@ -9,20 +9,20 @@ export function HeroSection() {
       </div>
 
       <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
+        {/* <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
           <Target className="size-3.5" />
           Built for High School Students
-        </div>
+        </div> */}
 
         <h1 className="text-balance text-5xl font-bold leading-tight tracking-tight font-[family-name:var(--font-heading)] md:text-7xl md:leading-[1.1]">
-          Train Your Brain,{" "}
-          <span className="text-primary">Level Up</span>{" "}
-          Your Mind
+          Entrena tu mente,{" "}
+          <span className="text-primary">Ponte a</span>{" "}
+          Prueba
         </h1>
 
         <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">
-          Challenge yourself with fun, science-backed brain games designed to sharpen memory, speed up
-          problem-solving, and boost your focus for school and beyond.
+          Pruebas basadas en la gamificación para poner a prueba tus habilidades.
+          Resuelve retos rápidamente, mejora tus records, desarrolla tus habilidades cognitivas
         </p>
 
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
@@ -31,13 +31,13 @@ export function HeroSection() {
             className="inline-flex h-12 items-center justify-center rounded-xl bg-primary px-8 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30"
           >
             <Zap className="mr-2 size-5" />
-            Start Training
+            Jugar
           </a>
           <a
             href="#benefits"
             className="inline-flex h-12 items-center justify-center rounded-xl border border-border bg-card px-8 text-base font-semibold text-foreground transition-colors hover:bg-secondary"
           >
-            Learn More
+            Sobre la DGOAE
           </a>
         </div>
 

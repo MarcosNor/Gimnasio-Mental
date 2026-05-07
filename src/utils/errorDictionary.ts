@@ -43,6 +43,10 @@ export const ErrorDictionary = {
     status: 404,
     message: "La ruta solicitada no existe"
   },
+  DATOS_ERRONEOS: {
+    status: 400,
+    message: "Los datos proporcionados son incorrectos"
+  },
   BAD_REQUEST:{
     status: 400,
     message: "No se pudo procesar la solicitud"

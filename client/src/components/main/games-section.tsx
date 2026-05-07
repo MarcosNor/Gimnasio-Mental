@@ -1,4 +1,6 @@
 import { Badge } from "@/components/ui/badge"
+import { useNavigate } from "react-router-dom";
+
 
 interface GameCardProps {
   title: string
@@ -7,7 +9,12 @@ interface GameCardProps {
   tags: string[]
 }
 
+
+// onSubmit para cuando el usuario de click en "Jugar"
+
 function GameCard({ title, description, image, tags }: GameCardProps) {
+  const navigate = useNavigate();
+
   return (
     <div className="group overflow-hidden rounded-2xl border border-border bg-card transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
       <div className="relative aspect-[16/10] overflow-hidden">
@@ -33,8 +40,8 @@ function GameCard({ title, description, image, tags }: GameCardProps) {
         <p className="text-sm leading-relaxed text-muted-foreground">
           {description}
         </p>
-        <button className="mt-1 inline-flex h-9 w-full items-center justify-center rounded-lg bg-secondary text-sm font-medium text-secondary-foreground transition-colors hover:bg-primary hover:text-primary-foreground">
-          Play Now
+        <button onClick={() => navigate("/auth/login")} className="mt-1 inline-flex h-9 w-full items-center justify-center rounded-lg bg-secondary text-sm font-medium text-secondary-foreground transition-colors hover:bg-primary hover:text-primary-foreground">
+          Jugar ahora
         </button>
       </div>
     </div>

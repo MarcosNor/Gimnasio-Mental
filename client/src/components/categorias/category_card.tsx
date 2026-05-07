@@ -3,10 +3,13 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 import { type Categoria } from "@/types/categoria"
+import { obtenerIdDeSlug } from "@/lib/utils"
 
 interface CategoryCardProps {
   category: Categoria
-  onNavigate: (categoryId: string) => void
+  
+  // onNavigate para que categories dashboard sepa el id de la categoria a la que nos tenemos que mover
+  onNavigate: (categoryId: number) => void
 }
 
 export function CategoryCard({ category, onNavigate }: CategoryCardProps) {
@@ -59,10 +62,10 @@ export function CategoryCard({ category, onNavigate }: CategoryCardProps) {
         </div>
 
         <Button
-          onClick={() => onNavigate(category.id)}
+          onClick={() => onNavigate(Number(obtenerIdDeSlug(category.slug)))}
           className="w-full gap-2"
         >
-          View Games
+          Ver actividades
           <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
         </Button>
       </CardContent>
