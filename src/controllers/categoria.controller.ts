@@ -6,10 +6,11 @@ import { generarSlug, generarSlugId } from "../utils/slug.ts";
 // Obtener todas las categorias
 export const getCategorias = async (req: Request, res: Response, next: NextFunction) => {
   try {
+
     const categorias = await prisma.cat_categoria.findMany({    });
 
     if (!categorias || categorias.length === 0) {
-      throw new CustomError("ITEMS_NOT_FOUND");
+      throw new CustomError("CAT_NOT_FOUND");
     }
 
     const categoriasConSlug = categorias.map(cat => ({

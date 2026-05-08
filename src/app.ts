@@ -18,6 +18,7 @@ import authRoutes from "./routes/auth.routes.ts"
 const init = () => {
   
   const app = express();
+  // Deshabilitar el encabezado "X-Powered-By" para mejorar la seguridad
   app.disable('x-powered-by');
   
   const PORT = 3000;
@@ -26,12 +27,14 @@ const init = () => {
     credentials: true,
   }));
 
+  // Middleware para registrar las solicitudes HTTP
   app.use (morgan("dev"));
+  // Middleware para parsear JSON y cookies
   app.use(express.json());
   app.use(cookieParser());
   
-  app.use("/api", authRoutes, categoriaRoutes, actividadRoutes);
-  app.use("/items", itemRoutes);
+  // Rutas para las request de la API
+  app.use("/api", authRoutes, categoriaRoutes, actividadRoutes, itemRoutes);
   
   app.use((req: Request, res: Response, next: NextFunction) => {
     const error = new CustomError("ROUTE_NOT_FOUND");
