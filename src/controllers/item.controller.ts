@@ -16,10 +16,9 @@ export const getItemsByActividadId = async (req: Request, res: Response, next: N
         estatus_activo: true
       },
       include: {
-        actividad: {
-          select: {
-            id_actividad: true,
-            nombre: true
+        respuesta: {
+          where: {
+            activo: true
           }
         }
       }

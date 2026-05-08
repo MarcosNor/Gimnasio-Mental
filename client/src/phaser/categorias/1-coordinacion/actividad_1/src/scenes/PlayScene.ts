@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser';
 import { SCENE_KEYS } from '../utils/common';
-import { preguntas } from '../utils/Preguntas';
 import BaseScene from './BaseScene';
+import { type Item } from '@/types/item';
 
 
 class PlayScene extends BaseScene {
@@ -31,11 +31,14 @@ class PlayScene extends BaseScene {
   private botones: Phaser.GameObjects.Container[] = [];
   private bloqueado = false;
 
+  private preguntas: Item[];
+
   // Agregar contador de pregunta
   //
 
-  constructor() {
+  constructor(preguntas: Item[]) {
     super(SCENE_KEYS.PLAY);
+    this.preguntas = preguntas;
   }
   
   public create(): void {
@@ -70,32 +73,35 @@ class PlayScene extends BaseScene {
   }
 
   crearPregunta() {
-    const pregunta = preguntas[this.indice];
+
+    const pregunta = this.preguntas[this.indice];
+    if (!pregunta) return;
+
     const { width, height } = this.scale;
-    
-    this.preguntaText.setText(pregunta.texto);
+
+    this.preguntaText.setText(pregunta.pregunta);
 
     // Limpiar botones anteriores
     this.botones.forEach(boton => boton.destroy());
+
     this.botones = [];
     this.bloqueado = false;
-
     const spacing = 220;
-    const total = pregunta.respuestas.length;
+
+    const respuestasRandomizadas = Phaser.Utils.Array.Shuffle([...pregunta.respuesta]);
+    const total = respuestasRandomizadas.length;
 
     // Creando respuestas correspondientes a la pregunta
-    pregunta.respuestas.forEach((opcion, i) => {
-
-      const x = width / 2 + ( i - ( total -1 ) / 2 ) * spacing;
+    respuestasRandomizadas.forEach((opcion, i) => {
+      const x = width / 2 + (i - (total - 1) / 2) * spacing;
       const y = height - 150;
+      const btn = this.crearBoton(x, y, opcion.text_respuesta, opcion.correcta);
 
-      const btn = this.crearBoton(x, y, opcion, i);
       this.botones.push(btn);
     });
-    
   }
 
-  crearBoton(x: number, y:number, texto: string, index: number): Phaser.GameObjects.Container {
+  crearBoton(x: number, y:number, texto: string, esCorrecta: boolean): Phaser.GameObjects.Container {
     const container = this.add.container(x, y);
     const width = this.buttonWidth;
     const height = this.buttonHeight;
@@ -135,21 +141,18 @@ class PlayScene extends BaseScene {
 
     // click en el botón
     container.on('pointerdown', () => {
-      this.responder(index, container, bg);
+      this.responder(esCorrecta, container, bg);
     });
     
     return container
   }
 
-  responder(index: number, container: Phaser.GameObjects.Container, bg: Phaser.GameObjects.Graphics) {
+  responder(esCorrecta: boolean, container: Phaser.GameObjects.Container, bg: Phaser.GameObjects.Graphics) {
     const width = this.buttonWidth;
     const height = this.buttonHeight;
 
     if (this.bloqueado) return;
     this.bloqueado = true;
-
-    const pregunta = preguntas[this.indice];
-    const esCorrecta = index === pregunta.correcta;
 
     // pintar resultado
 
@@ -200,7 +203,7 @@ class PlayScene extends BaseScene {
 
   siguientePregunta() {
     this.indice++;
-    if (this.indice >= preguntas.length) {
+    if (this.indice >= this.preguntas.length) {
       this.indice = 0; // Reiniciar al inicio
     }
 

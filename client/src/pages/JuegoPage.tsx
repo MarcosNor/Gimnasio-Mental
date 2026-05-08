@@ -1,16 +1,33 @@
 
 
+import { useItems } from "@/hooks/useItems";
 import { useEffect } from "react";
 import { createGame } from "../phaser/categorias/1-coordinacion/actividad_1/src/config";
 
 export default function JuegoPage() {
-  useEffect(() => {
-    const game = createGame();
+  const { items, isLoading, error } = useItems(1); // Reemplaza 1 con el ID de la actividad deseada
 
+  useEffect(() => {
+    if (items.length < 0) return ;
+
+    console.log("Items cargados:", items);
+
+    const game = createGame(items);
+    
     return () => {
-      game.destroy(true);
+      if (game) {
+        game.destroy(true);
+      }
     };
-  }, []);
+  }, [items]);
+
+  if (isLoading) {
+    return <div>Cargando preguntas...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return <div
     id="game-container"
