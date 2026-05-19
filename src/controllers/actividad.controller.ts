@@ -1,7 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import prisma from "../config/prisma.ts";
 import CustomError from "../utils/CustomError.ts";
-import { generarSlug, generarSlugId } from "src/utils/slug.ts";
 
 // Obtener todas las actividades
 export const getActividades = async (req: Request, res: Response, next: NextFunction) => {
@@ -43,7 +42,7 @@ export const getActividadById = async (req: Request, res: Response, next: NextFu
   }
 }
 
-// Obtener las actividades de una categoria
+// Obtener las actividades de una categoria (por el momento no se ocupa)
 export const getActividadesByCategoriaId = async (req: Request, res: Response, next: NextFunction) => {
   try{
 
@@ -57,24 +56,56 @@ export const getActividadesByCategoriaId = async (req: Request, res: Response, n
         id_categoria: id,
         estatus_actividad: true
       },
-      include: {
-        cat_categoria: true,
-      }
     })
 
     if (!actividades || actividades.length === 0) {
       throw new CustomError("ACT_NOT_FOUND");
     }
 
-    // Agregar el slug a cada actividad para las URLs
-    const actividadesConSlug = actividades.map(actividad => ({
-      ...actividad,
-      slug: generarSlugId(actividad.id_actividad, actividad.nombre),
-      slugSinId: generarSlug(actividad.nombre)
-    }))
-
-    res.json(actividadesConSlug);
+    res.json(actividades);
   } catch (error) {
     next(error);
   }
 }
+
+// Obtener las actividades de una categoria por el nombre de la categoria (slug)
+export const getActividadesByCategoriaNombre = async (req: Request, res: Response, next: NextFunction) => {
+  try{
+
+    if(!req.params.slug || typeof req.params.slug !== "string") {
+      throw new CustomError("ITEMS_NOT_FOUND");
+    }
+
+    const slugCategoria = req.params.slug;
+
+    // Conseguimos el id de la categoria a través del slug, para luego usarlo para conseguir las actividades de esa categoria
+    const id = await prisma.cat_categoria.findUnique({
+      where: {
+        slug: slugCategoria 
+      },
+      select: {
+        id_categoria: true
+      }
+    });
+
+    if (!id || isNaN(Number(id.id_categoria))) {
+      throw new CustomError("CAT_NOT_FOUND");
+    }
+
+    const actividades = await prisma.actividad.findMany({
+      where: {
+        id_categoria: id.id_categoria,
+        estatus_actividad: true
+      },
+    })
+
+    if (!actividades || actividades.length === 0) {
+      throw new CustomError("ACT_NOT_FOUND");
+    }
+
+    res.json(actividades);
+  } catch (error) {
+    next(error);
+  }
+}
+

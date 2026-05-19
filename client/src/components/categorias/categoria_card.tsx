@@ -3,24 +3,24 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 import { type Categoria } from "@/types/categoria"
-import { obtenerIdDeSlug } from "@/lib/utils"
 
-interface CategoryCardProps {
-  category: Categoria
+interface CategoriaCardProps {
+  categoria: Categoria
   
-  // onNavigate para que categories dashboard sepa el id de la categoria a la que nos tenemos que mover
-  onNavigate: (categoryId: number) => void
+  // onNavigate para que categorias_dashboard sepa el id de la categoria a la que nos tenemos que mover
+  // Le pasamos el slug sin ID para que el dashboard de actividades pueda usarlo para navegar a la actividad concreta
+  onNavigate: (slugCategoria: string) => void
 }
 
-export function CategoryCard({ category, onNavigate }: CategoryCardProps) {
-  //const percentage = Math.round((category.userScore / category.maxScore) * 100)
+export function CategoriaCard({ categoria, onNavigate }: CategoriaCardProps) {
+  //const percentage = Math.round((categoria.userScore / categoria.maxScore) * 100)
 
   return (
     <Card className="group overflow-hidden py-0 transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
       <div className="relative aspect-[16/9] overflow-hidden">
         {/* <img
-          src={category.image}
-          alt={`${category.name} category preview`}
+          src={categoria.image}
+          alt={`${categoria.name} categoria preview`}
           className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
           crossOrigin="anonymous"
         /> */}
@@ -28,7 +28,7 @@ export function CategoryCard({ category, onNavigate }: CategoryCardProps) {
         
         <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-background/90 px-2.5 py-1 backdrop-blur-sm">
           {/* <span className="text-xs font-medium text-muted-foreground">
-            {category.gamesCount} games
+            {categoria.gamesCount} games
           </span> */}
         </div>
       </div>
@@ -36,10 +36,10 @@ export function CategoryCard({ category, onNavigate }: CategoryCardProps) {
       <CardContent className="flex flex-col gap-4 p-5">
         <div>
           <h3 className="text-lg font-bold tracking-tight font-[family-name:var(--font-heading)]">
-            {category.nombre}
+            {categoria.nombre}
           </h3>
           <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-            {category.beneficios}
+            {categoria.beneficios}
           </p>
         </div>
 
@@ -47,7 +47,7 @@ export function CategoryCard({ category, onNavigate }: CategoryCardProps) {
           <div className="flex items-center justify-between">
             {/* <div className="flex items-center gap-1.5 text-sm font-medium">
               <Trophy className="size-4 text-primary" />
-              <span>{category.userScore.toLocaleString()} pts</span>
+              <span>{categoria.userScore.toLocaleString()} pts</span>
             </div> */}
             {/* <span className="text-xs font-medium text-muted-foreground">
               {percentage}% completed
@@ -62,7 +62,7 @@ export function CategoryCard({ category, onNavigate }: CategoryCardProps) {
         </div>
 
         <Button
-          onClick={() => onNavigate(Number(obtenerIdDeSlug(category.slug)))}
+          onClick={() => onNavigate(categoria.slug)}
           className="w-full gap-2"
         >
           Ver actividades

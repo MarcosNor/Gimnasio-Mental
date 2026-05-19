@@ -10,8 +10,6 @@ export default function JuegoPage() {
   useEffect(() => {
     if (items.length < 0) return ;
 
-    console.log("Items cargados:", items);
-
     const game = createGame(items);
     
     return () => {

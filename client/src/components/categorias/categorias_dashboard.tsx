@@ -1,5 +1,5 @@
 import {  AlertCircle } from "lucide-react"
-import { CategoryCard } from "@/components/categorias/category_card"
+import { CategoriaCard } from "@/components/categorias/categoria_card"
 import { useNavigate } from "react-router-dom"
 import { Spinner } from "@/components/ui/spinner"
 
@@ -9,7 +9,7 @@ export function GameCategories() {
   const navigate = useNavigate()
   const { categorias, isLoading, error } = useCategorias()
 
-  const handleNavigate = (categoriaSlug: string | undefined) => {
+  const handleNavigate = (categoriaSlug: string) => {
     navigate(`/usuario/home/categorias/${categoriaSlug}`)
   }
 
@@ -52,10 +52,10 @@ export function GameCategories() {
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {categorias.map((categoria) => (
-              <CategoryCard
-              key={categoria.nombre}
-              category={categoria}
-              onNavigate={() => {handleNavigate(categoria.slug); console.log(categoria.slug)}}
+              <CategoriaCard
+                key={categoria.nombre}
+                categoria={categoria}
+                onNavigate={() => {handleNavigate(categoria.slug); console.log(categoria.slug)}}
               />
             ))}
           </div>

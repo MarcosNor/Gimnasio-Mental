@@ -11,13 +11,28 @@ VALUES
   ('Jerárquico', 'Relacionar estímulos en función de su posición en una estructura jerárquica o de orden.'),
   ('Deíctico', 'Relacionar estímulos en función del contexto o punto de referencia específico.');
   
+UPDATE cat_categoria SET slug = 'coordinacion' WHERE nombre = 'Coordinación';
+UPDATE cat_categoria SET slug = 'comparacion' WHERE nombre = 'Comparación';
+UPDATE cat_categoria SET slug = 'oposicion' WHERE nombre = 'Oposición';
+UPDATE cat_categoria SET slug = 'espacial' WHERE nombre = 'Espacial';
+UPDATE cat_categoria SET slug = 'temporal' WHERE nombre = 'Temporal';
+UPDATE cat_categoria SET slug = 'condicionalidad' WHERE nombre = 'Condicionalidad';
+UPDATE cat_categoria SET slug = 'jerarquico' WHERE nombre = 'Jerárquico';
+UPDATE cat_categoria SET slug = 'deictico' WHERE nombre = 'Deíctico';
+  
 INSERT INTO actividad (id_categoria, nombre, explicacion, tiempoLimite, estatus_actividad) VALUES
 (1, 'Coordinación', 'Preguntas sencillas para relacionar dos o más temas', 60, TRUE);
 
 INSERT INTO actividad (id_categoria, nombre, explicacion, tiempoLimite, estatus_actividad) VALUES
 (1, 'Actividad 2', 'Actividad de prueba', 60, TRUE);
 
+INSERT INTO actividad (id_categoria, nombre, explicacion, tiempoLimite, estatus_actividad) VALUES
+(2, 'Actividad de comparacion', 'Actividad de prueba', 60, TRUE);
+
 select * from actividad;
+
+
+select * from cat_categoria;
 
 
 INSERT INTO item (id_item, id_actividad, pregunta, estatus_activo, dificultad) VALUES

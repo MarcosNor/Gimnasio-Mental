@@ -4,16 +4,13 @@ import { ActividadCard } from "@/components/actividades/actividades_grid"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { useActividades } from "@/hooks/useActividades"
-import { obtenerIdDeSlug } from "@/lib/utils"
 
 import { useParams, useNavigate } from "react-router-dom"
 
 export function ActivitiesDashboard() {
 
-  // Extraemos el ID de la URL
-  // Usamos el slug para obtener el ID de la categoría
-  const { categoria, actividad } = useParams();
-  const idCategoria = obtenerIdDeSlug(categoria);
+  // Extraemos el slug de la categoria de la URL
+  const { categoria } = useParams();
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -26,11 +23,15 @@ export function ActivitiesDashboard() {
     isLoading, 
     error, 
     fetchActividades 
-  } = useActividades(Number(idCategoria));
+  } = useActividades(categoria || "");
 
-  const handlePlay = (categoriaSlug: string, actividadSlug: string | undefined) => {
-    console.log(`Starting actividad: ${categoriaSlug}/${actividadSlug}`)
-    navigate(`/usuario/home/categorias/${categoriaSlug}/${actividadSlug}`)
+  // La ruta a la que navegaremos al hacer click en "Play" es /usuario/home/categorias/:categoria/:actividad
+  const handlePlay = (actividadSlug: string | undefined) => {
+    
+    if (!categoria || !actividadSlug) return;
+
+    console.log(`Starting actividad: ${categoria}/${actividadSlug}`)
+    navigate(`/usuario/home/categorias/${categoria}/${actividadSlug}`)
   }
 
   return (

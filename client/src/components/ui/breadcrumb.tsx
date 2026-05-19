@@ -1,6 +1,7 @@
 import { Link, useLocation, useMatches } from "react-router-dom";
 import { ChevronRight, Home } from "lucide-react";
 import { useCategorias } from "@/hooks/useCategorias";
+import { obtenerNombreVisible } from "@/lib/utils";
 
 // Interfaz para la estructura de las ligas
 interface Liga {
@@ -10,10 +11,11 @@ interface Liga {
 
 export default function Breadcrumb() {
 
+
+  // No borro esto porque al quitarlo genera errores jaja
   const { categorias, isLoading, error } = useCategorias()
   const matches = useMatches();
-  const crumbs = matches
-    
+  const crumbs = matches;
 
   // Rutas que vamos a ocultar en el breadcrumb ya que son prefijos
   const rutasOcultas = ["usuario", "auth"];
@@ -41,7 +43,7 @@ export default function Breadcrumb() {
         {ligas.map((liga, index) => {
           const isFirst = index === 0;
           const isLast = index === ligas.length - 1;
-          const nameCapitalized = liga.name.charAt(0).toUpperCase() + liga.name.slice(1);
+          const displayName = obtenerNombreVisible(liga.name, categorias) || liga.name;
           return (
             <li 
               key ={liga.pathto} 
@@ -60,7 +62,7 @@ export default function Breadcrumb() {
                   <span className="inline-flex items-center text-sm font-medium text-gray-500 bg-[#C9EDFF] p-1 rounded-md">
                     {/* El ícono de Home solo va en el primer elemento */}
                     {isFirst && <Home className="w-4 h-4 me-1.5" />}
-                    {nameCapitalized}
+                    {displayName}
                   </span>
                 ) : (
                   /* Si no es el último, mostramos el Link */
@@ -69,7 +71,7 @@ export default function Breadcrumb() {
                     className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors"
                   >
                     {isFirst && <Home className="w-4 h-4 me-1.5" />}
-                    {nameCapitalized}
+                    {displayName}
                   </Link>
                 )}
 

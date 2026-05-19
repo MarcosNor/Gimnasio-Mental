@@ -1,6 +1,6 @@
 import { type Categoria } from "@/types/categoria"
 import { useCallback, useEffect, useState } from "react"
-import { getCategorias } from "@/api/categoria"
+import { getCategorias } from "@/api/categorias"
 
 export const useCategorias = () => {
   const [categorias, setCategorias] = useState<Categoria[]>([])
@@ -17,7 +17,9 @@ export const useCategorias = () => {
       if (!res.data) {
         throw new Error("Error al cargar las categorías")
       }
+
       setCategorias(res.data)
+
     } catch (err) {
       console.error("Fallo al conectar con el backend:", err);
       setError("No pudimos cargar los juegos.");

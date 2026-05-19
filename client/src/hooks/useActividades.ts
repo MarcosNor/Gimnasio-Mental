@@ -2,7 +2,7 @@ import { getActividades } from "@/api/actividades"
 import { type Actividad } from "@/types/actividad"
 import { useEffect, useState, useCallback } from "react"
 
-export const useActividades = (id_categoria: number) => {
+export const useActividades = (slugCategoria: string) => {
 
   const [actividades, setActividades] = useState<Actividad[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -14,7 +14,8 @@ export const useActividades = (id_categoria: number) => {
     setError(null)
 
     try {
-      const res = await getActividades(id_categoria)
+
+      const res = await getActividades(slugCategoria)
       console.log("Respuesta del backend:", res)
 
       if (!res.data) {
@@ -29,7 +30,7 @@ export const useActividades = (id_categoria: number) => {
     } finally {
       setIsLoading(false);
     }
-  }, [id_categoria])
+  }, [slugCategoria])
 
   useEffect(() => {
     fetchActividades();

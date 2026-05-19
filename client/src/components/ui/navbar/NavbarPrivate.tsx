@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from "@/context/AuthContext.tsx"
-import Breadcrumb from '../breadcrumb'
 
 const navLinks = [
   { label: "Games", href: "#games" },

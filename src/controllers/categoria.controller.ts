@@ -1,7 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import prisma from "../config/prisma.ts";
 import CustomError from "../utils/CustomError.ts";
-import { generarSlug, generarSlugId } from "../utils/slug.ts";
 
 // Obtener todas las categorias
 export const getCategorias = async (req: Request, res: Response, next: NextFunction) => {
@@ -13,13 +12,7 @@ export const getCategorias = async (req: Request, res: Response, next: NextFunct
       throw new CustomError("CAT_NOT_FOUND");
     }
 
-    const categoriasConSlug = categorias.map(cat => ({
-      ...cat,
-      slug: generarSlugId(cat.id_categoria, cat.nombre),
-      slugSinId: generarSlug(cat.nombre)
-    }))
-
-    res.json(categoriasConSlug);
+    res.json(categorias);
   } catch (error) {
     next(error);
   }

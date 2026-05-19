@@ -2,21 +2,15 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Play, Clock } from "lucide-react"
 import { type Actividad } from "@/types/actividad"
-import { obtenerIdDeSlug } from "@/lib/utils"
 
 interface ActividadCardProps {
   actividad: Actividad
 
-    // onNavigate para que categories dashboard sepa el id de la categoria a la que nos tenemos que mover
-  onNavigate: (categoryId: number) => void
+    // onNavigate para que categorias_dashboard sepa el slug de la categoria a la que nos tenemos que mover
+  onNavigate: (categoria: string) => void
 }
 
 export function ActividadCard({ actividad, onNavigate }: ActividadCardProps) {
-  // const difficultyColor = {
-  //   Easy: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
-  //   Medium: "bg-amber-500/10 text-amber-600 border-amber-500/20",
-  //   Hard: "bg-red-500/10 text-red-600 border-red-500/20",
-  // }
 
   return (
     <div className="group flex gap-4 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-md">
@@ -58,7 +52,7 @@ export function ActividadCard({ actividad, onNavigate }: ActividadCardProps) {
       </div>
       <div className="flex items-center">
         <Button 
-          onClick={() => onNavigate(Number(obtenerIdDeSlug(actividad.slug)))}
+          onClick={() => onNavigate(actividad.slug)}
           size="icon" variant="secondary" className="rounded-lg">
           <Play className="size-4" />
           <span className="sr-only">Play {actividad.nombre}</span>
@@ -70,14 +64,18 @@ export function ActividadCard({ actividad, onNavigate }: ActividadCardProps) {
 
 interface ActividadesGridProps {
   actividades: Actividad[]
-  onNavigate: (categoryId: number) => void
+  onNavigate: (categoria: string) => void
 }
 
 export function ActividadesGrid({ actividades, onNavigate }: ActividadesGridProps) {
   return (
     <div className="flex flex-col gap-3">
       {actividades.map((actividad) => (
-        <ActividadCard key={actividad.slug} actividad={actividad} onNavigate={onNavigate} />
+        <ActividadCard 
+          key={actividad.slug} 
+          actividad={actividad} 
+          onNavigate={onNavigate} 
+        />
       ))}
     </div>
   )
