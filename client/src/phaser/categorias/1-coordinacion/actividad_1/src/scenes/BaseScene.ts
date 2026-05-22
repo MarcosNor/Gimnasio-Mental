@@ -11,21 +11,32 @@ class BaseScene extends Phaser.Scene {
 
     public screenCenter!: [number, number];
     public fontSize: number;
+    public fontBotones: number;
     public lineHeight: number;
-    public fontOptions: Phaser.Types.GameObjects.Text.TextStyle;
     
     constructor(key: SceneKey) {
         super(key);
         
         
-        this.fontSize = 34;
+        this.fontSize = 30;
         this.lineHeight = 42;
 
-        this.fontOptions = {
+        this.fontBotones = 25;
+
+    }
+
+    get fontOptions(): Phaser.Types.GameObjects.Text.TextStyle {
+        return {
             fontSize: `${this.fontSize}px`,
+            color: '#000'
+        };
+    }
+
+    get fontOptionsBotones(): Phaser.Types.GameObjects.Text.TextStyle {
+        return {
+            fontSize: `${this.fontBotones}px`,
             color: '#fff'
         };
-
     }
     
     create() {
@@ -33,7 +44,7 @@ class BaseScene extends Phaser.Scene {
         const { width, height } = this.scale;
         this.screenCenter = [width / 2, height / 2];
 
-        this.add.image(0, 0, 'sky').setOrigin(0);
+        this.add.image(0, 0, 'sky').setOrigin(0).setScale(1.3);
     }
     
     

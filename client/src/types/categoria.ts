@@ -3,4 +3,5 @@ export interface Categoria {
   nombre: string
   beneficios: string
   slug: string
+  portada: string
 }

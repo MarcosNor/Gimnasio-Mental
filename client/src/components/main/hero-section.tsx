@@ -20,41 +20,42 @@ export function HeroSection() {
           Prueba
         </h1>
 
-        <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">
-          Pruebas basadas en la gamificación para poner a prueba tus habilidades.
-          Resuelve retos rápidamente, mejora tus records, desarrolla tus habilidades cognitivas
+        <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl whitespace-pre-line">
+          {`Pruebas basadas en la gamificación para poner a prueba tus habilidades.
+          Resuelve retos rápidamente, mejora tus records, 
+          ponte a prueba y demuestra tus habilidades cognitivas.`}
         </p>
 
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
           <a
-            href="#games"
+            href="#juegos"
             className="inline-flex h-12 items-center justify-center rounded-xl bg-primary px-8 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30"
           >
             <Zap className="mr-2 size-5" />
             Jugar
           </a>
           <a
-            href="#benefits"
+            href="#beneficios"
             className="inline-flex h-12 items-center justify-center rounded-xl border border-border bg-card px-8 text-base font-semibold text-foreground transition-colors hover:bg-secondary"
           >
-            Sobre la DGOAE
+            Beneficios del entrenamiento
           </a>
         </div>
 
         <div className="mt-14 flex items-center gap-8 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <TrendingUp className="size-4 text-primary" />
-            <span className="font-medium">10+ Games</span>
+            <span className="font-medium">10+ Juegos</span>
           </div>
           <div className="h-4 w-px bg-border" />
           <div className="flex items-center gap-2">
             <Brain className="size-4 text-primary" />
-            <span className="font-medium">Science-Backed</span>
+            <span className="font-medium">Respaldo cientifico</span>
           </div>
           <div className="hidden h-4 w-px bg-border sm:block" />
           <div className="hidden items-center gap-2 sm:flex">
             <Target className="size-4 text-primary" />
-            <span className="font-medium">100% Free</span>
+            <span className="font-medium">100% Gratis</span>
           </div>
         </div>
       </div>

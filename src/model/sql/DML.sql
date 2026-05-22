@@ -19,6 +19,10 @@ UPDATE cat_categoria SET slug = 'temporal' WHERE nombre = 'Temporal';
 UPDATE cat_categoria SET slug = 'condicionalidad' WHERE nombre = 'Condicionalidad';
 UPDATE cat_categoria SET slug = 'jerarquico' WHERE nombre = 'Jerárquico';
 UPDATE cat_categoria SET slug = 'deictico' WHERE nombre = 'Deíctico';
+
+update actividad set portada = '/images/portadas/actividades.png' where nombre = 'Coordinación';
+
+
   
 INSERT INTO actividad (id_categoria, nombre, explicacion, tiempoLimite, estatus_actividad) VALUES
 (1, 'Coordinación', 'Preguntas sencillas para relacionar dos o más temas', 60, TRUE);
@@ -31,9 +35,7 @@ INSERT INTO actividad (id_categoria, nombre, explicacion, tiempoLimite, estatus_
 
 select * from actividad;
 
-
 select * from cat_categoria;
-
 
 INSERT INTO item (id_item, id_actividad, pregunta, estatus_activo, dificultad) VALUES
 (1, 1, 'Si ''Xyl'' es idéntico a ''Xyl'', ¿cuál es el par de ''Xyl''?', 1, '1'),

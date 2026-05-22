@@ -44,7 +44,7 @@ class MenuScene extends BaseScene {
 
         // Se leerá de la base de datos
         const explanationText = 'Lee las preguntas y responde correctamente. ¿Podrás seguir el combo?';
-        this.add.text((width as number) / 2, (height as number) / 7, explanationText, { fontSize: '24px', color: '#000000' }).setOrigin(0.5);
+        this.add.text((width as number) / 2, (height as number) / 7, explanationText, { ...this.fontOptions }).setOrigin(0.5);
     }
     
     crearVideo() {
@@ -67,8 +67,7 @@ class MenuScene extends BaseScene {
     
         
         const label = this.add.text(0, 0, texto, {
-          fontSize: '18px',
-          color: '#fff',
+          ...this.fontOptionsBotones,
           align: 'center',
           wordWrap: { width: width - 20 }
         }).setOrigin(0.5)

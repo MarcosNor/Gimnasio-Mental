@@ -2,9 +2,12 @@
 
 import { useItems } from "@/hooks/useItems";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { createGame } from "../phaser/categorias/1-coordinacion/actividad_1/src/config";
 
 export default function JuegoPage() {
+
+  const { actividad } = useParams();
   const { items, isLoading, error } = useItems(1); // Reemplaza 1 con el ID de la actividad deseada
 
   useEffect(() => {
@@ -22,6 +25,7 @@ export default function JuegoPage() {
   if (isLoading) {
     return <div>Cargando preguntas...</div>;
   }
+
 
   if (error) {
     return <div>Error: {error}</div>;

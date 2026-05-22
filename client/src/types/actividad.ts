@@ -6,4 +6,5 @@ export interface Actividad {
   tiempoLimite: number
   estatus_actividad: boolean
   slug: string // slug para las URLs amigables
+  portada: string
 }

@@ -96,9 +96,8 @@ class PlayScene extends BaseScene {
   crearPreguntaText(){
     const { width } = this.scale;
 
-    this.preguntaText = this.add.text(width / 2, 100, '', {
-      fontSize: '24px',
-      color: '#000',
+    this.preguntaText = this.add.text(width / 2, 200, '', {
+      ...this.fontOptions,
       wordWrap: { width: width - 40 }
     }).setOrigin(0.5);
   }
@@ -143,8 +142,7 @@ class PlayScene extends BaseScene {
 
     
     const label = this.add.text(0, 0, texto, {
-      fontSize: '18px',
-      color: '#fff',
+      ...this.fontOptionsBotones,
       align: 'center',
       wordWrap: { width: width - 20 }
     }).setOrigin(0.5);

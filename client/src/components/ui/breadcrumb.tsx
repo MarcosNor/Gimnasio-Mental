@@ -1,7 +1,7 @@
 import { Link, useLocation, useMatches } from "react-router-dom";
 import { ChevronRight, Home } from "lucide-react";
 import { useCategorias } from "@/hooks/useCategorias";
-import { obtenerNombreVisible } from "@/lib/utils";
+import { useNombreVisible } from "@/hooks/useNombreVisible";
 
 // Interfaz para la estructura de las ligas
 interface Liga {
@@ -16,6 +16,9 @@ export default function Breadcrumb() {
   const { categorias, isLoading, error } = useCategorias()
   const matches = useMatches();
   const crumbs = matches;
+
+  // Hook para obtener el nombre "bonito" a travez del slug
+  const { obtenerNombreVisible } = useNombreVisible();
 
   // Rutas que vamos a ocultar en el breadcrumb ya que son prefijos
   const rutasOcultas = ["usuario", "auth"];
@@ -43,7 +46,7 @@ export default function Breadcrumb() {
         {ligas.map((liga, index) => {
           const isFirst = index === 0;
           const isLast = index === ligas.length - 1;
-          const displayName = obtenerNombreVisible(liga.name, categorias) || liga.name;
+          const displayName = obtenerNombreVisible(liga.name) || liga.name;
           return (
             <li 
               key ={liga.pathto} 

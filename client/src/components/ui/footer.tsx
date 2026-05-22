@@ -6,7 +6,7 @@ export function Footer() {
         <a href="/" className="flex items-center gap-2">
           <div className="flex items-center justify-center">
             <img
-              src={"/images/Logo_DGOAESEC.png"}
+              src={"/images/logos/Logo_DGOAESEC.png"}
               alt="Logo"
               className="w-90 max-w-md rounded-lg"
               crossOrigin="anonymous" 
@@ -17,13 +17,12 @@ export function Footer() {
           </span>
         </a>
         <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-          Free brain training games designed for high school students.
-          Sharpen your mind, boost your grades, and have fun doing it.
+          Toda buena construcción empieza por materiales y cimientos adecuados.
         </p>
         <div className="flex gap-6 text-sm text-muted-foreground">
-          <a href="#games" className="transition-colors hover:text-foreground">Games</a>
-          <a href="#benefits" className="transition-colors hover:text-foreground">Benefits</a>
-          <a href="#about" className="transition-colors hover:text-foreground">About</a>
+          <a href="#juegos" className="transition-colors hover:text-foreground">Juegos</a>
+          <a href="#beneficios" className="transition-colors hover:text-foreground">Beneficios</a>
+          <a href="#sobre" className="transition-colors hover:text-foreground">Sobre DGOAE</a>
         </div>
         <p className="text-xs text-muted-foreground">
           {'Built with care for student minds.'}

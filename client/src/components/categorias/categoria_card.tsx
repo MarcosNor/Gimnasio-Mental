@@ -17,13 +17,13 @@ export function CategoriaCard({ categoria, onNavigate }: CategoriaCardProps) {
 
   return (
     <Card className="group overflow-hidden py-0 transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
-      <div className="relative aspect-[16/9] overflow-hidden">
-        {/* <img
-          src={categoria.image}
-          alt={`${categoria.name} categoria preview`}
-          className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+      <div className="relative aspect-[4/5] overflow-hidden">
+        <img
+          src={categoria.portada}
+          alt={`${categoria.nombre} categoria preview`}
+          className="h-full w-full rounded-md object-cover"
           crossOrigin="anonymous"
-        /> */}
+        />
         <div className="absolute inset-0 bg-foreground/10 transition-opacity group-hover:opacity-0" />
         
         <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-background/90 px-2.5 py-1 backdrop-blur-sm">

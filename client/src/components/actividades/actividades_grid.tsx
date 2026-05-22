@@ -13,51 +13,52 @@ interface ActividadCardProps {
 export function ActividadCard({ actividad, onNavigate }: ActividadCardProps) {
 
   return (
-    <div className="group flex gap-4 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-md">
-      <div className="relative size-20 shrink-0 overflow-hidden rounded-lg">
-        {/* <img
-          src={actividad.image}
-          alt={actividad.title}
-          className="size-full object-cover transition-transform duration-300 group-hover:scale-110"
+    <div className="group overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
+
+      {/* Imagen */}
+      <div className="relative aspect-[16/9] overflow-hidden">
+
+        <img
+          src={actividad.portada}
+          alt={actividad.nombre}
+          className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
           crossOrigin="anonymous"
-        /> */}
+        />
+
+        <div className="absolute inset-0 bg-black/10 transition-opacity group-hover:opacity-0" />
+
       </div>
-      <div className="flex flex-1 flex-col justify-between">
+
+      {/* Contenido */}
+      <div className="flex flex-col gap-4 p-5">
+
         <div>
-          <div className="mb-1.5 flex flex-wrap items-center gap-2">
-            <Badge
-              variant="outline"
-              // className={`rounded-md text-[10px] font-semibold uppercase ${difficultyColor[actividad.difficulty]}`}
-            >
-              {/* {actividad.difficulty} */}
-            </Badge>
-            <div className="flex items-center gap-1 text-xs text-muted-foreground">
-              <Clock className="size-3" />
-              {actividad.tiempoLimite}
-            </div>
-            {/* {actividad.streak && actividad.streak > 0 && (
-              <div className="flex items-center gap-1 text-xs font-medium text-amber-500">
-                <Flame className="size-3" />
-                {actividad.streak} day streak
-              </div>
-            )} */}
+
+          <div className="mb-2 flex items-center gap-2 text-xs text-muted-foreground">
+            <Clock className="size-3" />
+            {actividad.tiempoLimite}
           </div>
-          <h4 className="font-semibold font-[family-name:var(--font-heading)]">
+
+          <h3 className="text-lg font-bold tracking-tight font-[family-name:var(--font-heading)]">
             {actividad.nombre}
-          </h4>
-          <p className="mt-0.5 line-clamp-1 text-sm text-muted-foreground">
+          </h3>
+
+          <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
             {actividad.explicacion}
           </p>
+
         </div>
-      </div>
-      <div className="flex items-center">
-        <Button 
+
+        <Button
           onClick={() => onNavigate(actividad.slug)}
-          size="icon" variant="secondary" className="rounded-lg">
-          <Play className="size-4" />
-          <span className="sr-only">Play {actividad.nombre}</span>
+          className="w-full gap-2"
+        >
+          Jugar
+          <Play className="size-4 transition-transform group-hover:translate-x-0.5" />
         </Button>
-      </div>  
+
+      </div>
+
     </div>
   )
 }

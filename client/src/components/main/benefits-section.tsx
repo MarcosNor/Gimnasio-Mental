@@ -24,34 +24,33 @@ function BenefitCard({ icon, title, description }: BenefitCardProps) {
 const benefits: BenefitCardProps[] = [
   {
     icon: <Brain className="size-6" />,
-    title: "Sharper Memory",
+    title: "Memoria más aguda",
     description:
-      "Regular brain training strengthens neural pathways, making it easier to retain information for tests and daily life.",
+      "El entrenamiento cerebral constante refuerza tus conexiones neuronales, facilitando la retención de información para tus exámenes y el día a día.",
   },
   {
     icon: <Clock className="size-6" />,
-    title: "Faster Thinking",
+    title: "Pensamiento veloz",
     description:
-      "Timed challenges push your brain to process information quicker, improving reaction time and decision-making under pressure.",
+      "Los desafíos contrarreloj obligan a tu cerebro a procesar información más rápido, mejorando tu tiempo de reacción y la toma de decisiones bajo presión.",
   },
   {
     icon: <Lightbulb className="size-6" />,
-    title: "Espacial",
+    title: "Dominio espacial",
     description:
-      "Acomodar objetos, seguir secuencias de movimientos, seguir direcciones espaciales en un mapa"
-      //"Logic and pattern games train you to think critically and approach problems from multiple angles.",
+      "Desafía tu mente acomodando objetos, siguiendo secuencias de movimientos y descifrando rutas en mapas para dominar tu entorno en 3D."
   },
   {
     icon: <Users className="size-6" />,
-    title: "Temporal",
+    title: "Precisión temporal",
     description:
-      "Ordenar eventos cronológicamente. Identificar el orden de accionesen una historia. Identificar orden de secuencia en un conjunto dispuesto por diferentes momentos",
+      "Ordena eventos cronológicamente, domina la secuencia de acciones en una historia y conecta momentos clave para perfeccionar tu lógica del tiempo.",
   },
 ]
 
 export function BenefitsSection() {
   return (
-    <section id="benefits" className="border-t border-border bg-secondary/50 px-6 py-20 md:py-28">
+    <section id="beneficios" className="border-t border-border bg-secondary/50 px-6 py-20 md:py-28">
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto mb-14 max-w-2xl text-center">
           <Badge variant="outline" className="mb-4 rounded-full px-4 py-1.5 text-sm font-medium">
@@ -61,8 +60,11 @@ export function BenefitsSection() {
             ¿Qué buscamos entrenar?
           </h2>
           <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
-            Brain games are more than just fun. Here is how consistent cognitive training
-            can help you perform better in school and life.
+          Gimnasio Pumental es un programa estructurado de ejercicios cognitivos
+          basados en el entrenamiento de Respuestas Relacionales Derivadas (DRR).
+          La aplicación de las RRD en la educación ha demostrado ser efectiva para mejorar
+          habilidades de razonamiento lógico, comprensión verbal, capacidad de abstracción,
+          velocidad perceptual; todas ellas cruciales para el desempeño intelectual y académico.
           </p>
         </div>
 

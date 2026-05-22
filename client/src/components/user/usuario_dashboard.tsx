@@ -6,73 +6,69 @@ import { ScoreCards } from "./score-cards"
 import { SkillsRadar } from "./skills-radar"
 import { ActivitiesGrid } from "./activities_grid"
 
+import { useTodasActividades } from "@/hooks/useActividades"
+import { type Actividad } from "@/types/actividad"
+
 import { useAuth } from "@/context/AuthContext.tsx"
 
 const userScores = [
-  { game: "Memory Match", score: 2450, maxScore: 5000, trend: "up" as const, trendValue: "+12%" },
-  { game: "Logic Puzzles", score: 1820, maxScore: 5000, trend: "up" as const, trendValue: "+8%" },
-  { game: "Word Scramble", score: 3100, maxScore: 5000, trend: "neutral" as const, trendValue: "0%" },
-  { game: "Speed Math", score: 980, maxScore: 5000, trend: "down" as const, trendValue: "-3%" },
+  { game: "Coordinación", score: 2450, maxScore: 5000, trend: "up" as const, trendValue: "+12%" },
+  { game: "Comparación", score: 1820, maxScore: 5000, trend: "up" as const, trendValue: "+8%" },
+  { game: "Oposición", score: 3100, maxScore: 5000, trend: "neutral" as const, trendValue: "0%" },
+  { game: "Espacial", score: 980, maxScore: 5000, trend: "down" as const, trendValue: "-3%" },
 ]
 
 const gameIcons: Record<string, React.ReactNode> = {
-  "Memory Match": <Brain className="size-5" />,
-  "Logic Puzzles": <Puzzle className="size-5" />,
-  "Word Scramble": <BookOpen className="size-5" />,
-  "Speed Math": <Calculator className="size-5" />,
+  "Coordinación": <Brain className="size-5" />,
+  "Comparación": <Puzzle className="size-5" />,
+  "Oposición": <BookOpen className="size-5" />,
+  "Espacial": <Calculator className="size-5" />,
 }
 
 const skillsData = [
-  { skill: "Memory", level: 78, maxLevel: 100 },
-  { skill: "Logic", level: 65, maxLevel: 100 },
-  { skill: "Speed", level: 52, maxLevel: 100 },
-  { skill: "Focus", level: 88, maxLevel: 100 },
-  { skill: "Language", level: 71, maxLevel: 100 },
-  { skill: "Math", level: 45, maxLevel: 100 },
-  { skill: "Pattern", level: 82, maxLevel: 100 },
-  { skill: "Problem", level: 69, maxLevel: 100 },
+  { skill: "Coordinación", level: 78, maxLevel: 100 },
+  { skill: "Comparación", level: 65, maxLevel: 100 },
+  { skill: "Oposición", level: 52, maxLevel: 100 },
+  { skill: "Espacial", level: 88, maxLevel: 100 },
+  { skill: "Temporal", level: 71, maxLevel: 100 },
+  { skill: "Condicionalidad", level: 45, maxLevel: 100 },
+  { skill: "Jerárquico", level: 82, maxLevel: 100 },
+  { skill: "Deíctico", level: 69, maxLevel: 100 },
 ]
+
+
 
 const activities = [
   {
     id: "1",
-    title: "Memory Match",
+    title: "Coordinación",
     description: "Test your visual memory with card matching challenges",
-    image: "/images/game-memory.jpg",
+    image: "/images/portadas/actividades/coordinacion.png",
     difficulty: "Easy" as const,
     duration: "3 min",
     streak: 5,
   },
   {
     id: "2",
-    title: "Logic Puzzles",
-    description: "Solve complex spatial and pattern recognition puzzles",
-    image: "/images/game-puzzle.jpg",
+    title: "Matemáticas locas",
+    description: "Resuelve rompecabezas complejos de reconocimiento espacial y patrones",
+    image: "/images/portadas/actividades/Actividad 2.jpg",
     difficulty: "Hard" as const,
     duration: "10 min",
     streak: 0,
   },
   {
     id: "3",
-    title: "Word Scramble",
+    title: "Cubo-Juego",
     description: "Unscramble letters to form words and build vocabulary",
-    image: "/images/game-word.jpg",
+    image: "/images/portadas/actividades/Actividad de comparacion.jpeg",
     difficulty: "Medium" as const,
     duration: "5 min",
     streak: 12,
   },
-  {
-    id: "4",
-    title: "Speed Math",
-    description: "Race against time solving arithmetic equations",
-    image: "/images/game-math.jpg",
-    difficulty: "Medium" as const,
-    duration: "5 min",
-    streak: 2,
-  },
 ]
 
-export function UserDashboard() {
+export function UsuarioDashboard() {
 
   const { user } = useAuth();
 
@@ -91,13 +87,13 @@ export function UserDashboard() {
             </Badge>
           </div>
           <p className="text-muted-foreground">
-            Track your progress and keep training your brain
+            Controla tu progreso y sigue entrenando tu cerebro.
           </p>
         </div>
 
         <section className="mb-10">
           <h2 className="mb-4 text-lg font-semibold font-[family-name:var(--font-heading)]">
-            Your Scores
+            Tus puntuaciones
           </h2>
           <ScoreCards scores={userScores} icons={gameIcons} />
         </section>
@@ -106,13 +102,13 @@ export function UserDashboard() {
           <section>
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-lg font-semibold font-[family-name:var(--font-heading)]">
-                Available Activities
+                Actividades disponibles
               </h2>
               <Link 
                 to="categorias"
                 className="text-sm font-medium text-primary hover:underline"
               >
-                View all
+                Ver las categorias
               </Link>
             </div>
             <ActivitiesGrid activities={activities} />
@@ -123,7 +119,7 @@ export function UserDashboard() {
               <CardHeader className="pb-2">
                 <CardTitle className="flex items-center gap-2 text-lg font-[family-name:var(--font-heading)]">
                   <Target className="size-5 text-primary" />
-                  Skills Overview
+                  Árbol de habilidades
                 </CardTitle>
               </CardHeader>
               <CardContent className="flex justify-center pb-4">

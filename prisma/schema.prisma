@@ -14,6 +14,7 @@ model actividad {
   tiempoLimite      Int?
   estatus_actividad Boolean?       @default(false)
   slug              String?        @unique(map: "slug") @db.VarChar(100)
+  portada           String?        @db.VarChar(255)
   cat_categoria     cat_categoria  @relation(fields: [id_categoria], references: [id_categoria], onDelete: Cascade, map: "fk_actividad_categoria")
   item              item[]
   stat_usuario      stat_usuario[]
@@ -26,6 +27,7 @@ model cat_categoria {
   nombre       String      @unique(map: "nombre") @db.VarChar(50)
   beneficios   String?     @db.Text
   slug         String?     @unique(map: "slug") @db.VarChar(100)
+  portada      String?     @db.VarChar(255)
   actividad    actividad[]
 }
 
