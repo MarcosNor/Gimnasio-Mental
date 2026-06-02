@@ -35,6 +35,10 @@ export const ErrorDictionary = {
     status: 404,
     message: "No se encontraron items en la actividad solicitada"
   },
+  THERE_IS_NO_ACTIVITY: {
+    status: 404,
+    message: "No hay juego asociado a esta actividad"
+  },
   CAT_NOT_FOUND: {
     status: 404,
     message: "No se encontró la categoria solicitada"

@@ -16,7 +16,6 @@ export const useActividades = (slugCategoria: string) => {
     try {
 
       const res = await getActividades(slugCategoria)
-      console.log("Respuesta del backend:", res)
 
       if (!res.data) {
       throw new Error("Error al cargar las actividades")
@@ -52,7 +51,6 @@ export const useTodasActividades = () => {
     try {
 
       const res = await getTodasActividades()
-      console.log("Respuesta del backend:", res)
 
       if (!res.data) {
       throw new Error("Error al cargar las actividades")

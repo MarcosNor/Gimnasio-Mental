@@ -25,7 +25,7 @@ export const getItemsByActividadId = async (req: Request, res: Response, next: N
     });
 
     if (!items || items.length === 0) {
-      throw new CustomError("ITEMS_NOT_FOUND");
+      throw new CustomError("THERE_IS_NO_ACTIVITY");
     }
 
     res.json(items);

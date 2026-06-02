@@ -11,3 +11,9 @@ export interface Item {
 
   respuesta: Respuesta[]
 }
+
+export type ItemsPorDificultad = {
+  FACILES: Item[]
+  MEDIAS: Item[]
+  DIFICILES: Item[]
+}

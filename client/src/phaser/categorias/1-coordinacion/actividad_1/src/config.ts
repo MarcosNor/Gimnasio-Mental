@@ -9,6 +9,7 @@ import MenuScene from './scenes/MenuScene';
 import ScoreScene from './scenes/ScoreScene';
 
 import { type Item } from '@/types/item';
+import { prepararPreguntas } from './utils/prepararPreguntas';
 
 const WIDTH = 1446;
 const HEIGHT = 720;

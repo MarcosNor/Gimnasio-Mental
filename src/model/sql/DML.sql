@@ -18,11 +18,14 @@ UPDATE cat_categoria SET slug = 'espacial' WHERE nombre = 'Espacial';
 UPDATE cat_categoria SET slug = 'temporal' WHERE nombre = 'Temporal';
 UPDATE cat_categoria SET slug = 'condicionalidad' WHERE nombre = 'Condicionalidad';
 UPDATE cat_categoria SET slug = 'jerarquico' WHERE nombre = 'Jerárquico';
-UPDATE cat_categoria SET slug = 'deictico' WHERE nombre = 'Deíctico';
+UPDATE actividad SET estatus_actividad = true WHERE id_actividad = 2;
 
-update actividad set portada = '/images/portadas/actividades.png' where nombre = 'Coordinación';
+update respuesta set id_item = 51 where id_respuesta = 204;
 
+select * from respuesta;
+select * from item;
 
+update actividad set estatus_actividad = TRUE where id_actividad = 2;
   
 INSERT INTO actividad (id_categoria, nombre, explicacion, tiempoLimite, estatus_actividad) VALUES
 (1, 'Coordinación', 'Preguntas sencillas para relacionar dos o más temas', 60, TRUE);
@@ -31,7 +34,7 @@ INSERT INTO actividad (id_categoria, nombre, explicacion, tiempoLimite, estatus_
 (1, 'Actividad 2', 'Actividad de prueba', 60, TRUE);
 
 INSERT INTO actividad (id_categoria, nombre, explicacion, tiempoLimite, estatus_actividad) VALUES
-(2, 'Actividad de comparacion', 'Actividad de prueba', 60, TRUE);
+(2, 'Actividad de comparación', 'Actividad de prueba', 60, TRUE);
 
 select * from actividad;
 
@@ -140,3 +143,405 @@ INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
 (48, 'No', 1, 1), (48, 'Sí', 1, 0), (48, 'A veces', 1, 0), (48, 'Siempre', 1, 0),
 (49, 'Sí', 1, 1), (49, 'No', 1, 0), (49, 'Nunca', 1, 0), (49, 'I es I', 1, 0),
 (50, 'Sí', 1, 1), (50, 'No', 1, 0), (50, 'Solo A y B', 1, 0), (50, 'Solo B y C', 1, 0);
+
+select * from respuesta;
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Sol'' es igual a ''9-9'', ¿cómo se escribe ''Sol''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(1, '9-9', TRUE, TRUE),
+(1, '9-0', TRUE, FALSE),
+(1, '0-9', TRUE, FALSE),
+(1, '9-9-9', TRUE, FALSE);
+
+
+-- Pregunta 2
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Encuentra la réplica exacta de ''##@@##'':', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(52, '#@@###', TRUE, FALSE),
+(52, '##@@##', TRUE, TRUE),
+(52, '##@@@#', TRUE, FALSE),
+(52, '#@#@#@', TRUE, FALSE);
+
+-- Pregunta 3
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Azul'' equivale a ''Cuadrado'', ¿qué es ''Azul''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(53, 'Azul', TRUE, FALSE),
+(53, 'Triángulo', TRUE, FALSE),
+(53, 'Cuadrado', TRUE, TRUE),
+(53, 'Círculo', TRUE, FALSE);
+
+-- Pregunta 4
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, '¿Cuál es el gemelo idéntico de ''XYZ-123''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(54, 'XYX-123', TRUE, FALSE),
+(54, 'XYZ-132', TRUE, FALSE),
+(54, 'XZY-123', TRUE, FALSE),
+(54, 'XYZ-123', TRUE, TRUE);
+
+-- Pregunta 5
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''C'' = ''D'', entonces ''C'' es:', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(55, 'D', TRUE, TRUE),
+(55, 'C', TRUE, FALSE),
+(55, 'E', TRUE, FALSE),
+(55, 'A', TRUE, FALSE);
+
+-- Pregunta 6
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Verde'' es ''G1'', ¿''Verde'' es?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(56, 'G2', TRUE, FALSE),
+(56, 'G1', TRUE, TRUE),
+(56, 'V1', TRUE, FALSE),
+(56, 'G0', TRUE, FALSE);
+
+-- Pregunta 7
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Selecciona el equivalente a ''===+==='':', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(57, '==++===', TRUE, FALSE),
+(57, '===+===', TRUE, FALSE),
+(57, '===+===', TRUE, TRUE),
+(57, '=+=====', TRUE, FALSE);
+
+-- Pregunta 8
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''K-9'' es ''Perro'', ¿qué es ''K-9''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(58, 'K-9', TRUE, FALSE),
+(58, 'Gato', TRUE, FALSE),
+(58, 'Pájaro', TRUE, FALSE),
+(58, 'Perro', TRUE, TRUE);
+
+-- Pregunta 9
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, '¿Cuál es el par de ''A-B-C-D''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(59, 'A-B-C-D', TRUE, TRUE),
+(59, 'A-B-D-C', TRUE, FALSE),
+(59, 'A-C-B-D', TRUE, FALSE),
+(59, 'B-A-C-D', TRUE, FALSE);
+
+-- Pregunta 10
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Roma'' es igual a ''Amor'', ¿qué es ''Roma''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(60, 'Roma', TRUE, FALSE),
+(60, 'Amor', TRUE, TRUE),
+(60, 'Ramo', TRUE, FALSE),
+(60, 'Mora', TRUE, FALSE);
+
+-- Pregunta 11
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''555'' es ''Fuego'', ¿qué es ''555''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(61, '555', TRUE, FALSE),
+(61, 'Agua', TRUE, FALSE),
+(61, 'Fuego', TRUE, TRUE),
+(61, 'Tierra', TRUE, FALSE);
+
+-- Pregunta 12
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Identifica el duplicado exacto de ''(((X)))'':', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(62, '((X))', TRUE, FALSE),
+(62, '(((Y)))', TRUE, FALSE),
+(62, '(((X))', TRUE, FALSE),
+(62, '(((X)))', TRUE, TRUE);
+
+-- Pregunta 13
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Gato'' es ''Miau'', ¿''Miau'' representa a?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(63, 'Gato', TRUE, TRUE),
+(63, 'Perro', TRUE, FALSE),
+(63, 'Miau', TRUE, FALSE),
+(63, 'Vaca', TRUE, FALSE);
+
+-- Pregunta 14
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Relaciona el código ''W-88'' con su igual:', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(64, 'W-89', TRUE, FALSE),
+(64, 'W-88', TRUE, TRUE),
+(64, '88-W', TRUE, FALSE),
+(64, 'M-88', TRUE, FALSE);
+
+-- Pregunta 15
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Arriba'' es ''U-1'', ¿''Arriba'' es?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(65, 'D-1', TRUE, FALSE),
+(65, 'U-2', TRUE, FALSE),
+(65, 'U-1', TRUE, TRUE),
+(65, 'U-0', TRUE, FALSE);
+
+-- Pregunta 16
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''T'' es idéntico a ''T'', ¿cuál es el par de ''T''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(66, 'F', TRUE, FALSE),
+(66, 't', TRUE, FALSE),
+(66, 'X', TRUE, FALSE),
+(66, 'T', TRUE, TRUE);
+
+-- Pregunta 17
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''1234'' es ''Número'', ¿qué es ''1234''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(67, 'Número', TRUE, TRUE),
+(67, '1234', TRUE, FALSE),
+(67, 'Letra', TRUE, FALSE),
+(67, 'Signo', TRUE, FALSE);
+
+-- Pregunta 18
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Encuentra la pareja idéntica de ''<<<*>>>'':', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(68, '<<*>>', TRUE, FALSE),
+(68, '<<<*>>>', TRUE, TRUE),
+(68, '>>>*<<<', TRUE, FALSE),
+(68, '<<<#>>>', TRUE, FALSE);
+
+-- Pregunta 19
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Blanco'' es igual a ''Luz'', ¿qué es ''Blanco''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(69, 'Blanco', TRUE, FALSE),
+(69, 'Oscuro', TRUE, FALSE),
+(69, 'Luz', TRUE, TRUE),
+(69, 'Negro', TRUE, FALSE);
+
+-- Pregunta 20
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''H'' = ''I'', entonces ''H'' es:', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(70, 'H', TRUE, FALSE),
+(70, 'J', TRUE, FALSE),
+(70, 'G', TRUE, FALSE),
+(70, 'I', TRUE, TRUE);
+
+-- Pregunta 21
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Selecciona el equivalente exacto de ''[--O--]'':', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(71, '[--O--]', TRUE, TRUE),
+(71, '[-O--]', TRUE, FALSE),
+(71, '[--0--]', TRUE, FALSE),
+(71, '[--O-]', TRUE, FALSE);
+
+-- Pregunta 22
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Sur'' es ''S2'', ¿''Sur'' es?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(72, 'S1', TRUE, FALSE),
+(72, 'S2', TRUE, TRUE),
+(72, 'N2', TRUE, FALSE),
+(72, 'S3', TRUE, FALSE);
+
+-- Pregunta 23
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''J-5'' es ''Y'', ¿qué es ''J-5''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(73, 'J-5', TRUE, FALSE),
+(73, 'X', TRUE, FALSE),
+(73, 'Y', TRUE, TRUE),
+(73, 'Z', TRUE, FALSE);
+
+-- Pregunta 24
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, '¿Cuál es el par idéntico de ''Q-W-E-R''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(74, 'Q-W-R-E', TRUE, FALSE),
+(74, 'Q-E-W-R', TRUE, FALSE),
+(74, 'W-Q-E-R', TRUE, FALSE),
+(74, 'Q-W-E-R', TRUE, TRUE);
+
+-- Pregunta 25
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Sol'' se escribe ''1-1'', ¿cómo se escribe ''Sol''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(75, '1-1', TRUE, TRUE),
+(75, '1-0', TRUE, FALSE),
+(75, '0-1', TRUE, FALSE),
+(75, '1-1-1', TRUE, FALSE);
+
+-- Pregunta 26
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Pan'' es igual a ''Trigo'', ¿qué es ''Pan''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(76, 'Pan', TRUE, FALSE),
+(76, 'Trigo', TRUE, TRUE),
+(76, 'Arroz', TRUE, FALSE),
+(76, 'Maíz', TRUE, FALSE);
+
+-- Pregunta 27
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Identifica el gemelo de ''>>>V<<<'':', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(77, '>>V<<', TRUE, FALSE),
+(77, '>>>U<<<', TRUE, FALSE),
+(77, '>>>V<<<', TRUE, TRUE),
+(77, '<<<V>>>', TRUE, FALSE);
+
+-- Pregunta 28
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Negro'' equivale a ''Noche'', ¿qué es ''Negro''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(78, 'Negro', TRUE, FALSE),
+(78, 'Día', TRUE, FALSE),
+(78, 'Gris', TRUE, FALSE),
+(78, 'Noche', TRUE, TRUE);
+
+-- Pregunta 29
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''X'' = ''Y'', entonces ''X'' es:', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(79, 'Y', TRUE, TRUE),
+(79, 'X', TRUE, FALSE),
+(79, 'Z', TRUE, FALSE),
+(79, 'W', TRUE, FALSE);
+
+-- Pregunta 30
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Selecciona el equivalente a ''***#***'':', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(80, '**##***', TRUE, FALSE),
+(80, '***#***', TRUE, TRUE),
+(80, '***#**', TRUE, FALSE),
+(80, '****#***', TRUE, FALSE);
+
+-- Pregunta 31
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Este'' es ''E3'', ¿''Este'' es?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(81, 'E1', TRUE, FALSE),
+(81, 'O3', TRUE, FALSE),
+(81, 'E3', TRUE, TRUE),
+(81, 'E2', TRUE, FALSE);
+
+-- Pregunta 32
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''L-2'' es ''Z'', ¿qué es ''L-2''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(82, 'L-2', TRUE, FALSE),
+(82, 'Y', TRUE, FALSE),
+(82, 'A', TRUE, FALSE),
+(82, 'Z', TRUE, TRUE);
+
+-- Pregunta 33
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, '¿Cuál es el par de ''M-N-O''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(83, 'M-N-O', TRUE, TRUE),
+(83, 'M-O-N', TRUE, FALSE),
+(83, 'N-M-O', TRUE, FALSE),
+(83, 'M-N-P', TRUE, FALSE);
+
+-- Pregunta 34
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Agua'' es ''H2O'', ''H2O'' es:', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(84, 'H2O', TRUE, FALSE),
+(84, 'Agua', TRUE, TRUE),
+(84, 'Gas', TRUE, FALSE),
+(84, 'Hielo', TRUE, FALSE);
+
+-- Pregunta 35
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Empareja el código ''A-00'' con su igual:', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(85, 'A-01', TRUE, FALSE),
+(85, '00-A', TRUE, FALSE),
+(85, 'A-00', TRUE, TRUE),
+(85, 'B-00', TRUE, FALSE);
+
+-- Pregunta 36
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Hola'' es igual a ''Chao'', ¿qué es ''Hola''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(86, 'Hola', TRUE, FALSE),
+(86, 'Adiós', TRUE, FALSE),
+(86, 'Onda', TRUE, FALSE),
+(86, 'Chao', TRUE, TRUE);
+
+-- Pregunta 37
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Encuentra la réplica exacta de ''[$$$$]'':', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(87, '[$$$$]', TRUE, TRUE),
+(87, '[$$$]', TRUE, FALSE),
+(87, '[$$$$$]', TRUE, FALSE),
+(87, '[$ $ $ $]', TRUE, FALSE);
+
+-- Pregunta 38
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''777'' es ''Suerte'', ¿qué es ''777''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(88, '777', TRUE, FALSE),
+(88, 'Suerte', TRUE, TRUE),
+(88, 'Mala', TRUE, FALSE),
+(88, 'Fortuna', TRUE, FALSE);
+
+-- Pregunta 39
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Identifica el gemelo de ''<<<A>>>'':', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(89, '<<A>>', TRUE, FALSE),
+(89, '<<<B>>>', TRUE, FALSE),
+(89, '<<<A>>>', TRUE, TRUE),
+(89, '>>>A<<<', TRUE, FALSE);
+
+-- Pregunta 40
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Abajo'' es ''D-1'', ¿''Abajo'' es?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(90, 'U-1', TRUE, FALSE),
+(90, 'D-2', TRUE, FALSE),
+(90, 'D-0', TRUE, FALSE),
+(90, 'D-1', TRUE, TRUE);
+
+-- Pregunta 41
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''M'' es idéntico a ''M'', ¿cuál es el par de ''M''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(91, 'M', TRUE, TRUE),
+(91, 'W', TRUE, FALSE),
+(91, 'N', TRUE, FALSE),
+(91, 'm', TRUE, FALSE);
+
+-- Pregunta 42
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''9999'' es ''Fin'', ¿qué es ''9999''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(92, '9999', TRUE, FALSE),
+(92, 'Fin', TRUE, TRUE),
+(92, 'Inicio', TRUE, FALSE),
+(92, 'Medio', TRUE, FALSE);
+
+-- Pregunta 43
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Selecciona el equivalente a ''///O///'':', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(93, '//O///', TRUE, FALSE),
+(93, '///0///', TRUE, FALSE),
+(93, '///O///', TRUE, TRUE),
+(93, '///O//', TRUE, FALSE);
+
+-- Pregunta 44
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Rojo'' es igual a ''Fuego'', ¿qué es ''Rojo''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(94, 'Rojo', TRUE, FALSE),
+(94, 'Agua', TRUE, FALSE),
+(94, 'Aire', TRUE, FALSE),
+(94, 'Fuego', TRUE, TRUE);
+
+-- Pregunta 45
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''P'' = ''Q'', entonces ''P'' es:', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(95, 'Q', TRUE, TRUE),
+(95, 'P', TRUE, FALSE),
+(95, 'R', TRUE, FALSE),
+(95, 'O', TRUE, FALSE);
+
+-- Pregunta 46
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Relaciona el código ''X-10'' con su igual:', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(96, 'X-01', TRUE, FALSE),
+(96, 'X-10', TRUE, TRUE),
+(96, '10-X', TRUE, FALSE),
+(96, 'Y-10', TRUE, FALSE);
+
+-- Pregunta 47
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Oeste'' es ''O4'', ¿''Oeste'' es?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(97, 'O1', TRUE, FALSE),
+(97, 'E4', TRUE, FALSE),
+(97, 'O4', TRUE, TRUE),
+(97, 'O3', TRUE, FALSE);
+
+-- Pregunta 48
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''K-1'' es ''W'', ¿qué es ''K-1''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(98, 'K-1', TRUE, FALSE),
+(98, 'V', TRUE, FALSE),
+(98, 'X', TRUE, FALSE),
+(98, 'W', TRUE, TRUE);
+
+-- Pregunta 49
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, '¿Cuál es el par de ''U-V-W''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(99, 'U-V-W', TRUE, TRUE),
+(99, 'U-W-V', TRUE, FALSE),
+(99, 'V-U-W', TRUE, FALSE),
+(99, 'U-V-X', TRUE, FALSE);
+
+-- Pregunta 50
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Luna'' es igual a ''Plata'', ¿qué es ''Luna''?', TRUE, '1');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(100, 'Luna', TRUE, FALSE),
+(100, 'Plata', TRUE, TRUE),
+(100, 'Oro', TRUE, FALSE),
+(100, 'Cobre', TRUE, FALSE);

@@ -27,7 +27,7 @@ export const useItems = (id_actividad: number) => {
 
     } catch (err) {
       console.error("Fallo al conectar con el backend:", err);
-      setError("No pudimos cargar las preguntas.");
+      setError("No pudimos cargar los items.");
     } finally {
       setIsLoading(false);
     }

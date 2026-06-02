@@ -17,6 +17,7 @@ model actividad {
   portada           String?        @db.VarChar(255)
   cat_categoria     cat_categoria  @relation(fields: [id_categoria], references: [id_categoria], onDelete: Cascade, map: "fk_actividad_categoria")
   item              item[]
+  partida           partida[]
   stat_usuario      stat_usuario[]
 
   @@index([id_categoria], map: "fk_actividad_categoria")
@@ -51,6 +52,7 @@ model usuario {
   password            String         @db.VarChar(255)
   fecha_registro      DateTime       @default(now()) @db.Timestamp(0)
   fecha_actualizacion DateTime       @default(now()) @db.Timestamp(0)
+  partida             partida[]
   stat_usuario        stat_usuario[]
 }
 
@@ -75,6 +77,31 @@ model respuesta {
   item           item     @relation(fields: [id_item], references: [id_item], onDelete: Cascade, map: "fk_respuesta_item")
 
   @@index([id_item], map: "fk_respuesta_item")
+}
+
+model estadistica {
+  id_partida       Int     @id
+  aciertos_facil   Int?    @default(0)
+  total_facil      Int?    @default(0)
+  aciertos_medio   Int?    @default(0)
+  total_medio      Int?    @default(0)
+  aciertos_dificil Int?    @default(0)
+  total_dificil    Int?    @default(0)
+  partida          partida @relation(fields: [id_partida], references: [id_partida], onDelete: Cascade, map: "fk_aciertos_partida")
+}
+
+model partida {
+  id_partida   Int          @id @default(autoincrement())
+  id_actividad Int
+  id_usuario   Int
+  puntuacion   Int?         @default(0)
+  fecha        DateTime     @default(now()) @db.Timestamp(0)
+  estadistica  estadistica?
+  actividad    actividad    @relation(fields: [id_actividad], references: [id_actividad], map: "fk_partida_actividad")
+  usuario      usuario      @relation(fields: [id_usuario], references: [id_usuario], map: "fk_partida_usuario")
+
+  @@index([id_actividad], map: "fk_partida_actividad")
+  @@index([id_usuario], map: "fk_partida_usuario")
 }
 
 enum item_dificultad {

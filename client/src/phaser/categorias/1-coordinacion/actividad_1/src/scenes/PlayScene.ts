@@ -1,7 +1,11 @@
 import * as Phaser from 'phaser';
 import { SCENE_KEYS } from '../utils/common';
 import BaseScene from './BaseScene';
+
+import { prepararPreguntas } from '../utils/prepararPreguntas';
+
 import { type Item } from '@/types/item';
+import { type Estadisticas } from '../types/estadisticas';
 
 
 class PlayScene extends BaseScene {
@@ -10,17 +14,17 @@ class PlayScene extends BaseScene {
   private buttonWidth = 180;
   private buttonHeight = 70;
 
-  private indice = 0;
-
   private aciertos = 0;
   private puntuacion = 0;
 
   private multiplicador = 1;
-  private combo = 0;
+  private correctasSeguidas = 0;
+  private incorrectasSeguidas = 0;
   private esCombo = false;
-  private tiempoLimiteCombo = 3000; 
+  // El combo se drena en 20 segundos
+  private tiempoLimiteCombo = 20000; 
   private comboEnergia = 0;
-  private readonly COMBO_MAX = 500;
+  private readonly COMBO_MAX = 1000;
 
   private barraCombo!: Phaser.GameObjects.Graphics;
   private fondoBarraCombo!: Phaser.GameObjects.Graphics;
@@ -42,22 +46,107 @@ class PlayScene extends BaseScene {
   private botones: Phaser.GameObjects.Container[] = [];
   private bloqueado = false;
 
-  private preguntas: Item[];
+  private itemsOriginales: Item[];
+
+  private preguntasFaciles!: Item[];
+  private preguntasMedias!: Item[];
+  private preguntasDificiles!: Item[];
+
+  private dificultadActual: 'FACIL' | 'MEDIO' | 'DIFICIL' = 'FACIL';
+
+  private indicesDificultad: {
+    FACIL: number;
+    MEDIO: number;
+    DIFICIL: number;
+  }
+
+  private estadisticas: Estadisticas;
+
+  // Sonidos del juego
+  private sonidoResponder!: Phaser.Sound.BaseSound;
+  private sonidoIncorrecto!: Phaser.Sound.BaseSound;
+
 
   constructor(preguntas: Item[]) {
+
     super(SCENE_KEYS.PLAY);
-    this.preguntas = preguntas;
+
+    this.itemsOriginales = preguntas;
+    
+    this.indicesDificultad = {
+      FACIL: 0,
+      MEDIO: 0,
+      DIFICIL: 0
+    }
+
+    this.estadisticas = {
+      FACIL: {
+        respondidas: 0,
+        correctas: 0,
+        incorrectas: 0,
+      },
+
+      MEDIO: {
+        respondidas: 0,
+        correctas: 0,
+        incorrectas: 0,
+      },
+
+      DIFICIL: {
+        respondidas: 0,
+        correctas: 0,
+        incorrectas: 0,
+      }
+    }
   }
   
   public create(): void {
 
     super.create();
 
+    // Creamos las preguntas aqui para hacer shuffle cada que se inicie PlayScene
+    const preguntasPreparasdas = prepararPreguntas(this.itemsOriginales);
+    this.preguntasFaciles = preguntasPreparasdas.FACILES;
+    this.preguntasMedias = preguntasPreparasdas.MEDIAS;
+    this.preguntasDificiles = preguntasPreparasdas.DIFICILES;
+
     this.aciertos = 0;
     this.puntuacion = 0;
     this.multiplicador = 1;
-    this.combo = 0;
+
+    this.correctasSeguidas = 0;
+    this.incorrectasSeguidas = 0;
+
     this.esCombo = false;
+    this.comboEnergia = 0;
+
+    this.dificultadActual = 'FACIL';
+
+    this.indicesDificultad = {
+      FACIL: 0,
+      MEDIO: 0,
+      DIFICIL: 0
+    }
+
+    this.estadisticas = {
+      FACIL: {
+        respondidas: 0,
+        correctas: 0,
+        incorrectas: 0,
+      },
+
+      MEDIO: {
+        respondidas: 0,
+        correctas: 0,
+        incorrectas: 0,
+      },
+
+      DIFICIL: {
+        respondidas: 0,
+        correctas: 0,
+        incorrectas: 0,
+      }
+    }
 
     this.crearBackButton(SCENE_KEYS.MENU);
 
@@ -70,9 +159,11 @@ class PlayScene extends BaseScene {
 
     this.crearTimer();
 
+    this.crearSonidos();
+
   }
 
-  update(time: number, delta: number): void {
+  update(delta: number): void {
 
     // No drenar combo si está bloqueado (esperando animacion)
     if (this.bloqueado) return;
@@ -81,9 +172,6 @@ class PlayScene extends BaseScene {
     if( this.comboEnergia <= 0) {
       return;
     }
-
-    console.log(this.comboEnergia);
-
     
     // Drenar combo
     this.comboEnergia -= (delta / this.tiempoLimiteCombo) * this.COMBO_MAX;
@@ -91,6 +179,11 @@ class PlayScene extends BaseScene {
     this.comboEnergia = Phaser.Math.Clamp(this.comboEnergia, 0, this.COMBO_MAX);
 
     this.actualizarBarraCombo();
+  }
+
+  crearSonidos(){
+    this.sonidoResponder = this.sound.add('sonidoResponder');
+    this.sonidoIncorrecto = this.sound.add('sonidoIncorrecto');
   }
 
   crearPreguntaText(){
@@ -104,7 +197,7 @@ class PlayScene extends BaseScene {
 
   crearPregunta() {
 
-    const pregunta = this.preguntas[this.indice];
+    const pregunta = this.obtenerPreguntaActual();
     if (!pregunta) return;
 
     const { width, height } = this.scale;
@@ -180,8 +273,14 @@ class PlayScene extends BaseScene {
     const width = this.buttonWidth;
     const height = this.buttonHeight;
 
+    const dificultadRespondida = this.dificultadActual;
+    this.estadisticas[dificultadRespondida].respondidas++;
+
     if (this.bloqueado) return;
     this.bloqueado = true;
+
+    // Evitamos doble click bloqueando los botones
+    this.botones.forEach(boton => boton.disableInteractive());
 
     // pintar resultado
 
@@ -196,20 +295,10 @@ class PlayScene extends BaseScene {
     }).setOrigin(0.5)
 
     if (esCorrecta) {
-      this.incrementarPuntuacion();
-      this.aciertos++;
-      this.logicaCombo();
-      this.comboEnergia += 400;
+      this.esCorrecta(dificultadRespondida);
 
     } else {
-      if (this.esCombo) {
-        this.crearPerderCombo();
-      }
-      this.esCombo = false;
-      this.comboEnergia -= 40;
-
-      this.combo = 0;
-      this.multiplicador = 1;
+      this.esIncorrecta(dificultadRespondida);
     }
 
     this.comboEnergia = Phaser.Math.Clamp(
@@ -219,7 +308,6 @@ class PlayScene extends BaseScene {
     );
 
     this.actualizarBarraCombo();
-
 
     this.tweens.add({
       targets: icono,
@@ -235,11 +323,130 @@ class PlayScene extends BaseScene {
     });
   }
 
-  siguientePregunta() {
-    this.indice++;
-    if (this.indice >= this.preguntas.length) {
-      this.indice = 0; // Reiniciar al inicio
+  // Lógica si se ha respondido correctamente
+  esCorrecta(dificultadRespondida: 'FACIL' | 'MEDIO' | 'DIFICIL') {
+    this.incrementarPuntuacion();
+      this.aciertos++;
+      this.comboEnergia += 400;
+
+      // Aumentamos el número de respuestas correctas seguidas y las estadísticas
+      this.correctasSeguidas++;
+      this.incorrectasSeguidas = 0;
+      this.estadisticas[dificultadRespondida].correctas++;
+
+    if(this.correctasSeguidas % 3 === 0) {
+      this.esCombo = true;
+      this.subirDificultad();
+      this.correctasSeguidas = 0;
     }
+
+    this.sonidoResponder.play();
+  }
+
+  // Lógica si se ha respondido incorrectamente
+  esIncorrecta(dificultadRespondida: 'FACIL' | 'MEDIO' | 'DIFICIL') {
+    if (this.esCombo) {
+        this.crearPerderCombo();
+    }
+    this.esCombo = false;
+    this.comboEnergia -= 200;
+    
+    // Aumentamos el número de respuestas incorrectas seguidas y las estadísticas
+    this.incorrectasSeguidas++;
+    this.correctasSeguidas = 0;
+    this.estadisticas[dificultadRespondida].incorrectas++;
+
+    if(this.incorrectasSeguidas % 2 == 0) {
+      this.bajarDificultad();
+    }
+
+    this.sonidoIncorrecto.play();
+  }
+
+  subirDificultad() {
+    if (this.dificultadActual === 'DIFICIL') { return }
+
+    if(this.dificultadActual === 'FACIL') {
+      this.dificultadActual = 'MEDIO';
+    } else if(this.dificultadActual === 'MEDIO') {
+      this.dificultadActual = 'DIFICIL';
+    }
+
+
+    const dificultadAumentada = this.add.text(this.screenCenter[0], this.screenCenter[1], `¡Dificultad aumentada!`, {
+      fontSize: '48px',
+      color: '#0ff',
+      stroke: '#000',
+      strokeThickness: 4
+    }).setOrigin(0.5).setDepth(1000).setScrollFactor(0);
+
+    this.tweens.add({
+      targets: dificultadAumentada,
+      scale: { from: 0.99, to: 1 },
+      duration: 1000,
+      onComplete: () => {
+        dificultadAumentada.destroy();
+      }
+    });
+
+  }
+
+  bajarDificultad() {
+    if (this.dificultadActual === 'FACIL') { return }
+
+    if(this.dificultadActual === 'DIFICIL') {
+      this.dificultadActual = 'MEDIO';
+    } else if(this.dificultadActual === 'MEDIO') {
+      this.dificultadActual = 'FACIL';
+    }
+
+    const dificultadReducida = this.add.text(this.screenCenter[0], this.screenCenter[1], `Dificultad reducida`, {
+        fontSize: '48px',
+        color: '#f0f',
+      stroke: '#000',
+      strokeThickness: 4
+    }).setOrigin(0.5).setDepth(1000).setScrollFactor(0);
+
+    this.tweens.add({
+      targets: dificultadReducida,
+      scale: { from: 0.99, to: 1 },
+      duration: 1000,
+      onComplete: () => {
+        dificultadReducida.destroy();
+      }
+    });
+  }
+
+  // Función que obtiene la pregunta actual según la dificultad y el índice correspondiente de esa dificultad
+  obtenerPreguntaActual(): Item | null {
+    const dificultad = this.dificultadActual;
+    const indice = this.indicesDificultad[dificultad];
+
+    let pregunta: Item | undefined;
+
+    if (dificultad === 'FACIL') {
+      pregunta = this.preguntasFaciles[indice];
+    }
+    else if (dificultad === 'MEDIO') {
+      pregunta = this.preguntasMedias[indice];
+    }
+    else if (dificultad === 'DIFICIL') {
+      pregunta = this.preguntasDificiles[indice];
+    }
+
+    if (!pregunta) {
+      this.scene.start(SCENE_KEYS.SCORE, { 
+        puntuacion: this.puntuacion, 
+        aciertos: this.aciertos 
+      });
+      return null;
+    };
+    
+    return pregunta;
+  }
+
+  siguientePregunta() {
+    this.indicesDificultad[this.dificultadActual]++;
 
     this.crearPregunta();
   }
@@ -252,10 +459,6 @@ class PlayScene extends BaseScene {
   incrementarPuntuacion() {
     this.puntuacion += (100 * this.multiplicador)
     this.PuntuacionText.setText(`Puntuacion: ${this.puntuacion}`);
-  }
-
-  logicaCombo() {
-
   }
 
   
@@ -346,32 +549,34 @@ class PlayScene extends BaseScene {
 
     // multiplicador visual
     const multiplicador =
-      Math.floor(this.comboEnergia / 100) + 1;
+      Math.floor(this.comboEnergia / 200) + 1;
 
     this.comboTexto.setText(
       `Combo x${multiplicador}`
     );
+
+    this.multiplicador = multiplicador;
   }
 
   crearPerderCombo() {
     // Mostrar texto de perder combo
-    const loseComboText = this.add.text(this.screenCenter[0], this.screenCenter[1], `Combo perdido`, {
-      fontSize: '48px',
-      color: '#f00',
-      stroke: '#000',
-      strokeThickness: 4
-    }).setOrigin(0.5);
+    // const loseComboText = this.add.text(this.screenCenter[0], this.screenCenter[1], `Combo perdido`, {
+    //   fontSize: '48px',
+    //   color: '#f00',
+    //   stroke: '#000',
+    //   strokeThickness: 4
+    // }).setOrigin(0.5);
 
-    // Animación del texto
-    this.tweens.add({
-      targets: loseComboText,
-      y: loseComboText.y - 50,
-      alpha: { from: 1, to: 0 },
-      duration: 1000,
-      onComplete: () => {
-        loseComboText.destroy();
-      }
-    });
+    // // Animación del texto
+    // this.tweens.add({
+    //   targets: loseComboText,
+    //   y: loseComboText.y - 50,
+    //   alpha: { from: 1, to: 0 },
+    //   duration: 1000,
+    //   onComplete: () => {
+    //     loseComboText.destroy();
+    //   }
+    // });
   }
 
   crearTimer(): void {
@@ -390,7 +595,8 @@ class PlayScene extends BaseScene {
           // Iniciamos ScoreScene
           this.scene.start(SCENE_KEYS.SCORE, { 
             puntuacion: this.puntuacion, 
-            aciertos: this.aciertos });
+            aciertos: this.aciertos ,
+            estadisticas: this.estadisticas});
         }
       },
       callbackScope: this,

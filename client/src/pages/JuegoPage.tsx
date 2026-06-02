@@ -1,44 +1,33 @@
+import JuegoComponente from "@/components/phaser/juego_componente";
+import { useTodasActividades } from "@/hooks/useActividades";
 
-
-import { useItems } from "@/hooks/useItems";
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { createGame } from "../phaser/categorias/1-coordinacion/actividad_1/src/config";
 
 export default function JuegoPage() {
 
   const { actividad } = useParams();
-  const { items, isLoading, error } = useItems(1); // Reemplaza 1 con el ID de la actividad deseada
 
-  useEffect(() => {
-    if (items.length < 0) return ;
-
-    const game = createGame(items);
-    
-    return () => {
-      if (game) {
-        game.destroy(true);
-      }
-    };
-  }, [items]);
+  
+  const { actividades, isLoading, error } = useTodasActividades();
 
   if (isLoading) {
-    return <div>Cargando preguntas...</div>;
+    return <main className="flex justify-center items-center h-screen">Cargando datos de la actividad...</main>;
+  }
+  if(error) {
+    return <main>Error al cargar las actividades: {error}</main>;
   }
 
+  const actividadEncontrada = actividades?.find(
+    (act) => act.slug === actividad
+  );
 
-  if (error) {
-    return <div>Error: {error}</div>;
+  if (!actividadEncontrada) {
+    return <main className="flex justify-center items-center h-screen">La actividad que buscas no existe</main>;
   }
 
-  return <div
-    id="game-container"
-    style={{
-      width: '100%',
-      maxWidth: '1000px',
-      aspectRatio: '1446 / 720',
-      margin: '0 auto',
-      position: 'relative',
-    }}
-  />;
+  return (
+    <main>
+        <JuegoComponente actividadId={actividadEncontrada.id_actividad} />
+    </main>
+  );
 }

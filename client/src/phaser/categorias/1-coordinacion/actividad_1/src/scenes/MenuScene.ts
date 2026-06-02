@@ -35,6 +35,7 @@ class MenuScene extends BaseScene {
         this.crearBoton(x + 300, y, 'Salir').on('pointerdown', () => {
             this.game.destroy(true);
             console.log('Juego cerrado');
+            window.location.href = '/usuario/home/categorias/';
         });
 
     }
