@@ -2,12 +2,14 @@ import type { Request, Response, NextFunction } from "express";
 import prisma from "../config/prisma.ts";
 import CustomError from "../utils/CustomError.ts";
 
+// Obtener todas las categorias
 export const getCategorias = async (req: Request, res: Response, next: NextFunction) => {
   try {
+
     const categorias = await prisma.cat_categoria.findMany({    });
 
-    if (!categorias) {
-      throw new CustomError("ITEMS_NOT_FOUND");
+    if (!categorias || categorias.length === 0) {
+      throw new CustomError("CAT_NOT_FOUND");
     }
 
     res.json(categorias);
@@ -16,6 +18,7 @@ export const getCategorias = async (req: Request, res: Response, next: NextFunct
   }
 };
 
+// Obtener una categoria por ID
 export const getCategoriaById = async (req: Request, res: Response, next: NextFunction) => {
   try {
 

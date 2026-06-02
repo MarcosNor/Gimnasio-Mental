@@ -7,7 +7,9 @@ import UserHomePage from './pages/UserHomePage.tsx'
 
 import PrivateLayout from './layouts/PrivateLayout.tsx'
 import PublicLayout from './layouts/PublicLayout.tsx'
-import CategoriesPage from './pages/CategoriesPage.tsx'
+import CategoriesPage from './pages/CategoriasPage.tsx'
+import ActividadesPage from './pages/ActividadesPage.tsx'
+import JuegoPage from './pages/JuegoPage.tsx'
 
 export const router = createBrowserRouter([
   {
@@ -68,14 +70,45 @@ export const router = createBrowserRouter([
               },
               {
                 path: 'categorias',
-                index: true,
-                element: <CategoriesPage/>,
-                handle: { breadcrumb: 'Categorias' },
+                children: [
+                  {
+                    index: true,
+                    element: <CategoriesPage/>,
+                    handle: { breadcrumb: 'Categorias' },
+                  },
+                  {
+                    // Path que usa el slug de la categoria
+                    // Slugs estandarizados en el back por /src/utils/slug.ts y usados en los controllers
+                    path: ':categoria',
+                    children: [
+                      {
+                        index: true,
+                        element: <ActividadesPage/>,
+                        handle: { 
+                          breadcrumb: "Actividades",
+                        },
+                      },
+                      {
+                        path : ":actividad",
+                        children: [
+                          {
+                            index: true,
+                            element: <JuegoPage/>,
+                          },
+                        ]
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
         ],
       },
+      {
+        path: "phaser",
+        element: <JuegoPage/>
+      }
     ]
   }
 ])

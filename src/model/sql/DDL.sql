@@ -29,12 +29,10 @@ CHECK (num_cta BETWEEN 100000000 AND 999999999);
 CREATE TABLE cat_categoria (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL UNIQUE,
-    beneficios TEXT DEFAULT NULL
+    beneficios TEXT DEFAULT NULL,
+    slug VARCHAR(100) UNIQUE DEFAULT NULL,
+    portada VARCHAR(255) DEFAULT NULL
 );
-
-select * from cat_categoria;
-
-select * from actividad;
 
 -- -----------TABLAS CON LLAVES FORANEAS-----------------
 
@@ -46,10 +44,14 @@ CREATE TABLE actividad (
   explicacion TEXT DEFAULT NULL,
   tiempoLimite INT DEFAULT NULL,
   estatus_actividad BOOLEAN DEFAULT FALSE,
+  slug VARCHAR(100) UNIQUE DEFAULT NULL,
+  portada VARCHAR(255) DEFAULT NULL,
 
   CONSTRAINT fk_actividad_categoria FOREIGN KEY (id_categoria) REFERENCES cat_categoria(id_categoria)
     ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+select * from actividad;
 
 -- Tabla stat_usuario
 CREATE TABLE stat_usuario (
@@ -90,5 +92,35 @@ CREATE TABLE respuesta (
     correcta BOOLEAN NOT NULL,
 
     CONSTRAINT fk_respuesta_item FOREIGN KEY (id_item) REFERENCES item(id_item)
+    ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE partida (
+	id_partida INT AUTO_INCREMENT PRIMARY KEY,
+    id_actividad INT NOT NULL,
+    id_usuario INT NOT NULL,
+    puntuacion INT DEFAULT 0,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    CONSTRAINT fk_partida_actividad FOREIGN KEY (id_actividad) REFERENCES actividad(id_actividad)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
+    
+    CONSTRAINT fk_partida_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+    ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE estadistica (
+    id_partida INT PRIMARY KEY,
+    
+    aciertos_facil INT DEFAULT 0,
+    total_facil INT DEFAULT 0,
+    
+    aciertos_medio INT DEFAULT 0,
+    total_medio INT DEFAULT 0,
+    
+    aciertos_dificil INT DEFAULT 0,
+    total_dificil INT DEFAULT 0,
+    
+    CONSTRAINT fk_aciertos_partida FOREIGN KEY (id_partida) REFERENCES partida(id_partida)
     ON DELETE CASCADE ON UPDATE CASCADE
 );

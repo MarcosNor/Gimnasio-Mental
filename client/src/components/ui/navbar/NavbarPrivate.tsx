@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from "@/context/AuthContext.tsx"
-import Breadcrumb from '../breadcrumb'
 
 const navLinks = [
-  { label: "Games", href: "#games" },
-  { label: "Benefits", href: "#benefits" },
-  { label: "About", href: "#about" },
+  { label: "Juegos", href: "#juegos" },
+  { label: "Beneficios", href: "#beneficios" },
+  { label: "Sobre DGOAE", href: "#sobre" },
 ]
 
 export function NavbarPrivate() {
@@ -17,7 +16,7 @@ export function NavbarPrivate() {
         <Link to="/" className="flex items-center gap-2">
           <div className="flex items-center justify-center">
             <img
-              src={"/images/emblemaAzul.png"}
+              src={"/images/logos/emblemaAzul.png"}
               alt="Logo"
               className="h-9 w-9 object-contain"
               crossOrigin="anonymous" 

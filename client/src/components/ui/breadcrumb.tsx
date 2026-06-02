@@ -1,5 +1,7 @@
-import { Link, useLocation } from "react-router-dom";
-import { Slash, ChevronRight, Home } from "lucide-react";
+import { Link, useLocation, useMatches } from "react-router-dom";
+import { ChevronRight, Home } from "lucide-react";
+import { useCategorias } from "@/hooks/useCategorias";
+import { useNombreVisible } from "@/hooks/useNombreVisible";
 
 // Interfaz para la estructura de las ligas
 interface Liga {
@@ -9,13 +11,20 @@ interface Liga {
 
 export default function Breadcrumb() {
 
-  const location = useLocation();
+
+  // No borro esto porque al quitarlo genera errores jaja
+  const { categorias, isLoading, error } = useCategorias()
+  const matches = useMatches();
+  const crumbs = matches;
+
+  // Hook para obtener el nombre "bonito" a travez del slug
+  const { obtenerNombreVisible } = useNombreVisible();
 
   // Rutas que vamos a ocultar en el breadcrumb ya que son prefijos
   const rutasOcultas = ["usuario", "auth"];
   
-  // Deconstruimos ligas como "usuario/home/..."
-  const generarLigas = () =>{
+  // Deconstruimos ligas anidadas como "usuario/home/..."
+  const generarLigas = () => {
     const pathnames = location.pathname.split("/").filter((x) => x);
     let currentPath = "";
     const ligas: Liga[] = pathnames.map(segment => {
@@ -23,20 +32,12 @@ export default function Breadcrumb() {
       return { pathto: currentPath, name: segment };
     });
     
+    // regresamos las ligas sin las ocultas
     return ligas.filter(liga => !rutasOcultas.includes(liga.name));
   };
 
-  const ligas = generarLigas();
 
-  // Función de ayuda para limpiar las clases condicionales
-  const getLinkClasses = (path: string) => {
-    const isActive = location.pathname === path;
-    return `cursor-pointer p-4 rounded-md transition-colors ${
-      isActive
-        ? "bg-[#8AD4FF] hover:text-black" 
-        : "hover:bg-[#8AD4FF] hover:text-black"
-    }`;
-  };
+  const ligas = generarLigas();
 
   return (
     <div className="flex" aria-label="Breadcrumb">
@@ -45,7 +46,7 @@ export default function Breadcrumb() {
         {ligas.map((liga, index) => {
           const isFirst = index === 0;
           const isLast = index === ligas.length - 1;
-          const nameCapitalized = liga.name.charAt(0).toUpperCase() + liga.name.slice(1);
+          const displayName = obtenerNombreVisible(liga.name) || liga.name;
           return (
             <li 
               key ={liga.pathto} 
@@ -64,7 +65,7 @@ export default function Breadcrumb() {
                   <span className="inline-flex items-center text-sm font-medium text-gray-500 bg-[#C9EDFF] p-1 rounded-md">
                     {/* El ícono de Home solo va en el primer elemento */}
                     {isFirst && <Home className="w-4 h-4 me-1.5" />}
-                    {nameCapitalized}
+                    {displayName}
                   </span>
                 ) : (
                   /* Si no es el último, mostramos el Link */
@@ -73,7 +74,7 @@ export default function Breadcrumb() {
                     className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors"
                   >
                     {isFirst && <Home className="w-4 h-4 me-1.5" />}
-                    {nameCapitalized}
+                    {displayName}
                   </Link>
                 )}
 

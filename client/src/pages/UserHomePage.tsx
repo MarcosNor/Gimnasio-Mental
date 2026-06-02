@@ -1,10 +1,10 @@
-import { UserDashboard } from "@/components/user/user_dashboard"
+import { UsuarioDashboard } from "@/components/user/usuario_dashboard"
 
 export default function UserHomePage() {
 
   return (
       <div>
-        <UserDashboard/>
+        <UsuarioDashboard/>
       </div>
   )
 }

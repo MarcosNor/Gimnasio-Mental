@@ -1,4 +1,4 @@
-import { GameCategories } from "@/components/categorias/categories_dashboard";
+import { GameCategories } from "@/components/categorias/categorias_dashboard";
 
 export default function CategoriesPage() {
   return (

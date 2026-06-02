@@ -4,7 +4,7 @@ export const ErrorDictionary = {
     message: "Servicio temporalmente no disponible."
   },
   PRISMA_QUERY_ERROR: {
-    status: 400,
+    status: 500,
     message: "Error en la consulta a la base de datos"
   },
   USER_NOT_FOUND: {
@@ -13,23 +13,31 @@ export const ErrorDictionary = {
   },
   PREV_USER: {
     status: 409,
-    message: "El usuario ya existe"
+    message: "El recurso ya existe"
   },
   NO_TOKEN: {
     status: 401,
-    message: "No hubo verificación"
+    message: "Falta identidad"
   },
   MISSING_FIELDS: {
     status: 400,
-    message: "Faltan campos requeridos"
+    message: "Faltan campos obligatorios"
+  },
+  VALIDATION_ERROR: {
+    status: 400,
+    message: "Error de validación"
   },
   ITEM_NOT_FOUND: {
     status: 404,
     message: "No se encontró el item solicitado"
   },
   ITEMS_NOT_FOUND: {
-    status: 400,
+    status: 404,
     message: "No se encontraron items en la actividad solicitada"
+  },
+  THERE_IS_NO_ACTIVITY: {
+    status: 404,
+    message: "No hay juego asociado a esta actividad"
   },
   CAT_NOT_FOUND: {
     status: 404,
@@ -42,6 +50,10 @@ export const ErrorDictionary = {
   ROUTE_NOT_FOUND: {
     status: 404,
     message: "La ruta solicitada no existe"
+  },
+  DATOS_ERRONEOS: {
+    status: 400,
+    message: "Los datos proporcionados son incorrectos"
   },
   BAD_REQUEST:{
     status: 400,

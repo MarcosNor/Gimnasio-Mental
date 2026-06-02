@@ -2,17 +2,30 @@ import type { Request, Response, NextFunction } from "express";
 import prisma from "../config/prisma.ts";
 import CustomError from "../utils/CustomError.ts";
 
-export const getItems = async (req: Request, res: Response, next: NextFunction) => {
+export const getItemsByActividadId = async (req: Request, res: Response, next: NextFunction) => {
   try {
+
+    if(!req.params.id || isNaN(Number(req.params.id))){
+      throw new CustomError("BAD_REQUEST");
+    }
+    const id = Number(req.params.id);
+
     const items = await prisma.item.findMany({
+      where: {
+        id_actividad: id,
+        estatus_activo: true
+      },
       include: {
         respuesta: {
+          where: {
+            activo: true
+          }
         }
       }
     });
 
-    if (!items) {
-      throw new CustomError("ITEMS_NOT_FOUND");
+    if (!items || items.length === 0) {
+      throw new CustomError("THERE_IS_NO_ACTIVITY");
     }
 
     res.json(items);
@@ -20,11 +33,3 @@ export const getItems = async (req: Request, res: Response, next: NextFunction) 
     next(error);
   }
 };
-
-export const itemsError = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    throw new CustomError("ITEM_NOT_FOUND");
-  } catch (error) {
-    next(error);
-  }
-}
