@@ -18,6 +18,7 @@ class PlayScene extends BaseScene {
   private puntuacion = 0;
 
   private multiplicador = 1;
+  private multiplicadorDificultad = 1;
   private correctasSeguidas = 0;
   private incorrectasSeguidas = 0;
   private esCombo = false;
@@ -113,6 +114,7 @@ class PlayScene extends BaseScene {
     this.aciertos = 0;
     this.puntuacion = 0;
     this.multiplicador = 1;
+    this.multiplicadorDificultad = 1;
 
     this.correctasSeguidas = 0;
     this.incorrectasSeguidas = 0;
@@ -163,7 +165,7 @@ class PlayScene extends BaseScene {
 
   }
 
-  update(delta: number): void {
+  update(time: number, delta: number): void {
 
     // No drenar combo si está bloqueado (esperando animacion)
     if (this.bloqueado) return;
@@ -172,6 +174,7 @@ class PlayScene extends BaseScene {
     if( this.comboEnergia <= 0) {
       return;
     }
+
     
     // Drenar combo
     this.comboEnergia -= (delta / this.tiempoLimiteCombo) * this.COMBO_MAX;
@@ -300,7 +303,7 @@ class PlayScene extends BaseScene {
     } else {
       this.esIncorrecta(dificultadRespondida);
     }
-
+    
     this.comboEnergia = Phaser.Math.Clamp(
       this.comboEnergia,
       0,
@@ -327,7 +330,8 @@ class PlayScene extends BaseScene {
   esCorrecta(dificultadRespondida: 'FACIL' | 'MEDIO' | 'DIFICIL') {
     this.incrementarPuntuacion();
       this.aciertos++;
-      this.comboEnergia += 400;
+      this.comboEnergia += 300;
+
 
       // Aumentamos el número de respuestas correctas seguidas y las estadísticas
       this.correctasSeguidas++;
@@ -349,7 +353,7 @@ class PlayScene extends BaseScene {
         this.crearPerderCombo();
     }
     this.esCombo = false;
-    this.comboEnergia -= 200;
+    this.comboEnergia -= 150;
     
     // Aumentamos el número de respuestas incorrectas seguidas y las estadísticas
     this.incorrectasSeguidas++;
@@ -457,7 +461,14 @@ class PlayScene extends BaseScene {
   }
 
   incrementarPuntuacion() {
-    this.puntuacion += (100 * this.multiplicador)
+    if (this.dificultadActual === 'FACIL') {
+      this.multiplicadorDificultad = 1;
+    } else if (this.dificultadActual === 'MEDIO') {
+      this.multiplicadorDificultad = 1.5;
+    } else if (this.dificultadActual === 'DIFICIL') {
+      this.multiplicadorDificultad = 2;
+    }
+    this.puntuacion += ((100 * this.multiplicadorDificultad) * this.multiplicador);
     this.PuntuacionText.setText(`Puntuacion: ${this.puntuacion}`);
   }
 
@@ -548,8 +559,7 @@ class PlayScene extends BaseScene {
     this.barraCombo.fillRoundedRect(x, y, width * porcentaje, height, 10);
 
     // multiplicador visual
-    const multiplicador =
-      Math.floor(this.comboEnergia / 200) + 1;
+    const multiplicador = Math.min(Math.floor(this.comboEnergia / 200) + 1, 5); // combo max de 5
 
     this.comboTexto.setText(
       `Combo x${multiplicador}`

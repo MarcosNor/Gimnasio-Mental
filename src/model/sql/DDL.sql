@@ -124,3 +124,5 @@ CREATE TABLE estadistica (
     CONSTRAINT fk_aciertos_partida FOREIGN KEY (id_partida) REFERENCES partida(id_partida)
     ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+select * from usuario;

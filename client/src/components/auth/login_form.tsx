@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import { Link } from 'react-router-dom'
-import { useNavigate,  } from "react-router-dom"
+import { useNavigate, Link  } from "react-router-dom"
 
 import { useAuth } from "@/context/AuthContext"
 import { type LoginUser } from "@/types/login"
@@ -34,8 +33,8 @@ export function LogForm() {
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit (async (data) => {
-    await signin(data);
-    navigate('/usuario/home');
+    const succes = await signin(data);
+    if (succes) navigate('/usuario/home');
     //console.log(navigate)
   });
 

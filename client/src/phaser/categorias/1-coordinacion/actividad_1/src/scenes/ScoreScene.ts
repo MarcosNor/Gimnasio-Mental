@@ -1,7 +1,9 @@
 import BaseScene from './BaseScene'
 import { SCENE_KEYS } from '../utils/common';
+import { EventBus } from '@/phaser/event/EventBus';
 
 import { type Estadisticas } from '../types/estadisticas';
+import { type PartidaTerminadaEvent } from '@/types/partida'
 
 class ScoreScene extends BaseScene {
 
@@ -22,6 +24,12 @@ class ScoreScene extends BaseScene {
 
     create() {
         super.create();
+
+        // Enviamos un evento a React para crear la partida en el backend
+        EventBus.emit('partida-terminada', {
+            puntuacion: this.puntuacion,
+            estadisticas: this.estadisticas
+        } satisfies PartidaTerminadaEvent);
 
         this.crearBackButton(SCENE_KEYS.MENU);
         this.crearTexto();

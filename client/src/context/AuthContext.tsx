@@ -1,18 +1,19 @@
 import { createContext, useState, useContext, useEffect, type ReactNode } from "react";
-import { registerRequest, loginRequest, verifyTokenRequest } from '../api/auth';
+import { registerRequest, loginRequest, verifyTokenRequest } from '../api/auth.ts';
 import { type RegisterUser } from "@/types/registro";
 
 import Cookies from 'js-cookie';
 
 import { type AxiosError } from 'axios';
 import { type User } from "@/types/user";
+import { normalizeErrors } from "@/lib/utils";
 
 // Definir el tipo para el contexto de autenticación
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   signup: (user: RegisterUser) => Promise<void>;
-  signin: (user: Omit<RegisterUser, 'num_cta' | 'fecha_nacimiento'>) => Promise<void>;
+  signin: (user: Omit<RegisterUser, 'num_cta' | 'fecha_nacimiento'>) => Promise<boolean>;
   logout: () => void;
   errors: string[];
   loading: boolean;
@@ -25,7 +26,7 @@ const defaultAuthContext: AuthContextType = {
   errors: [],
   loading: true,
   signup: async () => {},
-  signin: async () => {},
+  signin: async () => false,
   logout: () => {},
 };
 
@@ -57,20 +58,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       //console.log(error);
       const axiosError = error as AxiosError;
-      setErrors(axiosError.response?.data as string[]);
+      // normalize convierte el array de errores del backend en un array de strings para mostrar en el frontend
+      setErrors(normalizeErrors(axiosError.response?.data as string[]));
     }
   }
 
   const signin = async (user: Omit<RegisterUser, 'num_cta' | 'fecha_nacimiento'>) => {
     try {
+      setErrors([]);
       const res = await loginRequest(user);
-      //console.log(res)
       setIsAuthenticated(true);
       setUser(res.data);
       alert("¡Inicio de sesión exitoso!");
+      return true;
     } catch (error) {
       const axiosError = error as AxiosError;
-      setErrors(axiosError.response?.data as string[]);
+      // normalize convierte el array de errores del backend en un array de strings para mostrar en el frontend
+      setErrors(normalizeErrors(axiosError.response?.data as string[]));
+      return false;
     }
   }
 

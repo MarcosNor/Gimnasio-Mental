@@ -8,6 +8,7 @@ import cors from "cors";
 import itemRoutes from "./routes/item.routes.ts";
 import actividadRoutes from "./routes/actividad.routes.ts"
 import categoriaRoutes from "./routes/categoria.routes.ts";
+import partidaRoutes from "./routes/partida.routes.ts";
 
 import errorHandler from "./middlewares/errorHandling.ts";
 import morgan from "morgan";
@@ -34,7 +35,7 @@ const init = () => {
   app.use(cookieParser());
   
   // Rutas para las request de la API
-  app.use("/api", authRoutes, categoriaRoutes, actividadRoutes, itemRoutes);
+  app.use("/api", authRoutes, categoriaRoutes, actividadRoutes, itemRoutes, partidaRoutes);
   
   app.use((req: Request, res: Response, next: NextFunction) => {
     const error = new CustomError("ROUTE_NOT_FOUND");
