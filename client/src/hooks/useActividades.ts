@@ -17,6 +17,8 @@ export const useActividades = (slugCategoria: string) => {
 
       const res = await getActividades(slugCategoria)
 
+      console.log("Respuesta del backend:", res.data);
+
       if (!res.data) {
       throw new Error("Error al cargar las actividades")
       }

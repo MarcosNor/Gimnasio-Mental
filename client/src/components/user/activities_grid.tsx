@@ -7,9 +7,6 @@ interface Activity {
   title: string
   description: string
   image: string
-  difficulty: "Easy" | "Medium" | "Hard"
-  duration: string
-  streak?: number
 }
 
 interface ActivityCardProps {
@@ -36,22 +33,6 @@ function ActivityCard({ activity }: ActivityCardProps) {
       <div className="flex flex-1 flex-col justify-between">
         <div>
           <div className="mb-1.5 flex flex-wrap items-center gap-2">
-            <Badge
-              variant="outline"
-              className={`rounded-md text-[10px] font-semibold uppercase ${difficultyColor[activity.difficulty]}`}
-            >
-              {activity.difficulty}
-            </Badge>
-            <div className="flex items-center gap-1 text-xs text-muted-foreground">
-              <Clock className="size-3" />
-              {activity.duration}
-            </div>
-            {activity.streak && activity.streak > 0 && (
-              <div className="flex items-center gap-1 text-xs font-medium text-amber-500">
-                <Flame className="size-3" />
-                {activity.streak} day streak
-              </div>
-            )}
           </div>
           <h4 className="font-semibold font-[family-name:var(--font-heading)]">
             {activity.title}

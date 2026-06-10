@@ -20,3 +20,9 @@ export type PartidaTerminadaEvent = {
     DIFICIL: { respondidas: number; correctas: number, incorrectas: number};
   };
 };
+
+export interface puntuacionPorCategoria {
+  categoria: string;
+  id_categoria: number;
+  puntuacionTotal: number;
+}

@@ -12,7 +12,7 @@ import { normalizeErrors } from "@/lib/utils";
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  signup: (user: RegisterUser) => Promise<void>;
+  signup: (user: RegisterUser, captchaToken: string) => Promise<boolean>;
   signin: (user: Omit<RegisterUser, 'num_cta' | 'fecha_nacimiento'>) => Promise<boolean>;
   logout: () => void;
   errors: string[];
@@ -25,7 +25,7 @@ const defaultAuthContext: AuthContextType = {
   isAuthenticated: false,
   errors: [],
   loading: true,
-  signup: async () => {},
+  signup: async () => false,
   signin: async () => false,
   logout: () => {},
 };
@@ -48,18 +48,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const signup = async (user: RegisterUser) => {
+  const signup = async (user: RegisterUser, captchaToken: string) => {
     try {
-      const res = await registerRequest(user);
+      const res = await registerRequest({ ...user, captchaToken });
       console.log(res.data);
       setUser(res.data);
       setIsAuthenticated(true);
       alert("¡Registro exitoso!");
+      return true;
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       const axiosError = error as AxiosError;
       // normalize convierte el array de errores del backend en un array de strings para mostrar en el frontend
       setErrors(normalizeErrors(axiosError.response?.data as string[]));
+      return false;
     }
   }
 

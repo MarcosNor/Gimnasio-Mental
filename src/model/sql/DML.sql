@@ -11,7 +11,7 @@ VALUES
   ('Jerárquico', 'Relacionar estímulos en función de su posición en una estructura jerárquica o de orden.'),
   ('Deíctico', 'Relacionar estímulos en función del contexto o punto de referencia específico.');
   
-UPDATE cat_categoria SET slug = 'coordinacion' WHERE nombre = 'Coordinación';
+UPDATE actividad SET tiempoLimite = 30 WHERE nombre = 'Coordinación';
 UPDATE cat_categoria SET slug = 'comparacion' WHERE nombre = 'Comparación';
 UPDATE cat_categoria SET slug = 'oposicion' WHERE nombre = 'Oposición';
 UPDATE cat_categoria SET slug = 'espacial' WHERE nombre = 'Espacial';
@@ -37,6 +37,7 @@ INSERT INTO actividad (id_categoria, nombre, explicacion, tiempoLimite, estatus_
 (2, 'Actividad de comparación', 'Actividad de prueba', 60, TRUE);
 
 select * from actividad;
+select * from usuario;
 
 select * from cat_categoria;
 
@@ -545,3 +546,403 @@ INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
 (100, 'Plata', TRUE, TRUE),
 (100, 'Oro', TRUE, FALSE),
 (100, 'Cobre', TRUE, FALSE);
+
+-- Pregunta 1 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Luna'' = ''Noche'' y ''Noche'' = ''Oscuro'', ¿''Luna'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (101, 'Oscuro', TRUE, TRUE),
+    (101, 'Luna', TRUE, FALSE),
+    (101, 'Noche', TRUE, FALSE),
+    (101, 'Claro', TRUE, FALSE);
+
+-- Pregunta 2 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Fuego'' = ''Calor'' y ''Calor'' = ''Rojo'', ¿''Fuego'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (102, 'Fuego', TRUE, FALSE),
+    (102, 'Rojo', TRUE, TRUE),
+    (102, 'Calor', TRUE, FALSE),
+    (102, 'Azul', TRUE, FALSE);
+
+-- Pregunta 3 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''10'' = ''X'' y ''X'' = ''20'', ¿''10'' es igual a?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (103, '10', TRUE, FALSE),
+    (103, 'X', TRUE, FALSE),
+    (103, '20', TRUE, TRUE),
+    (103, '30', TRUE, FALSE);
+
+-- Pregunta 4 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''C'' = ''D'' y ''E'' = ''D'', entonces ''C'' y ''E'' son:', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (104, 'Diferentes', TRUE, FALSE),
+    (104, 'Opuestos', TRUE, FALSE),
+    (104, 'Inversos', TRUE, FALSE),
+    (104, 'Iguales', TRUE, TRUE);
+
+-- Pregunta 5 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Norte'' = ''Arriba'' y ''Arriba'' = ''N'', ¿''Norte'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (105, 'N', TRUE, TRUE),
+    (105, 'Norte', TRUE, FALSE),
+    (105, 'Arriba', TRUE, FALSE),
+    (105, 'Sur', TRUE, FALSE);
+
+-- Pregunta 6 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Pez'' = ''Agua'' y ''Agua'' = ''Mar'', ¿''Pez'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (106, 'Pez', TRUE, FALSE),
+    (106, 'Mar', TRUE, TRUE),
+    (106, 'Agua', TRUE, FALSE),
+    (106, 'Río', TRUE, FALSE);
+
+-- Pregunta 7 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''K'' = ''L'' y ''L'' = ''M'', ¿''K'' es ''M''?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (107, 'No', TRUE, FALSE),
+    (107, 'Tal vez', TRUE, FALSE),
+    (107, 'Sí', TRUE, TRUE),
+    (107, 'Nunca', TRUE, FALSE);
+
+-- Pregunta 8 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Verde'' = ''Go'' y ''Go'' = ''Avanzar'', ¿''Verde'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (108, 'Verde', TRUE, FALSE),
+    (108, 'Go', TRUE, FALSE),
+    (108, 'Parar', TRUE, FALSE),
+    (108, 'Avanzar', TRUE, TRUE);
+
+-- Pregunta 9 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''5'' = ''A'' y ''A'' = ''B'', ¿''5'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (109, 'B', TRUE, TRUE),
+    (109, '5', TRUE, FALSE),
+    (109, 'A', TRUE, FALSE),
+    (109, 'C', TRUE, FALSE);
+
+-- Pregunta 10 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Sol'' = ''Día'' y ''Día'' = ''Brillante'', ¿''Sol'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (110, 'Sol', TRUE, FALSE),
+    (110, 'Brillante', TRUE, TRUE),
+    (110, 'Día', TRUE, FALSE),
+    (110, 'Oscuro', TRUE, FALSE);
+
+-- Pregunta 11 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''T'' = ''U'' y ''U'' = ''V'', ¿''T'' es igual a ''V''?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (111, 'No', TRUE, FALSE),
+    (111, 'Solo U', TRUE, FALSE),
+    (111, 'Sí', TRUE, TRUE),
+    (111, 'A veces', TRUE, FALSE);
+
+-- Pregunta 12 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Blanco'' = ''0'' y ''0'' = ''W'', ¿''Blanco'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (112, 'Blanco', TRUE, FALSE),
+    (112, '0', TRUE, FALSE),
+    (112, 'B', TRUE, FALSE),
+    (112, 'W', TRUE, TRUE);
+
+-- Pregunta 13 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Árbol'' = ''Planta'' y ''Planta'' = ''Verde'', ¿''Árbol'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (113, 'Verde', TRUE, TRUE),
+    (113, 'Árbol', TRUE, FALSE),
+    (113, 'Planta', TRUE, FALSE),
+    (113, 'Tierra', TRUE, FALSE);
+
+-- Pregunta 14 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''X'' = ''9'' y ''Y'' = ''9'', entonces ''X'' y ''Y'' son:', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (114, 'Diferentes', TRUE, FALSE),
+    (114, 'Iguales', TRUE, TRUE),
+    (114, 'Inversos', TRUE, FALSE),
+    (114, 'Negativos', TRUE, FALSE);
+
+-- Pregunta 15 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Oro'' = ''Au'' y ''Au'' = ''Metal'', ¿''Oro'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (115, 'Oro', TRUE, FALSE),
+    (115, 'Au', TRUE, FALSE),
+    (115, 'Metal', TRUE, TRUE),
+    (115, 'Brillo', TRUE, FALSE);
+
+-- Pregunta 16 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''R'' = ''1'' y ''1'' = ''S'', ¿''R'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (116, 'R', TRUE, FALSE),
+    (116, '1', TRUE, FALSE),
+    (116, 'T', TRUE, FALSE),
+    (116, 'S', TRUE, TRUE);
+
+-- Pregunta 17 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Gato'' = ''Miau'' y ''Miau'' = ''Sonido'', ¿''Gato'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (117, 'Sonido', TRUE, TRUE),
+    (117, 'Gato', TRUE, FALSE),
+    (117, 'Miau', TRUE, FALSE),
+    (117, 'Perro', TRUE, FALSE);
+
+-- Pregunta 18 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''A'' = ''B'', ''B'' = ''C'' y ''C'' = ''5'', ¿''A'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (118, 'B', TRUE, FALSE),
+    (118, '5', TRUE, TRUE),
+    (118, 'C', TRUE, FALSE),
+    (118, 'A', TRUE, FALSE);
+
+-- Pregunta 19 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Sur'' = ''Abajo'' y ''Abajo'' = ''S'', ¿''Sur'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (119, 'Sur', TRUE, FALSE),
+    (119, 'Abajo', TRUE, FALSE),
+    (119, 'S', TRUE, TRUE),
+    (119, 'Norte', TRUE, FALSE);
+
+-- Pregunta 20 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''H2O'' = ''Agua'' y ''Agua'' = ''Líquido'', ¿''H2O'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (120, 'H2O', TRUE, FALSE),
+    (120, 'Agua', TRUE, FALSE),
+    (120, 'Sólido', TRUE, FALSE),
+    (120, 'Líquido', TRUE, TRUE);
+
+-- Pregunta 21 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''M'' = ''N'' y ''N'' = ''M'', ¿''M'' es ''N''?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (121, 'Sí', TRUE, TRUE),
+    (121, 'No', TRUE, FALSE),
+    (121, 'A veces', TRUE, FALSE),
+    (121, 'Depende', TRUE, FALSE);
+
+-- Pregunta 22 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''8'' = ''H'' y ''H'' = ''I'', ¿''8'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (122, '8', TRUE, FALSE),
+    (122, 'I', TRUE, TRUE),
+    (122, 'H', TRUE, FALSE),
+    (122, 'G', TRUE, FALSE);
+
+-- Pregunta 23 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Cielo'' = ''Azul'' y ''Azul'' = ''Color'', ¿''Cielo'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (123, 'Cielo', TRUE, FALSE),
+    (123, 'Azul', TRUE, FALSE),
+    (123, 'Color', TRUE, TRUE),
+    (123, 'Nube', TRUE, FALSE);
+
+-- Pregunta 24 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''P'' = ''50'' y ''Q'' = ''50'', entonces ''P'' y ''Q'' son:', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (124, 'Diferentes', TRUE, FALSE),
+    (124, 'Opuestos', TRUE, FALSE),
+    (124, 'Variables', TRUE, FALSE),
+    (124, 'Iguales', TRUE, TRUE);
+
+-- Pregunta 25 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Reloj'' = ''Tiempo'' y ''Tiempo'' = ''Segundos'', ¿''Reloj'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (125, 'Segundos', TRUE, TRUE),
+    (125, 'Reloj', TRUE, FALSE),
+    (125, 'Tiempo', TRUE, FALSE),
+    (125, 'Hora', TRUE, FALSE);
+
+-- Pregunta 26 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''J'' = ''K'' y ''K'' = ''L'', ¿''J'' es ''L''?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (126, 'No', TRUE, FALSE),
+    (126, 'Sí', TRUE, TRUE),
+    (126, 'Tal vez', TRUE, FALSE),
+    (126, 'Solo K', TRUE, FALSE);
+
+-- Pregunta 27 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''100'' = ''C'' y ''C'' = ''Centena'', ¿''100'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (127, '100', TRUE, FALSE),
+    (127, 'C', TRUE, FALSE),
+    (127, 'Centena', TRUE, TRUE),
+    (127, 'Decena', TRUE, FALSE);
+
+-- Pregunta 28 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Izquierda'' = ''L'' y ''L'' = ''Flecha'', ¿''Izquierda'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (128, 'Izquierda', TRUE, FALSE),
+    (128, 'L', TRUE, FALSE),
+    (128, 'Derecha', TRUE, FALSE),
+    (128, 'Flecha', TRUE, TRUE);
+
+-- Pregunta 29 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''D'' = ''E'', ''E'' = ''F'' y ''F'' = ''G'', ¿''D'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (129, 'G', TRUE, TRUE),
+    (129, 'E', TRUE, FALSE),
+    (129, 'F', TRUE, FALSE),
+    (129, 'H', TRUE, FALSE);
+
+-- Pregunta 30 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Ratón'' = ''Queso'' y ''Queso'' = ''Comida'', ¿''Ratón'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (130, 'Ratón', TRUE, FALSE),
+    (130, 'Comida', TRUE, TRUE),
+    (130, 'Queso', TRUE, FALSE),
+    (130, 'Animal', TRUE, FALSE);
+
+-- Pregunta 31 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''X'' = ''Y'' y ''Y'' = ''X'', ¿''X'' es igual a ''Y''?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (131, 'No', TRUE, FALSE),
+    (131, 'Nunca', TRUE, FALSE),
+    (131, 'Sí', TRUE, TRUE),
+    (131, 'Incierto', TRUE, FALSE);
+
+-- Pregunta 32 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''7'' = ''Z'' y ''Z'' = ''77'', ¿''7'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (132, '7', TRUE, FALSE),
+    (132, 'Z', TRUE, FALSE),
+    (132, '70', TRUE, FALSE),
+    (132, '77', TRUE, TRUE);
+
+-- Pregunta 33 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Hielo'' = ''Frío'' y ''Frío'' = ''Blanco'', ¿''Hielo'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (133, 'Blanco', TRUE, TRUE),
+    (133, 'Hielo', TRUE, FALSE),
+    (133, 'Frío', TRUE, FALSE),
+    (133, 'Agua', TRUE, FALSE);
+
+-- Pregunta 34 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Alfa'' = ''1'' y ''Beta'' = ''1'', entonces ''Alfa'' y ''Beta'' son:', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (134, 'Diferentes', TRUE, FALSE),
+    (134, 'Iguales', TRUE, TRUE),
+    (134, 'Letras', TRUE, FALSE),
+    (134, 'Números', TRUE, FALSE);
+
+-- Pregunta 35 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Luz'' = ''Sol'' y ''Sol'' = ''Estrella'', ¿''Luz'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (135, 'Luz', TRUE, FALSE),
+    (135, 'Sol', TRUE, FALSE),
+    (135, 'Estrella', TRUE, TRUE),
+    (135, 'Luna', TRUE, FALSE);
+
+-- Pregunta 36 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''S'' = ''T'' y ''T'' = ''U'', ¿''S'' es ''U''?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (136, 'No', TRUE, FALSE),
+    (136, 'Solo T', TRUE, FALSE),
+    (136, 'Ninguna', TRUE, FALSE),
+    (136, 'Sí', TRUE, TRUE);
+
+-- Pregunta 37 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''12'' = ''M'' y ''M'' = ''Meses'', ¿''12'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (137, 'Meses', TRUE, TRUE),
+    (137, '12', TRUE, FALSE),
+    (137, 'M', TRUE, FALSE),
+    (137, 'Año', TRUE, FALSE);
+
+-- Pregunta 38 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Derecha'' = ''R'' y ''R'' = ''Giro'', ¿''Derecha'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (138, 'Derecha', TRUE, FALSE),
+    (138, 'Giro', TRUE, TRUE),
+    (138, 'R', TRUE, FALSE),
+    (138, 'Freno', TRUE, FALSE);
+
+-- Pregunta 39 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''W'' = ''X'', ''X'' = ''Y'' y ''Y'' = ''Z'', ¿''W'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (139, 'X', TRUE, FALSE),
+    (139, 'Y', TRUE, FALSE),
+    (139, 'W', TRUE, FALSE),
+    (139, 'Z', TRUE, TRUE);
+
+-- Pregunta 40 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Perro'' = ''Ladra'' y ''Ladra'' = ''Acción'', ¿''Perro'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (140, 'Perro', TRUE, FALSE),
+    (140, 'Ladra', TRUE, FALSE),
+    (140, 'Gato', TRUE, FALSE),
+    (140, 'Acción', TRUE, TRUE);
+
+-- Pregunta 41 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''A'' = ''10'' y ''B'' = ''10'', entonces ''A'' y ''B'' son:', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (141, 'Iguales', TRUE, TRUE),
+    (141, 'Diferentes', TRUE, FALSE),
+    (141, 'Primos', TRUE, FALSE),
+    (141, 'Inversos', TRUE, FALSE);
+
+-- Pregunta 42 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''0'' = ''Inicio'' y ''Inicio'' = ''Play'', ¿''0'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (142, '0', TRUE, FALSE),
+    (142, 'Play', TRUE, TRUE),
+    (142, 'Inicio', TRUE, FALSE),
+    (142, 'Stop', TRUE, FALSE);
+
+-- Pregunta 43 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Noche'' = ''Luna'' y ''Luna'' = ''Satélite'', ¿''Noche'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (143, 'Noche', TRUE, FALSE),
+    (143, 'Luna', TRUE, FALSE),
+    (143, 'Satélite', TRUE, TRUE),
+    (143, 'Planeta', TRUE, FALSE);
+
+-- Pregunta 44 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''O'' = ''P'' y ''P'' = ''Q'', ¿''O'' es ''Q''?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (144, 'No', TRUE, FALSE),
+    (144, 'Tal vez', TRUE, FALSE),
+    (144, 'A veces', TRUE, FALSE),
+    (144, 'Sí', TRUE, TRUE);
+
+-- Pregunta 45 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''50'' = ''L'' y ''L'' = ''Número'', ¿''50'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (145, 'Número', TRUE, TRUE),
+    (145, '50', TRUE, FALSE),
+    (145, 'L', TRUE, FALSE),
+    (145, 'Letra', TRUE, FALSE);
+
+-- Pregunta 46 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Papel'' = ''Hoja'' y ''Hoja'' = ''Blanca'', ¿''Papel'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (146, 'Papel', TRUE, FALSE),
+    (146, 'Blanca', TRUE, TRUE),
+    (146, 'Hoja', TRUE, FALSE),
+    (146, 'Cuaderno', TRUE, FALSE);
+
+-- Pregunta 47 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''U'' = ''V'', ''V'' = ''W'' y ''W'' = ''100'', ¿''U'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (147, 'V', TRUE, FALSE),
+    (147, 'W', TRUE, FALSE),
+    (147, '100', TRUE, TRUE),
+    (147, 'U', TRUE, FALSE);
+
+-- Pregunta 48 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Rojo'' = ''Stop'' y ''Stop'' = ''Alto'', ¿''Rojo'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (148, 'Rojo', TRUE, FALSE),
+    (148, 'Stop', TRUE, FALSE),
+    (148, 'Siga', TRUE, FALSE),
+    (148, 'Alto', TRUE, TRUE);
+
+-- Pregunta 49 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''F'' = ''G'' y ''G'' = ''F'', ¿''F'' es igual a ''G''?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (149, 'Sí', TRUE, TRUE),
+    (149, 'No', TRUE, FALSE),
+    (149, 'Falso', TRUE, FALSE),
+    (149, 'Nunca', TRUE, FALSE);
+
+-- Pregunta 50 (Dificultad Media)
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (1, 'Si ''Mil'' = ''1000'' y ''1000'' = ''K'', ¿''Mil'' es?', TRUE, '2');
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+    (150, 'Mil', TRUE, FALSE),
+    (150, 'K', TRUE, TRUE),
+    (150, '1000', TRUE, FALSE),
+    (150, 'M', TRUE, FALSE);

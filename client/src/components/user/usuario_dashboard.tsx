@@ -1,4 +1,4 @@
-import { Brain, Puzzle, BookOpen, Calculator, Award, Target } from "lucide-react"
+import { Brain, Puzzle, ArrowLeftRight, Map, Award, Target, Clock, Flame, TrendingUp, Search } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -6,23 +6,26 @@ import { ScoreCards } from "./score-cards"
 import { SkillsRadar } from "./skills-radar"
 import { ActivitiesGrid } from "./activities_grid"
 
-import { useTodasActividades } from "@/hooks/useActividades"
-import { type Actividad } from "@/types/actividad"
+import { useUserScores } from "@/hooks/useUserScores"
 
 import { useAuth } from "@/context/AuthContext.tsx"
 
 const userScores = [
-  { game: "Coordinación", score: 2450, maxScore: 5000, trend: "up" as const, trendValue: "+12%" },
-  { game: "Comparación", score: 1820, maxScore: 5000, trend: "up" as const, trendValue: "+8%" },
-  { game: "Oposición", score: 3100, maxScore: 5000, trend: "neutral" as const, trendValue: "0%" },
-  { game: "Espacial", score: 980, maxScore: 5000, trend: "down" as const, trendValue: "-3%" },
+  { game: "Coordinación", score: 2450, maxScore: 5000},
+  { game: "Comparación", score: 1820, maxScore: 5000},
+  { game: "Oposición", score: 3100, maxScore: 5000},
+  { game: "Espacial", score: 980, maxScore: 5000 },
 ]
 
 const gameIcons: Record<string, React.ReactNode> = {
   "Coordinación": <Brain className="size-5" />,
   "Comparación": <Puzzle className="size-5" />,
-  "Oposición": <BookOpen className="size-5" />,
-  "Espacial": <Calculator className="size-5" />,
+  "Oposición": <ArrowLeftRight className="size-5" />,
+  "Espacial": <Map className="size-5" />,
+  "Temporal": <Clock className="size-5" />,
+  "Condicionalidad": <Flame className="size-5" />,
+  "Jerárquico": <TrendingUp className="size-5" />,
+  "Deíctico": <Search className="size-5" />,
 }
 
 const skillsData = [
@@ -42,35 +45,33 @@ const activities = [
   {
     id: "1",
     title: "Coordinación",
-    description: "Test your visual memory with card matching challenges",
+    description: 'Preguntas sencillas para relacionar dos o más temas',
     image: "/images/portadas/actividades/coordinacion.png",
-    difficulty: "Easy" as const,
-    duration: "3 min",
-    streak: 5,
   },
   {
     id: "2",
     title: "Matemáticas locas",
-    description: "Resuelve rompecabezas complejos de reconocimiento espacial y patrones",
+    description: 'Actividad de prueba',
     image: "/images/portadas/actividades/Actividad 2.jpg",
-    difficulty: "Hard" as const,
-    duration: "10 min",
-    streak: 0,
   },
   {
     id: "3",
     title: "Cubo-Juego",
-    description: "Unscramble letters to form words and build vocabulary",
+    description: 'Actividad de prueba',
     image: "/images/portadas/actividades/Actividad de comparacion.jpeg",
-    difficulty: "Medium" as const,
-    duration: "5 min",
-    streak: 12,
   },
 ]
 
 export function UsuarioDashboard() {
 
   const { user } = useAuth();
+  const { scores, loading, error } = useUserScores();
+
+  const userScores = scores.map(({ categoria, puntuacionTotal }) => ({
+    game: categoria,
+    score: puntuacionTotal,
+    maxScore: 10000,
+  }));
 
   return (
     <div className="min-h-svh font-sans antialiased">
@@ -95,7 +96,9 @@ export function UsuarioDashboard() {
           <h2 className="mb-4 text-lg font-semibold font-[family-name:var(--font-heading)]">
             Tus puntuaciones
           </h2>
-          <ScoreCards scores={userScores} icons={gameIcons} />
+          {loading && <p className="text-muted-foreground text-sm">Cargando puntajes...</p>}
+          {error && <p className="text-destructive text-sm">{error}</p>}
+          {!loading && !error && <ScoreCards scores={userScores} icons={gameIcons} />}
         </section>
 
         <div className="mb-10 grid gap-6 lg:grid-cols-[1fr_380px]">

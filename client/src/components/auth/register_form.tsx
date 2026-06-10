@@ -1,5 +1,6 @@
-import { useState } from "react"
+import { useState, useCallback} from "react"
 import { useForm } from 'react-hook-form';
+import ReCAPTCHA from "react-google-recaptcha";
 
 import { type RegisterUser } from "@/types/registro";
 
@@ -19,21 +20,46 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
+// Fecha máxima para el campo de fecha de nacimiento (15 años atrás desde hoy)
+const maxBirthDate = new Date();
+maxBirthDate.setFullYear(maxBirthDate.getFullYear() - 14)
+const maxDateString = maxBirthDate.toISOString().split('T')[0];
+
 function RegForm() {
+
+  const navigate = useNavigate();
+
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaKey, setCaptchaKey] = useState(0);
+  
   const { register, handleSubmit, formState: { errors } } = useForm<RegisterUser>();
   const { signup, isAuthenticated, errors : signupErrors } = useAuth();
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
+  
   useEffect(() => {
     if (isAuthenticated) navigate('/');
   }, [isAuthenticated, navigate]);
 
+  const handleCaptchaChange = useCallback((token: string | null) => {
+    setCaptchaToken(token);
+  }, []);
+  
   const onSubmit = handleSubmit(async (values: RegisterUser) => {
-    await signup(values);
-    navigate('/usuario/home');
-  });
+    if (!captchaToken) {
+      alert("Por favor, completa el captcha antes de registrarte.");
+      return;
+    }
 
+    const success = await signup(values, captchaToken);
+    if (success) {
+      navigate('/usuario/home')
+    } else {
+      // Si el registro falla, reseteamos el captcha para que el usuario pueda intentarlo de nuevo
+      setCaptchaKey(k => k + 1);
+      setCaptchaToken(null);
+    }
+  });
+  
   return (
     <Card className="w-full max-w-md border-none shadow-lg">
       <CardHeader className="text-center">
@@ -73,7 +99,7 @@ function RegForm() {
       </CardHeader>
 
       <CardContent>
-        <form onSubmit={onSubmit} className="flex flex-col gap-5">
+        <form onSubmit={onSubmit} className="flex flex-col gap-5" noValidate>
           
           {/* Número de Cuenta */}
           <div className="flex flex-col gap-2">
@@ -96,7 +122,13 @@ function RegForm() {
               type="email"
               placeholder="nombre@ejemplo.com"
               className="h-11"
-              {...register('email', { required: "El correo es obligatorio" })}
+              {...register('email', {
+                 required: "El correo es obligatorio",
+                 pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Ingresa un correo electrónico válido"
+                  }
+                 })}
             />
             {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
           </div>
@@ -104,6 +136,7 @@ function RegForm() {
           {/* Password con toggle de visibilidad */}
           <div className="flex flex-col gap-2">
             <Label htmlFor="password">Contraseña</Label>
+
             <div className="relative">
               <Input
                 id="password"
@@ -115,6 +148,7 @@ function RegForm() {
                   minLength: { value: 6, message: "Mínimo 6 caracteres" }
                 })}
               />
+
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
@@ -126,6 +160,7 @@ function RegForm() {
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>
                 )}
               </button>
+
             </div>
             {errors.password && <p className="text-xs text-red-500">{errors.password.message}</p>}
           </div>
@@ -136,11 +171,18 @@ function RegForm() {
             <Input
               id="fecha_nacimiento"
               type="date"
+              max={maxDateString}
               className="h-11"
               {...register('fecha_nacimiento', { required: "La fecha es obligatoria" })}
             />
             {errors.fecha_nacimiento && <p className="text-xs text-red-500">{errors.fecha_nacimiento.message}</p>}
           </div>
+
+            <ReCAPTCHA 
+              key={captchaKey}
+              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+              onChange={handleCaptchaChange} 
+            />
 
           <Button type="submit" size="lg" className="h-11 w-full mt-2">
             Registrar Usuario
@@ -152,7 +194,7 @@ function RegForm() {
         <p className="text-sm text-muted-foreground">
           ¿Ya tienes una cuenta?{" "}
           <Link
-            to="/login"
+            to="/auth/login"
             className="font-medium text-foreground underline-offset-4 hover:underline"
           >
             Inicia sesión

@@ -13,7 +13,7 @@ export const ErrorDictionary = {
   },
   PREV_USER: {
     status: 409,
-    message: "El recurso ya existe"
+    message: "Correo o número de cuenta ya está en uso"
   },
   NO_TOKEN: {
     status: 401,
@@ -58,6 +58,10 @@ export const ErrorDictionary = {
   DATOS_ERRONEOS: {
     status: 400,
     message: "Los datos proporcionados son incorrectos"
+  },
+  MISSING_CAPTCHA: {
+    status: 400,
+    message: "Captcha requerido"
   },
   BAD_REQUEST:{
     status: 400,

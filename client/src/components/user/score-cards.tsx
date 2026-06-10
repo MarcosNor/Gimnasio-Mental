@@ -1,16 +1,13 @@
-import { TrendingUp, TrendingDown, Minus } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
 interface ScoreCardProps {
   game: string
   score: number
   maxScore: number
-  trend: "up" | "down" | "neutral"
-  trendValue: string
   icon: React.ReactNode
 }
 
-function ScoreCard({ game, score, maxScore, trend, trendValue, icon }: ScoreCardProps) {
+function ScoreCard({ game, score, maxScore, icon }: ScoreCardProps) {
   const percentage = Math.round((score / maxScore) * 100)
 
   return (
@@ -19,16 +16,6 @@ function ScoreCard({ game, score, maxScore, trend, trendValue, icon }: ScoreCard
         <div className="flex items-center justify-between">
           <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
             {icon}
-          </div>
-          <div className={`flex items-center gap-1 text-xs font-medium ${
-            trend === "up" ? "text-emerald-600" :
-            trend === "down" ? "text-red-500" :
-            "text-muted-foreground"
-          }`}>
-            {trend === "up" && <TrendingUp className="size-3.5" />}
-            {trend === "down" && <TrendingDown className="size-3.5" />}
-            {trend === "neutral" && <Minus className="size-3.5" />}
-            {trendValue}
           </div>
         </div>
         <div>

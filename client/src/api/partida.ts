@@ -13,5 +13,5 @@ export const guardarPartida = async (data: partida) => {
   return response.data;
 }
 
-export const obtenerPartidasPorUsuarioYActividad = async (id_usuario: number, id_actividad: number) => 
-  await axios.get(`/partida/usuario/${id_usuario}/actividad/${id_actividad}`, );
+export const getPuntuacionPorUsuario = async (id_usuario: number) => 
+  await axios.get(`/partida/puntuacion/usuario/${id_usuario}`, );

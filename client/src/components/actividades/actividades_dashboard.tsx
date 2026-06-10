@@ -47,12 +47,30 @@ export function ActivitiesDashboard() {
         </div>
 
         {isLoading ? (
+
           <div className="flex min-h-[400px] items-center justify-center">
             <div className="flex flex-col items-center gap-4">
               <Spinner className="size-8 text-primary" />
               <p className="text-sm text-muted-foreground">Loading actividades...</p>
             </div>
           </div>
+
+        ) : actividades.length === 0 ? (
+          
+          <div className="flex min-h-[400px] items-center justify-center">
+            <div className="flex flex-col items-center gap-4 text-center">
+              <p className="font-medium">No se encontraron actividades</p>
+              <p className="text-sm text-muted-foreground">
+                Esta categoria todavía no tiene actividades
+              </p>
+              <Button variant="outline" onClick={handleBack} className="gap-2">
+                <ArrowLeft className="size-4" />
+                Regresar
+              </Button>
+            </div>
+          </div>
+
+          
         ) : error ? (
           <div className="flex min-h-[400px] items-center justify-center">
             <div className="flex flex-col items-center gap-4 text-center">
@@ -60,25 +78,12 @@ export function ActivitiesDashboard() {
                 <AlertCircle className="size-6 text-destructive" />
               </div>
               <div>
-                <p className="font-medium">Failed to load actividades</p>
+                <p className="font-medium">Error al cargar las actividades</p>
                 <p className="text-sm text-muted-foreground">{error}</p>
               </div>
               <Button variant="outline" onClick={fetchActividades} className="gap-2">
                 <RefreshCw className="size-4" />
-                Try again
-              </Button>
-            </div>
-          </div>
-        ) : actividades.length === 0 ? (
-          <div className="flex min-h-[400px] items-center justify-center">
-            <div className="flex flex-col items-center gap-4 text-center">
-              <p className="font-medium">No se encontraro actividades</p>
-              <p className="text-sm text-muted-foreground">
-                Esta categoria todavía no tiene actividades
-              </p>
-              <Button variant="outline" onClick={handleBack} className="gap-2">
-                <ArrowLeft className="size-4" />
-                Regresar
+                Intentar de nuevo
               </Button>
             </div>
           </div>

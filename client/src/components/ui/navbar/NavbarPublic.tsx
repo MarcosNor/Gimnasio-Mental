@@ -2,9 +2,9 @@ import { Zap } from "lucide-react"
 import { Link } from 'react-router-dom'
 
 const navLinks = [
-  { label: "Juegos", href: "#juegos" },
-  { label: "Beneficios", href: "#beneficios" },
-  { label: "Sobre DGOAE", href: "#sobre" },
+  { label: "Juegos", href: "/#juegos" },
+  { label: "Beneficios", href: "/#beneficios" },
+  { label: "Sobre DGOAE", href: "/#sobre" },
 ]
 
 export function NavbarPublic() {

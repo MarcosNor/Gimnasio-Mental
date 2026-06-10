@@ -8,6 +8,7 @@ import { createAccessToken } from "src/libs/jwt.ts";
 import jwt from "jsonwebtoken";
 import { TOKEN_SECRET } from "src/config.ts";
 import { TokenPayload } from "src/libs/jwt.ts";
+import axios from "client/src/api/axios.ts";
 
 /*
   Controladores relacionados con la autenticación de usuarios:
@@ -18,20 +19,25 @@ import { TokenPayload } from "src/libs/jwt.ts";
 */
 
 export const register = async (req: Request, res: Response, next: NextFunction) => {
-  const { num_cta, email, fecha_nacimiento, password } = req.body;
   
   try {
-
-    // Mensajes de error para lanzar al momento de ejecución en el frontend
-    // Error: Correo ya en uso
-    const foundEmail = await prisma.usuario.findFirst({ where: { email } });
-    const foundNum_cta = await prisma.usuario.findFirst({ where: { num_cta } });
-    if (foundEmail || foundNum_cta) {
-      return res.status(400).json( ["Correo o número de cuenta ya está en uso"] );
-    };
+    const { num_cta, email, fecha_nacimiento, password, captchaToken } = req.body;
 
     if (!num_cta || !email || !fecha_nacimiento || !password) {
       throw new CustomError("MISSING_FIELDS");
+    }
+
+    if (!captchaToken) {
+      throw new CustomError("MISSING_CAPTCHA");
+    }
+
+    const verificacion = await axios.post(
+      "https://www.google.com/recaptcha/api/siteverify",
+      null,
+      { params: { secret: process.env.RECAPTCHA_SECRET_KEY, response: captchaToken } }
+    );
+    if (!verificacion.data.success) {
+      return res.status(400).json(["Captcha inválido"]);
     }
 
     const existing = await prisma.usuario.findFirst({
@@ -44,7 +50,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     });
 
     if (existing) {
-      throw new CustomError("PREV_USER");
+      return res.status(400).json({ message: "El número de cuenta o correo ya está registrado" });
     }
     
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -93,7 +99,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
       }
     });
 
-    if (!usuarioFound) return res.status(400).json({ message: "Usuario no encontrado"});
+    if (!usuarioFound) return res.status(400).json({ message: "Correo o contraseña incorrectos"});
     
     const isMatch: boolean = await bcrypt.compare(password, usuarioFound.password);
 

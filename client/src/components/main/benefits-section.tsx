@@ -54,7 +54,7 @@ export function BenefitsSection() {
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto mb-14 max-w-2xl text-center">
           <Badge variant="outline" className="mb-4 rounded-full px-4 py-1.5 text-sm font-medium">
-            Qué queremos lograr?
+            Beneficios
           </Badge>
           <h2 className="text-balance text-3xl font-bold tracking-tight font-[family-name:var(--font-heading)] md:text-5xl">
             ¿Qué buscamos entrenar?
