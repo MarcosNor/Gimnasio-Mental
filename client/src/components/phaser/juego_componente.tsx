@@ -1,104 +1,75 @@
-
+import { useNavigate } from "react-router-dom";
 
 import { useItems } from "@/hooks/useItems";
-import { useEffect, useState } from "react";
-import { EventBus } from "../../phaser/event/EventBus";
+import { useJuegoPhaser } from "@/hooks/useJuegoPhaser";
+import { useGuardarPartida } from "@/hooks/useGuardarPartida";
 
-import { guardarPartida } from "@/api/partida";
-
-import { getGameConfig } from "./registroJuegos";
-
-import { type partida, type PartidaTerminadaEvent } from "@/types/partida";
+import { Button } from "@/components/ui/button"
+import { Spinner } from "@/components/ui/spinner"
+import { Proximamente } from "@/components/ui/proximamente"
+import { AlertCircle, ArrowLeft, RefreshCw } from "lucide-react";
 
 interface JuegoComponenteProps {
   actividadId: number;
 }
 
 export default function JuegoComponente({ actividadId }: JuegoComponenteProps) {
+  const navigate = useNavigate();
+  const handleBack = () => navigate(-1);
 
-  const { items, isLoading, error } = useItems(actividadId);
+  const { items, isLoading, error, fetchItems } = useItems(actividadId);
 
-  useEffect(() => {
-
-    // Evitamos ejecutar si está cargando, si hay un error o si no hay items disponibles
-    if (isLoading || error || !items || !items.length) return ;
-
-    let game: Phaser.Game | null = null;
-    let isMounted = true;
-    
-    const loadAndStartGame = async () => {
-      try {
-        const importGameConfig = getGameConfig[actividadId];
-
-        if (!importGameConfig) {
-          console.error(`No se encontró configuración para la actividad con ID ${actividadId}`);
-          return;
-        }
-
-        const { createGame } = await importGameConfig();
-
-        if (isMounted) {
-          game = createGame(items);
-        }
-      } catch (err) {
-        console.error("Error al cargar la configuración del juego:", err);
-      }
-    };
-    
-    loadAndStartGame();
-    
-    // Funcion de limpieza para destruir el juego cuando el componente se desmonte
-    return () => {
-      isMounted = false;
-      if (game) {
-        game.destroy(true);
-      }
-    };
-  }, [items, isLoading, error, actividadId]);
-  
-  const [estadoGuardado, setEstadoGuardado] = useState<'idle' | 'guardando' | 'error'>('idle');
-  useEffect(() => {
-
-
-    const handlePartidaFinalizada = async (data: PartidaTerminadaEvent) => {
-
-      setEstadoGuardado('guardando');
-      console.log("Partida finalizada con datos:", data);
-
-      try {
-        await guardarPartida({
-          id_actividad: actividadId,
-          puntuacion: data.puntuacion,
-          estadistica: {
-            aciertos_facil:   data.estadisticas.FACIL.correctas,
-            total_facil:      data.estadisticas.FACIL.respondidas,
-            aciertos_medio:   data.estadisticas.MEDIO.correctas,
-            total_medio:      data.estadisticas.MEDIO.respondidas,
-            aciertos_dificil: data.estadisticas.DIFICIL.correctas,
-            total_dificil:    data.estadisticas.DIFICIL.respondidas,
-          }
-        });
-        setEstadoGuardado('idle');
-
-      } catch (error) {
-        console.error("Error al guardar la partida:", error);
-        setEstadoGuardado('error');
-      }
-    }
-    EventBus.on('partida-terminada', handlePartidaFinalizada);
-
-    return () => {
-      EventBus.off('partida-terminada', handlePartidaFinalizada);
-    }
-  }, [actividadId]);
+  useJuegoPhaser(actividadId, items, isLoading, error);
+  const { estadoGuardado } = useGuardarPartida(actividadId);
 
   if (isLoading) {
-    return <div>Cargando preguntas...</div>;
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Spinner className="size-8 text-primary" />
+          <p className="text-sm text-muted-foreground">Loading actividades...</p>
+        </div>
+      </div>
+    );
   }
 
+  if (!items || !items.length) {
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <div className="flex flex-col items-center gap-4 text-center">
+            <Proximamente />
+          <p className="text-sm text-muted-foreground">
+            Esta actividad está en desarrollo
+          </p>
+          <Button variant="outline" onClick={handleBack} className="bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">
+            <ArrowLeft className="size-4" />
+            Regresar
+          </Button>
+        </div>
+      </div>
+    )
+  };
+
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <div className="flex size-12 items-center justify-center rounded-full bg-destructive/10">
+            <AlertCircle className="size-6 text-destructive" />
+          </div>
+          <div>
+            <p className="font-medium">Error al cargar la actividad</p>
+            <p className="text-sm text-muted-foreground">{error}</p>
+          </div>
+          <Button variant="outline" onClick={fetchItems} className="gap-2">
+            <RefreshCw className="size-4" />
+            Intentar de nuevo
+          </Button>
+        </div>
+      </div>
+    )
   }
+
 
 
   return <div

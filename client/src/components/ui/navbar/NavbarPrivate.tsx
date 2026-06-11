@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 import { useAuth } from "@/context/AuthContext.tsx"
 
 const navLinks = [
-  { label: "Juegos", href: "#juegos" },
-  { label: "Beneficios", href: "#beneficios" },
+  // { label: "Juegos", href: "#juegos" },
+  // { label: "Beneficios", href: "#beneficios" },
   { label: "Sobre DGOAE", href: "#sobre" },
 ]
 
@@ -44,7 +44,7 @@ export function NavbarPrivate() {
               className="hidden text-sm font-medium text-muted-foreground transition-colors sm:block">
               Bienvenido {user?.num_cta}
             </li>
-            <Link to ="/usuario/home/perfil"
+            <Link to ="/"
                 className="inline-flex h-9 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
               >
                 Mi Perfil

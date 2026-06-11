@@ -1,9 +1,11 @@
 // actividades_dashboard.tsx
 import { AlertCircle, RefreshCw, ArrowLeft } from "lucide-react"
+
 import { ActividadCard } from "@/components/actividades/actividades_grid"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { useActividades } from "@/hooks/useActividades"
+import { Proximamente } from "@/components/ui/proximamente"
 
 import { useParams, useNavigate } from "react-router-dom"
 
@@ -42,7 +44,7 @@ export function ActivitiesDashboard() {
             {}
           </h1>
           <p className="mt-2 text-muted-foreground">
-            Choose an actividad to start training
+            Escoge una actividad para empezar a entrenar.
           </p>
         </div>
 
@@ -59,11 +61,11 @@ export function ActivitiesDashboard() {
           
           <div className="flex min-h-[400px] items-center justify-center">
             <div className="flex flex-col items-center gap-4 text-center">
-              <p className="font-medium">No se encontraron actividades</p>
+                <Proximamente />
               <p className="text-sm text-muted-foreground">
                 Esta categoria todavía no tiene actividades
               </p>
-              <Button variant="outline" onClick={handleBack} className="gap-2">
+              <Button variant="outline" onClick={handleBack} className="bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">
                 <ArrowLeft className="size-4" />
                 Regresar
               </Button>
