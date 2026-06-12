@@ -1,6 +1,6 @@
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Play, Clock, Flame } from "lucide-react"
+// import { Badge } from "@/components/ui/badge"
+// import { Button } from "@/components/ui/button"
+// import { Play, Clock, Flame } from "lucide-react"
 
 interface Activity {
   id: string
@@ -14,11 +14,13 @@ interface ActivityCardProps {
 }
 
 function ActivityCard({ activity }: ActivityCardProps) {
-  const difficultyColor = {
-    Easy: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
-    Medium: "bg-amber-500/10 text-amber-600 border-amber-500/20",
-    Hard: "bg-red-500/10 text-red-600 border-red-500/20",
-  }
+
+  // Por si después queremos agregar dificultad a las actividades
+  // const difficultyColor = {
+  //   Easy: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
+  //   Medium: "bg-amber-500/10 text-amber-600 border-amber-500/20",
+  //   Hard: "bg-red-500/10 text-red-600 border-red-500/20",
+  // }
 
   return (
     <div className="group flex gap-4 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-md">
@@ -43,10 +45,10 @@ function ActivityCard({ activity }: ActivityCardProps) {
         </div>
       </div>
       <div className="flex items-center">
-        <Button size="icon" variant="secondary" className="rounded-lg">
+        {/* <Button size="icon" variant="secondary" className="rounded-lg">
           <Play className="size-4" />
           <span className="sr-only">Play {activity.title}</span>
-        </Button>
+        </Button> */}
       </div>
     </div>
   )

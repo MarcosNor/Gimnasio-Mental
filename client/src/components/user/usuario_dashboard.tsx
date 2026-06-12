@@ -10,12 +10,12 @@ import { useUserScores } from "@/hooks/useUserScores"
 
 import { useAuth } from "@/context/AuthContext.tsx"
 
-const userScores = [
-  { game: "Coordinación", score: 2450, maxScore: 5000},
-  { game: "Comparación", score: 1820, maxScore: 5000},
-  { game: "Oposición", score: 3100, maxScore: 5000},
-  { game: "Espacial", score: 980, maxScore: 5000 },
-]
+// const exampleScores = [
+//   { game: "Coordinación", score: 2450, maxScore: 5000},
+//   { game: "Comparación", score: 1820, maxScore: 5000},
+//   { game: "Oposición", score: 3100, maxScore: 5000},
+//   { game: "Espacial", score: 980, maxScore: 5000 },
+// ]
 
 const gameIcons: Record<string, React.ReactNode> = {
   "Coordinación": <Brain className="size-5" />,
@@ -28,23 +28,23 @@ const gameIcons: Record<string, React.ReactNode> = {
   "Deíctico": <Search className="size-5" />,
 }
 
-const skillsData = [
-  { skill: "Coordinación", level: 78, maxLevel: 100 },
-  { skill: "Comparación", level: 65, maxLevel: 100 },
-  { skill: "Oposición", level: 52, maxLevel: 100 },
-  { skill: "Espacial", level: 88, maxLevel: 100 },
-  { skill: "Temporal", level: 71, maxLevel: 100 },
-  { skill: "Condicionalidad", level: 45, maxLevel: 100 },
-  { skill: "Jerárquico", level: 82, maxLevel: 100 },
-  { skill: "Deíctico", level: 69, maxLevel: 100 },
-]
+// const exampleSkillsData = [
+//   { skill: "Coordinación", level: 78, maxLevel: 100 },
+//   { skill: "Comparación", level: 65, maxLevel: 100 },
+//   { skill: "Oposición", level: 52, maxLevel: 100 },
+//   { skill: "Espacial", level: 88, maxLevel: 100 },
+//   { skill: "Temporal", level: 71, maxLevel: 100 },
+//   { skill: "Condicionalidad", level: 45, maxLevel: 100 },
+//   { skill: "Jerárquico", level: 82, maxLevel: 100 },
+//   { skill: "Deíctico", level: 69, maxLevel: 100 },
+// ]
 
 
 
 const activities = [
   {
     id: "1",
-    title: "Coordinación",
+    title: "Relación-ando",
     description: 'Preguntas sencillas para relacionar dos o más temas',
     image: "/images/portadas/actividades/coordinacion.png",
   },
@@ -56,7 +56,7 @@ const activities = [
   },
   {
     id: "3",
-    title: "Cubo-Juego",
+    title: "Siluetas",
     description: 'Actividad de prueba',
     image: "/images/portadas/actividades/Actividad de comparacion.jpeg",
   },
@@ -67,11 +67,31 @@ export function UsuarioDashboard() {
   const { user } = useAuth();
   const { scores, loading, error } = useUserScores();
 
-  const userScores = scores.map(({ categoria, puntuacionTotal }) => ({
-    game: categoria,
-    score: puntuacionTotal,
-    maxScore: 10000,
-  }));
+  const userScores = scores.map(({ categoria, actividades }) => {
+    const porcentajeCategoria = actividades.reduce(
+      (acc, act) => acc + act.aportePorcentajeCategoria,
+      0
+    );
+
+    return {
+      game: categoria,
+      score: Math.round(porcentajeCategoria),
+      maxScore: 100,
+    };
+  });
+
+  const skillsData = scores.map(({ categoria, actividades }) => {
+    const porcentajeCategoria = actividades.reduce(
+      (acc, act) => acc + act.aportePorcentajeCategoria,
+      0
+    );
+
+    return {
+      skill: categoria,
+      level: Math.round(porcentajeCategoria),
+      maxLevel: 100,
+    };
+  }); 
 
   return (
     <div className="min-h-svh font-sans antialiased">

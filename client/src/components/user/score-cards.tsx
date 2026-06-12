@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
+import { Medal } from "lucide-react"
 
 interface ScoreCardProps {
   game: string
@@ -6,6 +7,12 @@ interface ScoreCardProps {
   maxScore: number
   icon: React.ReactNode
 }
+
+const medals = [
+  { threshold: 30, label: "Bronce", colorClass: "text-amber-700" },
+  { threshold: 60, label: "Plata", colorClass: "text-slate-400" },
+  { threshold: 100, label: "Oro", colorClass: "text-yellow-500" },
+]
 
 function ScoreCard({ game, score, maxScore, icon }: ScoreCardProps) {
   const percentage = Math.round((score / maxScore) * 100)
@@ -16,6 +23,19 @@ function ScoreCard({ game, score, maxScore, icon }: ScoreCardProps) {
         <div className="flex items-center justify-between">
           <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
             {icon}
+          </div>
+          <div className="flex items-center gap-1">
+            {medals.map(({ threshold, label, colorClass }) => {
+              const unlocked = percentage >= threshold
+
+              return (
+                <Medal
+                  key={label}
+                  className={`size-5 ${unlocked ? colorClass : "text-muted-foreground/30"}`}
+                  aria-label={`Medalla de ${label}${unlocked ? " desbloqueada" : " bloqueada"}`}
+                />
+              )
+            })}
           </div>
         </div>
         <div>

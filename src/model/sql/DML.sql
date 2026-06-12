@@ -11,7 +11,7 @@ VALUES
   ('Jerárquico', 'Relacionar estímulos en función de su posición en una estructura jerárquica o de orden.'),
   ('Deíctico', 'Relacionar estímulos en función del contexto o punto de referencia específico.');
   
-UPDATE actividad SET tiempoLimite = 30 WHERE nombre = 'Coordinación';
+UPDATE actividad SET nombre = "Relación-ando" WHERE id_actividad = 1;
 UPDATE cat_categoria SET slug = 'comparacion' WHERE nombre = 'Comparación';
 UPDATE cat_categoria SET slug = 'oposicion' WHERE nombre = 'Oposición';
 UPDATE cat_categoria SET slug = 'espacial' WHERE nombre = 'Espacial';
@@ -20,10 +20,10 @@ UPDATE cat_categoria SET slug = 'condicionalidad' WHERE nombre = 'Condicionalida
 UPDATE cat_categoria SET slug = 'jerarquico' WHERE nombre = 'Jerárquico';
 UPDATE actividad SET estatus_actividad = true WHERE id_actividad = 2;
 
-update respuesta set id_item = 51 where id_respuesta = 204;
+commit;
 
 select * from respuesta;
-select * from item;
+select * from actividad;
 
 update actividad set estatus_actividad = TRUE where id_actividad = 2;
   

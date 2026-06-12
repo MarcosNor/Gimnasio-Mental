@@ -25,4 +25,15 @@ export interface puntuacionPorCategoria {
   categoria: string;
   id_categoria: number;
   puntuacionTotal: number;
+  actividades: actividadPuntuacion[];
+}
+
+interface actividadPuntuacion {
+  id_actividad: number;
+  nombre: string;
+  puntuacion: number;
+
+  // Valores de 0 a 100
+  mejorPorcentaje: number;
+  aportePorcentajeCategoria: number;
 }
