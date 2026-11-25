@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, register, logout, profile, verifyToken } from "../controllers/auth.controller.ts"
+import { login, register, logout, profile, verifyToken, updateProfile } from "../controllers/auth.controller.ts"
 import { authRequired } from "../middlewares/validateToken.ts";
 import { validateSchema } from "../middlewares/validator.middleware.ts";
 import { registerSchema, loginSchema } from "../schemas/auth.schema.ts";
@@ -15,5 +15,7 @@ router.post("/logout", logout);
 router.get("/profile", authRequired, profile);
 
 router.get("/verify", verifyToken);
+
+router.put("/profile", authRequired, updateProfile);
 
 export default router;

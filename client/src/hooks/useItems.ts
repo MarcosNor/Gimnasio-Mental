@@ -4,10 +4,10 @@ import { useEffect, useState, useCallback } from "react"
 
 
 // Hook personalizado para obtener los items de una actividad
-export const useItems = (id_actividad: number) => {
+export const useItems = (id_actividad: number | null) => {
 
   const [items, setItems] = useState<Item[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   // callback para evitar recrear la función en cada renderizado
@@ -16,6 +16,14 @@ export const useItems = (id_actividad: number) => {
     setError(null)
 
     try {
+
+      // Si una actividad no necesita Items (Demos)
+      if (!id_actividad) {
+        setItems([]);
+        setIsLoading(false);
+        return;
+      }
+
       const res = await getItemsByActividadId(id_actividad)
       console.log("Respuesta del backend:", res)
 

@@ -1,22 +1,23 @@
 import { Brain, Puzzle, ArrowLeftRight, Map, Award, Target, Clock, Flame, TrendingUp, Search } from "lucide-react"
 import { Link } from "react-router-dom"
+import { useMemo } from "react"
+
+// Componentes UI
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ScoreCards } from "./score-cards"
 import { SkillsRadar } from "./skills-radar"
 import { ActivitiesGrid } from "./activities_grid"
 
+// Hooks y contextos
 import { useUserScores } from "@/hooks/useUserScores"
-
 import { useAuth } from "@/context/AuthContext.tsx"
 
-// const exampleScores = [
-//   { game: "Coordinación", score: 2450, maxScore: 5000},
-//   { game: "Comparación", score: 1820, maxScore: 5000},
-//   { game: "Oposición", score: 3100, maxScore: 5000},
-//   { game: "Espacial", score: 980, maxScore: 5000 },
-// ]
+import { calcularPorcentajePorCategoria } from "@/lib/scores"
+import { useTodasActividades } from "@/hooks/useActividades"
+import { Button } from "../ui/button"
 
+// Íconos hardcodeados para cada categoria
 const gameIcons: Record<string, React.ReactNode> = {
   "Coordinación": <Brain className="size-5" />,
   "Comparación": <Puzzle className="size-5" />,
@@ -28,6 +29,14 @@ const gameIcons: Record<string, React.ReactNode> = {
   "Deíctico": <Search className="size-5" />,
 }
 
+// Ejemplos
+
+// const exampleScores = [
+//   { game: "Coordinación", score: 2450, maxScore: 5000},
+//   { game: "Comparación", score: 1820, maxScore: 5000},
+//   { game: "Oposición", score: 3100, maxScore: 5000},
+//   { game: "Espacial", score: 980, maxScore: 5000 },
+// ]
 // const exampleSkillsData = [
 //   { skill: "Coordinación", level: 78, maxLevel: 100 },
 //   { skill: "Comparación", level: 65, maxLevel: 100 },
@@ -38,57 +47,54 @@ const gameIcons: Record<string, React.ReactNode> = {
 //   { skill: "Jerárquico", level: 82, maxLevel: 100 },
 //   { skill: "Deíctico", level: 69, maxLevel: 100 },
 // ]
-
-
-
-const activities = [
-  {
-    id: "1",
-    title: "Relación-ando",
-    description: 'Preguntas sencillas para relacionar dos o más temas',
-    image: "/images/portadas/actividades/coordinacion.png",
-  },
-  {
-    id: "2",
-    title: "Matemáticas locas",
-    description: 'Actividad de prueba',
-    image: "/images/portadas/actividades/Actividad 2.jpg",
-  },
-  {
-    id: "3",
-    title: "Siluetas",
-    description: 'Actividad de prueba',
-    image: "/images/portadas/actividades/Actividad de comparacion.jpeg",
-  },
-]
+// const exampleActivities = [
+//   {
+//     id: "1",
+//     nombre: "Relación-ando",
+//     categoria: "Coordinación",
+//     descripcion: 'Preguntas sencillas para relacionar dos o más temas',
+//     portada: "/images/portadas/actividades/coordinacion.png",
+//   },
+//   {
+//     id: "2",
+//     nombre: "Matemáticas locas",
+//     categoria: "Coordinacion",
+//     descripcion: 'Actividad de prueba',
+//     portada: "/images/portadas/actividades/Actividad 2.jpg",
+//   },
+//   {
+//     id: "3",
+//     nombre: "Siluetas",
+//     categoria: "Espacial",
+//     descripcion: 'Actividad de prueba',
+//     portada: "/images/portadas/actividades/Actividad de comparacion.jpeg",
+//   },
+// ]
 
 export function UsuarioDashboard() {
 
   const { user } = useAuth();
   const { scores, loading, error } = useUserScores();
+  const { actividades } = useTodasActividades();
 
-  const userScores = scores.map(({ categoria, actividades }) => {
-    const porcentajeCategoria = actividades.reduce(
-      (acc, act) => acc + act.aportePorcentajeCategoria,
-      0
-    );
+  const activities = actividades.slice(0, 3)
+
+  // Memoizar el cálculo de porcentajes para evitar recalcularlo en cada renderizado
+  const porcentajesPorCategoria = useMemo(() => calcularPorcentajePorCategoria(scores), [scores]);
+
+  const userScores = porcentajesPorCategoria.map(({ categoria, porcentaje }) => {
 
     return {
       game: categoria,
-      score: Math.round(porcentajeCategoria),
+      score: porcentaje,
       maxScore: 100,
     };
   });
 
-  const skillsData = scores.map(({ categoria, actividades }) => {
-    const porcentajeCategoria = actividades.reduce(
-      (acc, act) => acc + act.aportePorcentajeCategoria,
-      0
-    );
-
+  const skillsData = porcentajesPorCategoria.map(({ categoria, porcentaje }) => {
     return {
       skill: categoria,
-      level: Math.round(porcentajeCategoria),
+      level: porcentaje,
       maxLevel: 100,
     };
   }); 
@@ -127,12 +133,16 @@ export function UsuarioDashboard() {
               <h2 className="text-lg font-semibold font-[family-name:var(--font-heading)]">
                 Actividades disponibles
               </h2>
+
               <Link 
                 to="categorias"
                 className="text-sm font-medium text-primary hover:underline"
               >
-                Ver las categorias
+                <Button size="default" variant="default">
+                  Ver todas las categorias
+                </Button>
               </Link>
+
             </div>
             <ActivitiesGrid activities={activities} />
           </section>

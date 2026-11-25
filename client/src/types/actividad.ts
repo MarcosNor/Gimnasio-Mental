@@ -7,4 +7,8 @@ export interface Actividad {
   estatus_actividad: boolean
   slug: string // slug para las URLs amigables
   portada: string
+  categoria: {
+    nombre: string
+    slug: string
+  }
 }

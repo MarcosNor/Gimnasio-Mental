@@ -1,5 +1,6 @@
 import { Zap } from "lucide-react"
 import { Link } from 'react-router-dom'
+import { ThemeToggle } from "./ThemeToggle"
 
 const navLinks = [
   { label: "Juegos", href: "/#juegos" },
@@ -56,6 +57,7 @@ export function NavbarPublic() {
               </Link>
             </div>
           </>
+          <ThemeToggle />
 
       </nav>
     </header>

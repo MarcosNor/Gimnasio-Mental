@@ -9,7 +9,12 @@ export function useJuegoPhaser(
   error: string | null
 ) {
   useEffect(() => {
-    if (isLoading || error || !items || !items.length) return;
+
+    const requiereItems = actividadId !== 6;
+
+    if (isLoading || error) return;
+    if (requiereItems && (!items || !items.length)) return;
+
 
     let game: Phaser.Game | null = null;
     let isMounted = true;
@@ -26,7 +31,7 @@ export function useJuegoPhaser(
         const { createGame } = await importGameConfig();
 
         if (isMounted) {
-          game = createGame(items);
+          game = createGame(items ?? []);
         }
       } catch (err) {
         console.error("Error al cargar la configuración del juego:", err);

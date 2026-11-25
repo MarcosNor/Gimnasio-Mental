@@ -14,6 +14,7 @@ interface Estadisticas {
   total_dificil: number;
 }
 
+// Cuando un usuario termina una partida, esta se crea con la información registrada
 export const postPartida = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const usuario = req.usuario;
@@ -59,6 +60,7 @@ export const postPartida = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
+// Obtiene todas las partidas de un usuario en una respectiva actividad con el id de ambos.
 export const getPartidasByActividadUsuarioId = async (req: Request, res: Response, next: NextFunction) => {
   try {
 
@@ -92,8 +94,10 @@ export const getPartidasByActividadUsuarioId = async (req: Request, res: Respons
   }
 };
 
+/*
+Funcion que recibe una fila de la tabla estadística y calcula el porcentaje respondido correctamente de la actividad
+*/
 const calcularPorcentajeActividad = (estadistica: Estadisticas): number => {
-  // Extraemos directamente los valores de la base de datos con fallbacks a 0
   const totalFacil = estadistica.total_facil ?? 0;
   const aciertosFacil = estadistica.aciertos_facil ?? 0;
 
@@ -110,8 +114,6 @@ const calcularPorcentajeActividad = (estadistica: Estadisticas): number => {
   // Cálculo del porcentaje ponderado (sobre base 100)
   const porcentaje = (A * 0.2 + B * 0.3 + C * 0.5) * 100;
 
-  // NOTA: Si multiplicas por 100 otra vez aquí adentro, un 85% se convertirá en 8500.
-  // Si tu frontend espera un entero entre 0 y 100, simplemente usa Math.round(porcentaje).
   return Math.round(porcentaje);
 };
 
@@ -140,13 +142,11 @@ export const getPuntuacionByUsuarioCategoriaId = async (req: Request, res: Respo
       },
     });
 
-    // Construye un mapa id_actividad -> puntuacion para lookup rápido
     const puntuacionMap: Record<number, number> = {};
     for (const partida of partidasPorActividad) {
       puntuacionMap[partida.id_actividad] = partida._sum.puntuacion ?? 0;
     }
 
-    // NUEVO: obtener todas las partidas con sus estadísticas para calcular el mejor porcentaje
     const partidas = await prisma.partida.findMany({
       where: {
         id_usuario: Number(idUsuario),
@@ -157,11 +157,8 @@ export const getPuntuacionByUsuarioCategoriaId = async (req: Request, res: Respo
       },
     });
 
-    // NUEVO: mapa id_actividad -> mejor porcentaje obtenido
     const mejorPorcentajeActividad: Record<number, number> = {};
     for (const partida of partidas) {
-
-      // Previene si alguna estadistica viene en null o undefined
       const porcentaje = partida.estadistica
         ? calcularPorcentajeActividad(partida.estadistica as Estadisticas)
         : 0;
@@ -172,13 +169,11 @@ export const getPuntuacionByUsuarioCategoriaId = async (req: Request, res: Respo
       }
     }
 
-    // Suma de puntuaciones por categoría
     const result = todasLasCategorias.map((categoria) => {
       const puntuacionTotal = categoria.actividad.reduce((acc, actividad) => {
         return acc + (puntuacionMap[actividad.id_actividad] ?? 0);
       }, 0);
 
-      // NUEVO: detalle por actividad con su mejor porcentaje
       const actividades = categoria.actividad.map((actividad) => {
         const mejorPorcentaje = mejorPorcentajeActividad[actividad.id_actividad] ?? 0;
         const numActividades = categoria.actividad.length;

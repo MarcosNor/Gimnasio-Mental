@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext'
 import { Footer } from '../components/ui/footer';
 import { NavbarPrivate } from '@/components/ui/navbar/NavbarPrivate';
 import Breadcrumb from '@/components/ui/breadcrumb';
+import BackButton from '@/components/ui/back_arrow';
 
 export default function PrivateLayout() {
 
@@ -22,6 +23,7 @@ export default function PrivateLayout() {
         </div>
       </header>
         <Outlet />
+        <BackButton />
       <footer>
         <Footer/>
       </footer>

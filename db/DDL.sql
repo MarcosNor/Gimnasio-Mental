@@ -2,10 +2,6 @@ DROP SCHEMA IF EXISTS gimnasio_mental;
 CREATE DATABASE gimnasio_mental;
 USE gimnasio_mental;
 
--- Transaction
-
-SELECT email, password FROM usuario;
-
 -- -----------TABLAS CON LLAVES PRIMARIAS-----------------
 
 -- Tabla usuario
@@ -48,24 +44,7 @@ CREATE TABLE actividad (
   portada VARCHAR(255) DEFAULT NULL,
 
   CONSTRAINT fk_actividad_categoria FOREIGN KEY (id_categoria) REFERENCES cat_categoria(id_categoria)
-    ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-select * from actividad;
-
--- Tabla stat_usuario
-CREATE TABLE stat_usuario (
-  id_usuario INT NOT NULL,
-  id_actividad INT NOT NULL,
-  record_personal INT DEFAULT 0,
-  -- record malo
-  total_partidas INT DEFAULT 0,
-
-  PRIMARY KEY (id_usuario, id_actividad),
-  CONSTRAINT fk_stat_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
-    ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT fk_stat_actividad FOREIGN KEY (id_actividad) REFERENCES actividad(id_actividad)
-    ON DELETE CASCADE ON UPDATE CASCADE
+    ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Tabla item (Entidad débil)
@@ -120,7 +99,5 @@ CREATE TABLE estadistica (
     total_dificil INT DEFAULT 0,
     
     CONSTRAINT fk_aciertos_partida FOREIGN KEY (id_partida) REFERENCES partida(id_partida)
-    ON DELETE CASCADE ON UPDATE CASCADE
+    ON DELETE RESTRICT ON UPDATE CASCADE
 );
-
-select * from usuario;

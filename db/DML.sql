@@ -1,45 +1,21 @@
 SELECT * FROM gimnasio_mental.cat_categoria;
 
-INSERT INTO cat_categoria (nombre, beneficios)
+INSERT INTO cat_categoria (nombre, beneficios, slug, portada)
 VALUES
-  ('Coordinación', 'Relacionar dos o más estímulos de manera simultánea'),
-  ('Comparación', 'Establecer relaciones de similitud o diferencia entre dos o más estímulos.'),
-  ('Oposición', 'Relacionar estímulos que se contraponen o son opuestos en algún aspecto.'),
-  ('Espacial', 'Relacionar estímulos en función de su posición o ubicación en el espacio.'),
-  ('Temporal', 'Relacionar estímulos en función de su posición o secuencia en el tiempo.'),
-  ('Condicionalidad', 'Relacionar estímulos en función de condiciones o criterios específicos.'),
-  ('Jerárquico', 'Relacionar estímulos en función de su posición en una estructura jerárquica o de orden.'),
-  ('Deíctico', 'Relacionar estímulos en función del contexto o punto de referencia específico.');
+  ('Coordinación', 'Relacionar dos o más estímulos de manera simultánea', 'coordinacion', '/images/portadas/categorias/coordinacion.png'),
+  ('Comparación', 'Establecer relaciones de similitud o diferencia entre dos o más estímulos.', 'comparacion', '/images/portadas/categorias/comparacion.png'),
+  ('Oposición', 'Relacionar estímulos que se contraponen o son opuestos en algún aspecto.', 'oposicion', '/images/portadas/categorias/oposicion.png'),
+  ('Espacial', 'Relacionar estímulos en función de su posición o ubicación en el espacio.', 'espacial', '/images/portadas/categorias/espacial.png'),
+  ('Temporal', 'Relacionar estímulos en función de su posición o secuencia en el tiempo.', 'temporal', '/images/portadas/categorias/temporal.png'),
+  ('Condicionalidad', 'Relacionar estímulos en función de condiciones o criterios específicos.', 'condicionalidad', '/images/portadas/categorias/condicionalidad.png'),
+  ('Jerárquico', 'Relacionar estímulos en función de su posición en una estructura jerárquica o de orden.', 'jerarquico', '/images/portadas/categorias/jerarquico.png'),
+  ('Deíctico', 'Relacionar estímulos en función del contexto o punto de referencia específico.', 'deictico', '/images/portadas/categorias/deictico.png');
   
-UPDATE actividad SET nombre = "Relación-ando" WHERE id_actividad = 1;
-UPDATE cat_categoria SET slug = 'comparacion' WHERE nombre = 'Comparación';
-UPDATE cat_categoria SET slug = 'oposicion' WHERE nombre = 'Oposición';
-UPDATE cat_categoria SET slug = 'espacial' WHERE nombre = 'Espacial';
-UPDATE cat_categoria SET slug = 'temporal' WHERE nombre = 'Temporal';
-UPDATE cat_categoria SET slug = 'condicionalidad' WHERE nombre = 'Condicionalidad';
-UPDATE cat_categoria SET slug = 'jerarquico' WHERE nombre = 'Jerárquico';
-UPDATE actividad SET estatus_actividad = true WHERE id_actividad = 2;
-
-commit;
-
-select * from respuesta;
-select * from actividad;
-
-update actividad set estatus_actividad = TRUE where id_actividad = 2;
-  
-INSERT INTO actividad (id_categoria, nombre, explicacion, tiempoLimite, estatus_actividad) VALUES
-(1, 'Coordinación', 'Preguntas sencillas para relacionar dos o más temas', 60, TRUE);
-
-INSERT INTO actividad (id_categoria, nombre, explicacion, tiempoLimite, estatus_actividad) VALUES
-(1, 'Actividad 2', 'Actividad de prueba', 60, TRUE);
-
-INSERT INTO actividad (id_categoria, nombre, explicacion, tiempoLimite, estatus_actividad) VALUES
-(2, 'Actividad de comparación', 'Actividad de prueba', 60, TRUE);
-
-select * from actividad;
-select * from usuario;
-
-select * from cat_categoria;
+INSERT INTO actividad (id_categoria, nombre, explicacion, tiempoLimite, estatus_actividad, slug, portada) 
+VALUES
+    (1, 'Relación-ando', 'Preguntas sencillas para relacionar dos o más temas', 30, TRUE, 'relacion_ando', '/images/portadas/actividades/coordinacion.png'),
+    (1, 'Matemáticas locas', 'Actividad de prueba', 60, TRUE, 'matematicas_locas', '/images/portadas/actividades/Actividad 2.jpg'),
+    (4, 'Siluetas', 'Actividad de prueba', 60, TRUE, 'siluetas', '/images/portadas/actividades/Actividad de comparacion.jpeg');
 
 INSERT INTO item (id_item, id_actividad, pregunta, estatus_activo, dificultad) VALUES
 (1, 1, 'Si ''Xyl'' es idéntico a ''Xyl'', ¿cuál es el par de ''Xyl''?', 1, '1'),
@@ -946,3 +922,372 @@ INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
     (150, 'K', TRUE, TRUE),
     (150, '1000', TRUE, FALSE),
     (150, 'M', TRUE, FALSE);
+
+
+-- ==========================================================
+
+-- Actividad 'Matemáticas locas'
+
+-- DIFICULTAD 1: FÁCILES (Ítems 1 al 20)
+
+-- ==========================================================
+select * from respuesta;
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 47 + 38?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '85', TRUE, TRUE),
+(LAST_INSERT_ID(), '75', TRUE, FALSE),
+(LAST_INSERT_ID(), '83', TRUE, FALSE),
+(LAST_INSERT_ID(), '95', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 83 - 29?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '54', TRUE, TRUE),
+(LAST_INSERT_ID(), '64', TRUE, FALSE),
+(LAST_INSERT_ID(), '56', TRUE, FALSE),
+(LAST_INSERT_ID(), '44', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 64 + 27?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '91', TRUE, TRUE),
+(LAST_INSERT_ID(), '81', TRUE, FALSE),
+(LAST_INSERT_ID(), '93', TRUE, FALSE),
+(LAST_INSERT_ID(), '89', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 92 - 45?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '47', TRUE, TRUE),
+(LAST_INSERT_ID(), '57', TRUE, FALSE),
+(LAST_INSERT_ID(), '37', TRUE, FALSE),
+(LAST_INSERT_ID(), '45', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 58 + 19?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '77', TRUE, TRUE),
+(LAST_INSERT_ID(), '67', TRUE, FALSE),
+(LAST_INSERT_ID(), '76', TRUE, FALSE),
+(LAST_INSERT_ID(), '87', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 71 - 36?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '35', TRUE, TRUE),
+(LAST_INSERT_ID(), '45', TRUE, FALSE),
+(LAST_INSERT_ID(), '25', TRUE, FALSE),
+(LAST_INSERT_ID(), '34', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 39 + 54?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '93', TRUE, TRUE),
+(LAST_INSERT_ID(), '83', TRUE, FALSE),
+(LAST_INSERT_ID(), '91', TRUE, FALSE),
+(LAST_INSERT_ID(), '95', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 85 - 48?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '37', TRUE, TRUE),
+(LAST_INSERT_ID(), '47', TRUE, FALSE),
+(LAST_INSERT_ID(), '27', TRUE, FALSE),
+(LAST_INSERT_ID(), '39', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 26 + 68?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '94', TRUE, TRUE),
+(LAST_INSERT_ID(), '84', TRUE, FALSE),
+(LAST_INSERT_ID(), '96', TRUE, FALSE),
+(LAST_INSERT_ID(), '92', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 63 - 27?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '36', TRUE, TRUE),
+(LAST_INSERT_ID(), '46', TRUE, FALSE),
+(LAST_INSERT_ID(), '26', TRUE, FALSE),
+(LAST_INSERT_ID(), '38', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 49 + 43?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '92', TRUE, TRUE),
+(LAST_INSERT_ID(), '82', TRUE, FALSE),
+(LAST_INSERT_ID(), '94', TRUE, FALSE),
+(LAST_INSERT_ID(), '88', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 74 - 39?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '35', TRUE, TRUE),
+(LAST_INSERT_ID(), '45', TRUE, FALSE),
+(LAST_INSERT_ID(), '25', TRUE, FALSE),
+(LAST_INSERT_ID(), '36', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 57 + 28?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '85', TRUE, TRUE),
+(LAST_INSERT_ID(), '75', TRUE, FALSE),
+(LAST_INSERT_ID(), '83', TRUE, FALSE),
+(LAST_INSERT_ID(), '95', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 91 - 54?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '37', TRUE, TRUE),
+(LAST_INSERT_ID(), '47', TRUE, FALSE),
+(LAST_INSERT_ID(), '27', TRUE, FALSE),
+(LAST_INSERT_ID(), '43', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 36 + 49?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '85', TRUE, TRUE),
+(LAST_INSERT_ID(), '75', TRUE, FALSE),
+(LAST_INSERT_ID(), '84', TRUE, FALSE),
+(LAST_INSERT_ID(), '95', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 82 - 43?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '39', TRUE, TRUE),
+(LAST_INSERT_ID(), '49', TRUE, FALSE),
+(LAST_INSERT_ID(), '29', TRUE, FALSE),
+(LAST_INSERT_ID(), '41', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 68 + 25?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '93', TRUE, TRUE),
+(LAST_INSERT_ID(), '83', TRUE, FALSE),
+(LAST_INSERT_ID(), '95', TRUE, FALSE),
+(LAST_INSERT_ID(), '87', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 73 - 28?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '45', TRUE, TRUE),
+(LAST_INSERT_ID(), '55', TRUE, FALSE),
+(LAST_INSERT_ID(), '35', TRUE, FALSE),
+(LAST_INSERT_ID(), '43', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 29 + 57?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '86', TRUE, TRUE),
+(LAST_INSERT_ID(), '76', TRUE, FALSE),
+(LAST_INSERT_ID(), '88', TRUE, FALSE),
+(LAST_INSERT_ID(), '96', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 61 - 34?', TRUE, 1);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '27', TRUE, TRUE),
+(LAST_INSERT_ID(), '37', TRUE, FALSE),
+(LAST_INSERT_ID(), '17', TRUE, FALSE),
+(LAST_INSERT_ID(), '25', TRUE, FALSE);
+
+
+-- ==========================================================
+-- DIFICULTAD 2: MEDIAS (Ítems 21 al 40)
+-- ==========================================================
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 12 × 4 + 15?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '63', TRUE, TRUE),
+(LAST_INSERT_ID(), '53', TRUE, FALSE),
+(LAST_INSERT_ID(), '61', TRUE, FALSE),
+(LAST_INSERT_ID(), '73', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 15 × 3 - 18?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '27', TRUE, TRUE),
+(LAST_INSERT_ID(), '37', TRUE, FALSE),
+(LAST_INSERT_ID(), '25', TRUE, FALSE),
+(LAST_INSERT_ID(), '17', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 80 ÷ 5 + 24?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '40', TRUE, TRUE),
+(LAST_INSERT_ID(), '30', TRUE, FALSE),
+(LAST_INSERT_ID(), '42', TRUE, FALSE),
+(LAST_INSERT_ID(), '50', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 96 ÷ 6 - 11?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '5', TRUE, TRUE),
+(LAST_INSERT_ID(), '7', TRUE, FALSE),
+(LAST_INSERT_ID(), '4', TRUE, FALSE),
+(LAST_INSERT_ID(), '6', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 14 × 5 + 22?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '92', TRUE, TRUE),
+(LAST_INSERT_ID(), '82', TRUE, FALSE),
+(LAST_INSERT_ID(), '94', TRUE, FALSE),
+(LAST_INSERT_ID(), '102', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 18 × 4 - 25?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '47', TRUE, TRUE),
+(LAST_INSERT_ID(), '57', TRUE, FALSE),
+(LAST_INSERT_ID(), '43', TRUE, FALSE),
+(LAST_INSERT_ID(), '37', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 75 ÷ 3 + 19?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '44', TRUE, TRUE),
+(LAST_INSERT_ID(), '34', TRUE, FALSE),
+(LAST_INSERT_ID(), '46', TRUE, FALSE),
+(LAST_INSERT_ID(), '54', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 84 ÷ 4 - 13?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '8', TRUE, TRUE),
+(LAST_INSERT_ID(), '9', TRUE, FALSE),
+(LAST_INSERT_ID(), '7', TRUE, FALSE),
+(LAST_INSERT_ID(), '11', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 13 × 6 + 14?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '92', TRUE, TRUE),
+(LAST_INSERT_ID(), '82', TRUE, FALSE),
+(LAST_INSERT_ID(), '94', TRUE, FALSE),
+(LAST_INSERT_ID(), '102', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 16 × 5 - 32?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '48', TRUE, TRUE),
+(LAST_INSERT_ID(), '58', TRUE, FALSE),
+(LAST_INSERT_ID(), '46', TRUE, FALSE),
+(LAST_INSERT_ID(), '38', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 90 ÷ 6 + 27?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '42', TRUE, TRUE),
+(LAST_INSERT_ID(), '32', TRUE, FALSE),
+(LAST_INSERT_ID(), '44', TRUE, FALSE),
+(LAST_INSERT_ID(), '52', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 72 ÷ 4 - 12?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '6', TRUE, TRUE),
+(LAST_INSERT_ID(), '8', TRUE, FALSE),
+(LAST_INSERT_ID(), '5', TRUE, FALSE),
+(LAST_INSERT_ID(), '7', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 17 × 3 + 16?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '67', TRUE, TRUE),
+(LAST_INSERT_ID(), '57', TRUE, FALSE),
+(LAST_INSERT_ID(), '69', TRUE, FALSE),
+(LAST_INSERT_ID(), '77', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 19 × 4 - 26?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '50', TRUE, TRUE),
+(LAST_INSERT_ID(), '40', TRUE, FALSE),
+(LAST_INSERT_ID(), '52', TRUE, FALSE),
+(LAST_INSERT_ID(), '60', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 98 ÷ 7 + 18?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '32', TRUE, TRUE),
+(LAST_INSERT_ID(), '22', TRUE, FALSE),
+(LAST_INSERT_ID(), '34', TRUE, FALSE),
+(LAST_INSERT_ID(), '42', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 85 ÷ 5 - 14?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '3', TRUE, TRUE),
+(LAST_INSERT_ID(), '4', TRUE, FALSE),
+(LAST_INSERT_ID(), '2', TRUE, FALSE),
+(LAST_INSERT_ID(), '5', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 22 × 4 + 13?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '101', TRUE, TRUE),
+(LAST_INSERT_ID(), '91', TRUE, FALSE),
+(LAST_INSERT_ID(), '103', TRUE, FALSE),
+(LAST_INSERT_ID(), '111', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 25 × 3 - 29?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '46', TRUE, TRUE),
+(LAST_INSERT_ID(), '56', TRUE, FALSE),
+(LAST_INSERT_ID(), '44', TRUE, FALSE),
+(LAST_INSERT_ID(), '36', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 64 ÷ 4 + 35?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '51', TRUE, TRUE),
+(LAST_INSERT_ID(), '41', TRUE, FALSE),
+(LAST_INSERT_ID(), '53', TRUE, FALSE),
+(LAST_INSERT_ID(), '61', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, '¿Cuánto es 108 ÷ 6 - 15?', TRUE, 2);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '3', TRUE, TRUE),
+(LAST_INSERT_ID(), '5', TRUE, FALSE),
+(LAST_INSERT_ID(), '2', TRUE, FALSE),
+(LAST_INSERT_ID(), '4', TRUE, FALSE);
+
+
+-- ==========================================================
+-- DIFICULTAD 3: DIFÍCILES (Ítems 41 al 50)
+-- ==========================================================
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, 'Si 3x + 15 = 42, ¿cuánto vale x?', TRUE, 3);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '9', TRUE, TRUE),
+(LAST_INSERT_ID(), '8', TRUE, FALSE),
+(LAST_INSERT_ID(), '10', TRUE, FALSE),
+(LAST_INSERT_ID(), '7', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, 'Si 5x - 18 = 27, ¿cuánto vale x?', TRUE, 3);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '9', TRUE, TRUE),
+(LAST_INSERT_ID(), '8', TRUE, FALSE),
+(LAST_INSERT_ID(), '7', TRUE, FALSE),
+(LAST_INSERT_ID(), '10', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, 'Si 4x + 22 = 50, ¿cuánto vale x?', TRUE, 3);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '7', TRUE, TRUE),
+(LAST_INSERT_ID(), '6', TRUE, FALSE),
+(LAST_INSERT_ID(), '8', TRUE, FALSE),
+(LAST_INSERT_ID(), '9', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, 'Si 6x - 14 = 40, ¿cuánto vale x?', TRUE, 3);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '9', TRUE, TRUE),
+(LAST_INSERT_ID(), '8', TRUE, FALSE),
+(LAST_INSERT_ID(), '7', TRUE, FALSE),
+(LAST_INSERT_ID(), '6', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, 'Si 2x + 37 = 73, ¿cuánto vale x?', TRUE, 3);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '18', TRUE, TRUE),
+(LAST_INSERT_ID(), '17', TRUE, FALSE),
+(LAST_INSERT_ID(), '19', TRUE, FALSE),
+(LAST_INSERT_ID(), '16', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, 'Si 7x - 19 = 30, ¿cuánto vale x?', TRUE, 3);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '7', TRUE, TRUE),
+(LAST_INSERT_ID(), '8', TRUE, FALSE),
+(LAST_INSERT_ID(), '6', TRUE, FALSE),
+(LAST_INSERT_ID(), '9', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, 'Si 8x + 13 = 69, ¿cuánto vale x?', TRUE, 3);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '7', TRUE, TRUE),
+(LAST_INSERT_ID(), '6', TRUE, FALSE),
+(LAST_INSERT_ID(), '8', TRUE, FALSE),
+(LAST_INSERT_ID(), '9', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, 'Si 9x - 24 = 48, ¿cuánto vale x?', TRUE, 3);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '8', TRUE, TRUE),
+(LAST_INSERT_ID(), '7', TRUE, FALSE),
+(LAST_INSERT_ID(), '9', TRUE, FALSE),
+(LAST_INSERT_ID(), '6', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, 'Si 3x + 29 = 74, ¿cuánto vale x?', TRUE, 3);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '15', TRUE, TRUE),
+(LAST_INSERT_ID(), '14', TRUE, FALSE),
+(LAST_INSERT_ID(), '16', TRUE, FALSE),
+(LAST_INSERT_ID(), '13', TRUE, FALSE);
+
+INSERT INTO item (id_actividad, pregunta, estatus_activo, dificultad) VALUES (2, 'Si 4x - 17 = 43, ¿cuánto vale x?', TRUE, 3);
+INSERT INTO respuesta (id_item, text_respuesta, activo, correcta) VALUES
+(LAST_INSERT_ID(), '15', TRUE, TRUE),
+(LAST_INSERT_ID(), '14', TRUE, FALSE),
+(LAST_INSERT_ID(), '16', TRUE, FALSE),
+(LAST_INSERT_ID(), '12', TRUE, FALSE);

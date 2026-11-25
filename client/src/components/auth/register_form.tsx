@@ -107,6 +107,7 @@ function RegForm() {
             <Input
               id="num_cta"
               type="number"
+              inputMode="numeric"
               placeholder="123456789"
               className="h-11"
               {...register('num_cta', { required: "El número de cuenta es obligatorio", valueAsNumber: true })}
@@ -178,11 +179,15 @@ function RegForm() {
             {errors.fecha_nacimiento && <p className="text-xs text-red-500">{errors.fecha_nacimiento.message}</p>}
           </div>
 
+          <div className="text-sm text-muted-foreground justify-center flex">
+          
+
             <ReCAPTCHA 
               key={captchaKey}
               sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
               onChange={handleCaptchaChange} 
-            />
+              />
+          </div>
 
           <Button type="submit" size="lg" className="h-11 w-full mt-2">
             Registrar Usuario

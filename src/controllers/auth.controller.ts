@@ -166,6 +166,9 @@ export const profile = async (req: Request, res: Response, next: NextFunction) =
   }
 }
 
+/*
+  - verifyToken: Busca al usuario que esté en las cookies (que haya iniciado sesión)
+*/
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
 
   try{
@@ -192,6 +195,71 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     next(error);
   }
 }
+
+/*
+  - updateProfile: Actualiza la información del usuario autenticado
+*/
+export const updateProfile = async (req: Request, res: Response, next: NextFunction) => {
+
+  try {
+    if (!req.usuario) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const { email, fecha_nacimiento, password, num_cta } = req.body;
+
+    // Si no se envía ningún campo, no hay nada que actualizar
+    if (!email && !fecha_nacimiento && !password && !num_cta) {
+      throw new CustomError("MISSING_FIELDS");
+    }
+
+    // Si se quiere cambiar email o num_cta, hay que verificar que no estén en uso por otro usuario
+    if (email || num_cta) {
+      const existing = await prisma.usuario.findFirst({
+        where: {
+          AND: [
+            { id_usuario: { not: req.usuario.id } },
+            {
+              OR: [
+                ...(email ? [{ email }] : []),
+                ...(num_cta ? [{ num_cta }] : [])
+              ]
+            }
+          ]
+        }
+      });
+
+      if (existing) {
+        return res.status(400).json({ message: "El número de cuenta o correo ya está registrado" });
+      }
+    }
+
+    const dataToUpdate: Record<string, any> = {
+      fecha_actualizacion: new Date()
+    };
+
+    if (email) dataToUpdate.email = email;
+    if (num_cta) dataToUpdate.num_cta = num_cta;
+    if (fecha_nacimiento) dataToUpdate.fecha_nacimiento = new Date(fecha_nacimiento);
+    if (password) dataToUpdate.password = await bcrypt.hash(password, 12);
+
+    const usuarioActualizado = await prisma.usuario.update({
+      where: { id_usuario: req.usuario.id },
+      data: dataToUpdate
+    });
+
+    res.status(200).json({
+      id: usuarioActualizado.id_usuario,
+      num_cta: usuarioActualizado.num_cta,
+      email: usuarioActualizado.email,
+      createdAt: usuarioActualizado.fecha_registro,
+      updatedAt: usuarioActualizado.fecha_actualizacion
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
 
 /* Usario de ejemplo
 {

@@ -17,9 +17,13 @@ export default function JuegoComponente({ actividadId }: JuegoComponenteProps) {
   const navigate = useNavigate();
   const handleBack = () => navigate(-1);
 
-  const { items, isLoading, error, fetchItems } = useItems(actividadId);
+  const requiereItems = actividadId !== 6; // ID de la actividad que no requiere items, podría ser una lista
 
-  useJuegoPhaser(actividadId, items, isLoading, error);
+  const { items, isLoading, error, fetchItems } = useItems(requiereItems ? actividadId : null);
+
+  const itemsJuego = requiereItems ? items : [];
+
+  useJuegoPhaser(actividadId, itemsJuego, isLoading, error);
   const { estadoGuardado } = useGuardarPartida(actividadId);
 
   if (isLoading) {
@@ -33,7 +37,7 @@ export default function JuegoComponente({ actividadId }: JuegoComponenteProps) {
     );
   }
 
-  if (!items || !items.length) {
+  if ((!items || !items.length) && requiereItems) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="flex flex-col items-center gap-4 text-center">

@@ -1,12 +1,14 @@
 import { z } from "zod";
+import { validarNumeroCuenta } from "../utils/validarNumCta.ts";
 
 export const registerSchema = z.object({
   num_cta: z.coerce
   .number()
-  .gte(100000000, "Número de cuenta inválido")
-  .lte(999999999, "Número de cuenta inválido")
   .int("Número de cuenta debe ser un entero")
-  .positive("Número de cuenta debe ser positivo"),
+  .positive("Número de cuenta debe ser positivo")
+  .refine ((num_cta) => validarNumeroCuenta(num_cta), {
+    message: "Número de cuenta inválido"
+  }),
 
   email: z
     .string()

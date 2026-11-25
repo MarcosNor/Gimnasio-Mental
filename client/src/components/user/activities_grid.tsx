@@ -1,19 +1,14 @@
-// import { Badge } from "@/components/ui/badge"
-// import { Button } from "@/components/ui/button"
-// import { Play, Clock, Flame } from "lucide-react"
+import { Link } from "react-router-dom"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Play, Clock, Flame } from "lucide-react"
+import { type Actividad } from "@/types/actividad"
 
-interface Activity {
-  id: string
-  title: string
-  description: string
-  image: string
+interface ActividadCardProps {
+  actividad: Actividad
 }
 
-interface ActivityCardProps {
-  activity: Activity
-}
-
-function ActivityCard({ activity }: ActivityCardProps) {
+function ActividadCard({ actividad }: ActividadCardProps) {
 
   // Por si después queremos agregar dificultad a las actividades
   // const difficultyColor = {
@@ -26,8 +21,8 @@ function ActivityCard({ activity }: ActivityCardProps) {
     <div className="group flex gap-4 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-md">
       <div className="relative size-20 shrink-0 overflow-hidden rounded-lg">
         <img
-          src={activity.image}
-          alt={activity.title}
+          src={actividad.portada}
+          alt={actividad.nombre}
           className="size-full object-cover transition-transform duration-300 group-hover:scale-110"
           crossOrigin="anonymous"
         />
@@ -35,34 +30,37 @@ function ActivityCard({ activity }: ActivityCardProps) {
       <div className="flex flex-1 flex-col justify-between">
         <div>
           <div className="mb-1.5 flex flex-wrap items-center gap-2">
+            <Badge className="text-xs bg-amber-100 text-black">Categoria: { actividad.categoria.nombre}</Badge>
           </div>
           <h4 className="font-semibold font-[family-name:var(--font-heading)]">
-            {activity.title}
+            {actividad.nombre}
           </h4>
           <p className="mt-0.5 line-clamp-1 text-sm text-muted-foreground">
-            {activity.description}
+            {actividad.explicacion}
           </p>
         </div>
       </div>
       <div className="flex items-center">
-        {/* <Button size="icon" variant="secondary" className="rounded-lg">
-          <Play className="size-4" />
-          <span className="sr-only">Play {activity.title}</span>
-        </Button> */}
+          <Link to="/usuario/home/categorias"> 
+            <Button size="icon" variant="secondary" className="rounded-lg">
+              <Play className="size-4" />
+              <span className="sr-only">Play {actividad.nombre}</span>
+            </Button>
+          </Link>
       </div>
     </div>
   )
 }
 
 interface ActivitiesGridProps {
-  activities: Activity[]
+  activities: Actividad[]
 }
 
 export function ActivitiesGrid({ activities }: ActivitiesGridProps) {
   return (
     <div className="flex flex-col gap-3">
-      {activities.map((activity) => (
-        <ActivityCard key={activity.id} activity={activity} />
+      {activities.map((actividad) => (
+        <ActividadCard key={actividad.id_actividad} actividad={actividad} />
       ))}
     </div>
   )

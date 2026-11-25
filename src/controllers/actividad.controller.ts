@@ -5,13 +5,30 @@ import CustomError from "../utils/CustomError.ts";
 // Obtener todas las actividades
 export const getActividades = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const actividades = await prisma.actividad.findMany({    });
+    const actividades = await prisma.actividad.findMany({
+      include: {
+        cat_categoria: {
+          select: {
+            nombre: true,
+            slug: true
+          }
+        }
+      },
+      where: {
+        estatus_actividad: true
+      }
+    });
 
     if (!actividades || actividades.length === 0) {
       throw new CustomError("ITEMS_NOT_FOUND");
     }
 
-    res.json(actividades);
+    const response = actividades.map(({ cat_categoria,...rest }) => ({
+      ...rest,
+      categoria: cat_categoria
+    }));
+
+    res.json(response);
   } catch (error) {
     next(error);
   }
