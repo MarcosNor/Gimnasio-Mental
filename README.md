@@ -40,19 +40,19 @@
 --------------------------------------------------------------------------- -->
 
 ![Pantalla principal](docs/screenshots/01-pantalla-principal.png)
-*Placeholder: página de inicio con la propuesta de valor y las categorías.*
+*Página de inicio con la propuesta de valor y las categorías.*
 
 ![Inicio de sesión](docs/screenshots/02-login.png)
-*Placeholder: formulario de inicio de sesión.*
+*Formulario de inicio de sesión.*
 
 ![Dashboard del estudiante](docs/screenshots/03-profile.png)
-*Placeholder: dashboard con tarjetas de puntuación, árbol de habilidades y actividades.*
+*Dashboard con tarjetas de puntuación, árbol de habilidades y actividades.*
 
 ![Dashboard de categorias](docs/screenshots/04-dashboard.png)
-*Placeholder: dashboard con tlas diferentes categorias, portada y descripción.*
+*Dashboard con tlas diferentes categorias, portada y descripción.*
 
 ![Pantalla de juego](docs/screenshots/05-game.png)
-*Placeholder: pantalla de juego con mensajes de aumento de dificultad*
+*Pantalla de juego con mensajes de aumento de dificultad*
 
 ---
 
