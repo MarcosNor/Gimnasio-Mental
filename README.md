@@ -45,31 +45,39 @@
 ![Inicio de sesión](docs/screenshots/02-login.png)
 *Placeholder: formulario de inicio de sesión.*
 
-![Dashboard del estudiante](docs/screenshots/03-dashboard.png)
+![Dashboard del estudiante](docs/screenshots/03-profile.png)
 *Placeholder: dashboard con tarjetas de puntuación, árbol de habilidades y actividades.*
 
-![Actividad de coordinación](docs/screenshots/04-actividad.png)
-*Placeholder: actividad "Relación-ando" en ejecución.*
+![Dashboard de categorias](docs/screenshots/04-dashboard.png)
+*Placeholder: dashboard con tlas diferentes categorias, portada y descripción.*
 
-![Pantalla de resultados](docs/screenshots/05-resultados.png)
-*Placeholder: pantalla de puntuación y estadísticas por dificultad.*
+![Pantalla de juego](docs/screenshots/05-game.png)
+*Placeholder: pantalla de juego con mensajes de aumento de dificultad*
 
 ---
 
 ## 1. Contexto y problema
 
-El **Gimnasio Mental** nace en la **Dirección General de Orientación y Atención Educativa (DGOAE)** de la **Universidad Nacional Autónoma de México (UNAM)**, como respuesta a una necesidad real: los estudiantes de bachillerato presentan dificultades de aprendizaje que no se detectan ni se atienden de forma sistemática, y las herramientas tradicionales de evaluación cognitiva suelen ser poco motivantes y difíciles de escalar.
+El **Gimnasio Mental** surge en la **Dirección General de Orientación y Atención Educativa (DGOAE)** de la **Universidad Nacional Autónoma de México (UNAM)** como respuesta a una necesidad de los subsistemas de bachillerato: **evaluar y fortalecer las habilidades cognitivas** de los estudiantes mediante ejercicios basados en el entrenamiento de **Respuestas Relacionales Derivadas (RRD)**, apoyados en estrategias de **gamificación**, para disminuir problemas de aprendizaje y mejorar el rendimiento académico.
 
-El proyecto se fundamenta en la **Teoría del Marco Relacional (RFT)** y, en particular, en el entrenamiento de las **Respuestas Relacionales Derivadas (RRD)**: la capacidad de una persona para inferir relaciones entre estímulos sin haber sido entrenada explícitamente en cada una de ellas (por ejemplo, si A = B y B = C, entonces A = C). Este tipo de razonamiento es transversal al aprendizaje escolar y se puede entrenar mediante **juegos serios** y **gamificación**.
+El fundamento teórico es la **Teoría del Marco Relacional (RFT)**, que explica cómo una persona establece relaciones entre estímulos y deriva nuevas relaciones sin haber sido entrenada explícitamente en cada una de ellas. Por ejemplo, si aprende que **A = B** y que **B = C**, puede inferir que **A = C**. Este tipo de razonamiento es transversal al aprendizaje escolar y puede entrenarse mediante **juegos serios**: videojuegos diseñados con un propósito educativo que incorporan niveles, puntuaciones, recompensas y retroalimentación inmediata, siguiendo la lógica de propuestas como PEAK o Brain Training.
 
-El sistema busca que los estudiantes:
+Con base en este marco, el sistema organiza el entrenamiento en **ocho categorías de RRD**:
 
-- Pongan a prueba y fortalezcan **8 habilidades cognitivas**: coordinación, comparación, oposición, espacial, temporal, condicionalidad, jerárquico y deíctico.
-- Tengan un **seguimiento objetivo** de su progreso a lo largo del tiempo.
-- Se mantengan motivados mediante puntuaciones, medallas, combos y un árbol de habilidades.
-- Generen datos útiles para los orientadores de la DGOAE.
+| Categoría | Habilidad que entrena |
+|-----------|------------------------|
+| **Coordinación** | Relacionar estímulos por igualdad o similitud. |
+| **Comparación** | Establecer similitudes y diferencias entre estímulos. |
+| **Oposición** | Relacionar estímulos que se contraponen. |
+| **Espacial** | Relacionar estímulos por su posición en el espacio. |
+| **Temporal** | Relacionar estímulos por su secuencia en el tiempo. |
+| **Condicionalidad** | Relacionar estímulos según condiciones o criterios específicos. |
+| **Jerárquico** | Relacionar estímulos por su posición en una jerarquía u orden. |
+| **Deíctico** | Relacionar estímulos según el contexto o punto de referencia. |
 
-Un objetivo igual de importante es que el **Departamento de Instrumentos de Orientación** pueda incorporar nuevas actividades y reactivos **sin modificar el código**: el contenido vive en la base de datos y el sistema lo sirve dinámicamente. El proyecto se desarrolló durante el servicio social (480 horas) y se probó con usuarios piloto para ajustar la navegación y la experiencia.
+La **gamificación** es el mecanismo para sostener la práctica: el sistema muestra el avance en un **árbol de habilidades**, otorga **medallas virtuales**, ofrece **retroalimentación inmediata** y relaciona el desempeño con **rankings**. El objetivo no es solo evaluar, sino motivar al estudiante a continuar entrenando y a demostrar sus avances de forma constante.
+
+Un requisito de diseño igual de importante es que el **Departamento de Instrumentos de Orientación** pueda incorporar nuevas actividades y reactivos **sin modificar el código**: el contenido vive en la base de datos y el sistema lo sirve dinámicamente. El proyecto se desarrolló durante el servicio social (480 horas) y se validó con usuarios piloto para ajustar la navegación y la experiencia.
 
 ---
 
